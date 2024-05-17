@@ -4,7 +4,7 @@ import { CardWrapper } from "./card-wrapper"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { LoginSchema } from "@/schemas"
+import { RegisterSchema } from "@/schemas"
 import {
     Form,
     FormControl,
@@ -18,47 +18,42 @@ import { Button } from "../ui/button"
 import { LoginButton } from "./login-button"
 import { FormError } from "../form-error"
 import { FormSuccess } from "../form-success"
-import { Login } from "../../actions/login"
+import { Register } from "../../actions/register"
 import { useTransition, useState } from "react"
-import { useSearchParams } from "next/navigation"
 
  
-export const LoginForm = () => {
+export const RegisterForm = () => {
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
     const [isPending, startTransition] = useTransition()
 
-    const searchParams = useSearchParams();
-    const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
-        ? "Email already in use with different provider" 
-        : "";
-
-    const form = useForm<z.infer<typeof LoginSchema>>({
-        resolver: zodResolver(LoginSchema),
+    const form = useForm<z.infer<typeof RegisterSchema>>({
+        resolver: zodResolver(RegisterSchema),
         defaultValues: {
             email: "",
             password: "",
+            name: ""
         }
     })
 
-    const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
         setError("")
         setSuccess("")
 
         startTransition(()=>{
-            Login(values)
+            Register(values)
             .then((data) =>{
-                setError(data?.error)
-                setSuccess(data?.success)
+                setError(data.error)
+                setSuccess(data.success)
             })
         })
     }
 
     return(
         <CardWrapper
-            headerLabel="Welcome"
-            backButtonHref="/auth/register"
-            backButtonLabel="Don't have an account?"
+            headerLabel="Create an account"
+            backButtonHref="/auth/login"
+            backButtonLabel="Already own an account?"
             showSocial
         >
             <Form {...form}>
@@ -68,6 +63,23 @@ export const LoginForm = () => {
 
                     <div
                     className="space-y-4">
+
+                        <FormField 
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Name</FormLabel>
+                                <FormControl>
+                                    <Input 
+                                    {...field}
+                                    disabled={isPending}
+                                    placeholder="name"
+                                    />
+                                </FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        )}/>
 
                         <FormField 
                         control={form.control}
@@ -107,17 +119,16 @@ export const LoginForm = () => {
                         )}/>
 
                     </div>
-                    <FormError message={error || urlError} />
+                    <FormError message={error} />
                     <FormSuccess message={success} />
                     <Button
                     disabled={isPending}
                     type="submit"
                     className="w-full">
-                        Login
+                        Create Account
                     </Button>
                 </form>
             </Form>
         </CardWrapper>
     )
 }
-
