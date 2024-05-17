@@ -2,7 +2,8 @@ import NextAuth from "next-auth"
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import authConfig from '@/auth.config'
 import { db } from "./lib/db"
- 
+import { getUserByID } from "./data/user"
+
 export const { 
   handlers: {GET, POST}, 
   auth,
@@ -31,11 +32,18 @@ export const {
         session.user.id = token.sub
       }
       return session
+    },
+    async signIn({user, account}) {
+      if (account?.provider !== "credentials") return true;
+
+      const existingUser = await getUserByID(user.id)
+      if (!existingUser?.emailVerified) {return false}
+
+      //add 2 fa check
+      return true
     }
   },
-  
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt"},
   ...authConfig,
-  
 })
