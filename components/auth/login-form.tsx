@@ -27,7 +27,9 @@ import  Link  from "next/link"
 export const LoginForm = () => {
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
-    const [isPending, startTransition] = useTransition()
+    const [show2FA, setShow2FA] = useState(false);
+    const [isPending, startTransition] = useTransition();
+    
 
     const searchParams = useSearchParams();
     const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
@@ -49,8 +51,17 @@ export const LoginForm = () => {
         startTransition(()=>{
             Login(values)
             .then((data) =>{
-                setError(data?.error)
-                setSuccess(data?.success)
+                if (data?.error){
+                    form.reset();
+                    setError(data?.error)
+                }
+                if (data?.success){
+                    form.reset();
+                    setSuccess(data?.success)
+                }
+                if (data?.twoFactor){
+                    setShow2FA(true)
+                }
             })
         })
     }
@@ -70,6 +81,9 @@ export const LoginForm = () => {
                     <div
                     className="space-y-4">
 
+                        
+                    {!show2FA ? 
+                        <>
                         <FormField 
                         control={form.control}
                         name="email"
@@ -87,8 +101,6 @@ export const LoginForm = () => {
                                 <FormMessage/>
                             </FormItem>
                         )}/>
-
-
                         <FormField 
                         control={form.control}
                         name="password"
@@ -103,6 +115,7 @@ export const LoginForm = () => {
                                     type="password"
                                     />
                                 </FormControl>
+                                
                                 <Button
                                 size="sm"
                                 variant="link"
@@ -116,15 +129,34 @@ export const LoginForm = () => {
                                 <FormMessage/>
                             </FormItem>
                         )}/>
-
+                        </>
+                    : 
+                        <FormField 
+                        control={form.control}
+                        name="code"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>2FA Code</FormLabel>
+                                <FormControl>
+                                    <Input 
+                                    {...field}
+                                    disabled={isPending}
+                                    placeholder="123456"
+                                    />
+                                </FormControl>
+                                <FormMessage/>
+                            </FormItem>
+                        )}/>
+                    }
                     </div>
+
                     <FormError message={error || urlError} />
                     <FormSuccess message={success} />
                     <Button
                     disabled={isPending}
                     type="submit"
                     className="w-full">
-                        Login
+                        {show2FA? "confirm" : "Login"}
                     </Button>
                 </form>
             </Form>
