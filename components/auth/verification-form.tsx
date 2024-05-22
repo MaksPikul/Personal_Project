@@ -23,8 +23,8 @@ export const VerificationForm = () => {
 
         Verification(token)
         .then((data) => {
-            setSuccess(data.success)
-            setError(data.error)
+            setSuccess(data?.success)
+            setError(data?.error)
         })
     }, [token])
     
