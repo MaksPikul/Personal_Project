@@ -75,3 +75,12 @@ model TwoFactorConfirmation {
 
   @@unique([userId])
 }
+
+model Hobby {
+  id String @id @default(cuid())
+  owner String?
+  name String?
+  slug String?
+  imgUrl String?
+
+}
