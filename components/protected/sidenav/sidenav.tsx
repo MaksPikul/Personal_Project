@@ -28,7 +28,9 @@ export const SideNav =  ({
         {id:"1", owner:"clwj7cxnm0000vupv8bfhul2s", name:"programming"},
         {id:"2", owner:"clwj7cxnm0000vupv8bfhul2s", name: "art"}
     ]
-    //const hobbies = await getHobbiesByUserId("clwj7djzc0001vupv47x8a1yi")
+
+    const activeHobby = "2"
+     //const hobbies = await getHobbiesByUserId("clwj7djzc0001vupv47x8a1yi")
 
     const defaultAccordionValues: string[] = Object
         .keys(expanded)
@@ -49,26 +51,6 @@ export const SideNav =  ({
     
 
     return(
-        <Accordion
-        type="multiple"
-        defaultValue={defaultAccordionValues}
-        className="space-y-2">
-            {hobbies?.map(({hobby})=>(
-                <p> { hobby.id }</p>
-            
-                /*
-                <ProjectCard 
-                key={}
-                hobby={"hobby" as Hobby}
-                isActive={""}
-                isExpanded={""}
-                onExpand={onExpand}/>*/
-            )) }
-        </Accordion>
-    )
-
-/*
-    return(
         <div className="w-64 bg-red-500 h-full flex flex-col">
             <div id="features" className=" border-b border-solid border-black">
                 <SideNavButton label="Home" href="/" icon={<IoHomeSharp />}/>
@@ -76,6 +58,28 @@ export const SideNav =  ({
                 <SideNavButton label="Schedule" href="/" icon={<IoHomeSharp />}/>
                 <SideNavButton label="Focus Sessions" href="/" icon={<IoHomeSharp />}/>
             </div>
+
+            <Accordion
+            type="multiple"
+            defaultValue={defaultAccordionValues}
+            className="space-y-2">
+                {hobbies?.map((hobby)=>(
+                    <ProjectCard 
+                    key={hobby.id}
+                    hobby={hobby as Hobby}
+                    isActive={activeHobby === hobby.id}
+                    isExpanded={expanded[hobby.id]}
+                    onExpand={onExpand}/>
+                )) }
+            </Accordion>
+
+            <CreateProject href="/"/>
+        </div>
+    )
+
+/*
+    return(
+        
 
            
 

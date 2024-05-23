@@ -1,6 +1,7 @@
 import { Header } from "@/components/protected/dropdown/header"
 import { SideNav } from "@/components/protected/sidenav/sidenav"
 import { Main } from "@/components/protected/dropdown/main";
+import { CreateModal } from "@/components/protected/sidenav/create-modal";
 
 
 
@@ -13,7 +14,7 @@ const ProtectedLayout = ({children}:{children: React.ReactNode}) => {
       <Header />
       <div className="flex flex-row ">
         <SideNav />
-        
+        <CreateModal />
         {children}
       </div>
     </div>

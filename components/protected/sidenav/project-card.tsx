@@ -1,14 +1,18 @@
 "use client"
 
-import { AccordionItem , AccordionTrigger } from "@/components/ui/accordion";
+import { AccordionItem , AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 
 import { cn } from "@/lib/utils";
 
+import { useRouter } from "next/router";
+
 export type Hobby ={
     id: string;
+    owner: string;
     name: string
-    slug: string;
-    imageUrl: string;
+    //slug: string;
+    //imageUrl: string;
     
 }
 
@@ -26,9 +30,28 @@ export const ProjectCard = ({
     isExpanded,
     onExpand
 }:ProjectProps) => {
+   // const router = useRouter();
+
+    const routes = [{
+        label: "Projects",
+        href: "/"
+        //icon: 
+        },
+        {
+        label: "Activity",
+        href: "/"
+        //icon: 
+        },
+        {
+        label: "Settings",
+        href: "/"
+        //icon: 
+        },
+    ]
+    
     
 
-    const onClick = () =>{
+    const onClick = (href: string) =>{
 
     }
 /*
@@ -56,7 +79,20 @@ export const ProjectCard = ({
                 </div>
                 <span className="font-medium text-sm">{hobby.name}</span>
             </AccordionTrigger>
-
+            <AccordionContent
+            className="pt-1 text-neutral-700 flex flex-col"
+            >
+                {routes?.map((route)=>(
+                    <Button
+                    key={route.href}
+                    size="sm"
+                    onClick={()=>onClick(route.href)}>
+                        {route.label}
+                    </Button>
+                        
+                ))
+                }
+            </AccordionContent>
         </AccordionItem>
     )
 }
