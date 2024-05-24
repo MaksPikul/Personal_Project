@@ -1,10 +1,15 @@
 
 # -Log-
-- 15/05/24 - 
+### - 15/05/24 - 
 Started by doing login and sign up stuff with email verification, Social Login, 2FA and password resetting. <br>
-Once i finish this section i will log again
+### - 23/05/24
+Finished Authentication 2 days ago but was too eager to continue that i went straight onto designing dashboard layout<br>
+So far ive done the sidebar for navigation and profile tab for user settings which will be consitent for all pages<br>
+Wanted to get some visual design done first before moving onto routing pages and adding boards.
 
 
+
+<br><br>
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
