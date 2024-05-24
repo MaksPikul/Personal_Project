@@ -63,6 +63,10 @@ export const ProjectCard = ({
         </button>
     )
 */
+
+
+
+//className="flex-row flex rounded-md gap-6 p-3 m-0 w-full hover:bg-slate-300"
     return (
         <AccordionItem 
         value={hobby.id}
@@ -71,13 +75,13 @@ export const ProjectCard = ({
             <AccordionTrigger
             onClick={()=> onExpand(hobby.id)}
             className={cn(
-                "flex items-center gap-x-2 p-1.5 text-neutral-700 rounded-md hover:bg-neutral-500/10 transition text-start no-underline hover:no-underline",
+                "flex flex-row gap-6 p-6 text-neutral-700 rounded-md hover:bg-slate-300 text-start no-underline hover:no-underline",
                 isActive && !isExpanded && "bg-sky-500/10 text-sky-700"
             )}>
                 <div className="flex items-center gap-x-2">
 
                 </div>
-                <span className="font-medium text-sm">{hobby.name}</span>
+                <span className="">{hobby.name}</span>
             </AccordionTrigger>
             <AccordionContent
             className="pt-1 text-neutral-700 flex flex-col"

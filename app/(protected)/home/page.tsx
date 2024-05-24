@@ -1,11 +1,11 @@
 import { auth, signOut } from '@/auth'
 
-const SettingsPage = async () => {
+const HomePage = async () => {
     const session = await auth()
 
     return(
         <div className="">
-            {/*JSON.stringify(session)*/}
+            {JSON.stringify(session)}
             <form action={async () =>{
                 "use server"
                 await signOut();
@@ -18,4 +18,4 @@ const SettingsPage = async () => {
     )
 }
 
-export default SettingsPage
+export default HomePage

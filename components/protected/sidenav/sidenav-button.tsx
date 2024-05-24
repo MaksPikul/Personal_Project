@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link";
+
 interface ButtonProps {
     label: string;
     href: string;
@@ -17,9 +19,12 @@ export const SideNavButton = ({
     }
 
     return(
-        <button className="text-left align-center justify-evenly flex-row flex rounded-md m-3 p-2 hover:bg-slate-100" onClick={()=>{onClick()}}>
+    
+    <Link href={href}>
+        <button className="flex-row text-md flex rounded-md gap-6 p-3 m-0 w-full transition hover:bg-slate-300" onClick={()=>{onClick()}}>
             <div>{icon}</div>
             {label}
         </button>
+    </Link>
     )
 }

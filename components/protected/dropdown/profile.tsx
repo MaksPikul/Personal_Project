@@ -14,7 +14,7 @@ export const Profile = () => {
     
     return (
         <div>
-            <div className="px-10 py-3 flex">
+            <div className="px-10 py-3 flex bg-red-500">
                 <button onClick={()=>{openDropDown()}}>
                         <Avatar>
                             <AvatarImage src=""/>

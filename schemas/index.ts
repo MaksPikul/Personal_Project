@@ -33,3 +33,10 @@ export const NewPasswordSchema = z.object({
         message: "Minimum password length - 6 characters"
     }),
 })
+
+export const createBoardSchema = z.object({
+    name: z.string().min(1,{
+        message: "Board name required"
+    }),
+    imageUrl: z.string()
+})

@@ -1,26 +1,32 @@
 "use client"
 
+import { useModal } from "@/hooks/use-modal-store";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface CreateProjectProps {
+    label: string;
     href: string;
-    //icon: React.ReactNode;
+    icon: React.ReactNode;
 }
 
-export const CreateProject = ({
+export const CreateProjectButton = ({
+    label,
     href,
-    //icon
+    icon
 }:CreateProjectProps) => {
 
-    const onClick = () =>{
+    const { onOpen } = useModal();
 
-    }
-    //on hover, make button wide and fadein "Create project"
     return(
-        <Link href="?modal=true">
-        <button className="bg-rose-600 size-16 self-center rounded-md hover:bg-slate-100" onClick={()=>{onClick()}}>
-            +
+    
+    
+        <button 
+        onClick={()=>onOpen("CreateBoard")}
+        className="flex-row text-md flex rounded-md gap-6 p-3 m-0 w-full transition hover:bg-slate-300" >
+            <div>{icon}</div>
+            {label}
         </button>
-        </Link>
+    
     )
 }

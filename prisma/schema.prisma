@@ -16,7 +16,13 @@ model User {
   emailVerified DateTime?
   image String?
   password String?
+
   accounts Account[]
+  boards Board[]
+  members Member[]
+  projects Project[]
+
+
   isTwoFactorEnabled Boolean @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
 }
@@ -76,11 +82,60 @@ model TwoFactorConfirmation {
   @@unique([userId])
 }
 
-model Hobby {
+model Board {
   id String @id @default(cuid())
-  owner String?
   name String?
-  slug String?
   imgUrl String?
 
+  projects Project[]
+  
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+enum MemberRole {
+  ADMIN
+  MOD
+  GUEST
+}
+
+model Member {
+  id String @id @default(uuid())
+  role MemberRole @default(GUEST)
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  projectId String
+  project Project @relation(fields:[projectId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([projectId])
+}
+
+model Project {
+  id String @id @default(uuid())
+  name String
+
+  members Member[]
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  boardId String
+  board Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([boardId])
 }

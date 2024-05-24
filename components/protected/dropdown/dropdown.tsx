@@ -1,11 +1,15 @@
 import { ProfileOptions } from "./profile-options"
 import { ProfileCard } from "./profile-card"
-
+import { auth, signOut } from '@/auth'
+import { SignOut } from "@/actions/signout"
 
 export const DropDown = () => {
-    
+    const onSubmit = {
+
+    }
+
     return (
-    <div className="pt-3 bg-red-500 m-2 w-64 flex flex-col border-solid border-2 rounded-md border-purple-500">
+    <div className="pt-3 bg-red-500 m-2 w-64 relative flex-col border-solid border-2 rounded-md border-purple-500">
         <ProfileCard
         name="Maks Pikul"
         email="mmaks522@gmail.com"
@@ -17,12 +21,20 @@ export const DropDown = () => {
             //href
             label="Account"
             />
-        <ProfileOptions 
-            label="Sign Out"
-        />
+       
+            <form action={() =>{
+                SignOut()
+            }}>
+                <button type="submit">
+                    sign out
+                </button>
+            </form>
+        
+        
         <ProfileOptions 
         label="Dark/Light Mode"
         />
+
         </div>
     </div>
     )

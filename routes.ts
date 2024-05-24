@@ -29,4 +29,4 @@ export const apiAuthPrefix = "/api/auth";
  * Redirects to this address once logged in
  * @type {string}
 **/
-export const DEFAULT_LOGIN_REDIRECT = "/settings"
+export const DEFAULT_LOGIN_REDIRECT = "/home"
