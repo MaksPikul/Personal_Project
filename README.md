@@ -6,6 +6,11 @@ Started by doing login and sign up stuff with email verification, Social Login, 
 Finished Authentication 2 days ago but was too eager to continue that i went straight onto designing dashboard layout<br>
 So far ive done the sidebar for navigation and profile tab for user settings which will be consitent for all pages<br>
 Wanted to get some visual design done first before moving onto routing pages and adding boards.
+### - 24/05/24 -
+Learnt how to do modals on web apps (dialog components nested in root layout.tsx file with zustand state management, very cool stuff),
+Users upon pressing create board will have a dialog pop up, they enter name and image, and upon pressing create,<br> 
+it closes and board entry along with related table entries are added, tomorrow im going to display these boards on the side nav.<br>
+-my "i" key is broken so i have it saved for pasting with ^V, annoyng to code f anyone cares :3
 
 
 
