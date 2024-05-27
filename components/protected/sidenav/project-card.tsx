@@ -4,20 +4,30 @@ import { AccordionItem , AccordionTrigger, AccordionContent } from "@/components
 import { Button } from "@/components/ui/button";
 
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
-import { useRouter } from "next/router";
+import Link from "next/link";
 
-export type Hobby ={
-    id: string;
-    owner: string;
-    name: string
-    //slug: string;
-    //imageUrl: string;
-    
-}
+export type Boards = {
+    id: string,
+    name:string | null,
+    imageUrl:string | null,
+    userId:string,
+    createdAt: Date,
+    updatedAt: Date,
+  }[] | null
+
+  export type BoardItem = {
+    id: string,
+    name:string | null,
+    imageUrl:string | null,
+    userId:string,
+    createdAt: Date,
+    updatedAt: Date,
+  }
 
 interface ProjectProps {
-    hobby: Hobby;
+    board: BoardItem;
     isActive: boolean;
     isExpanded: boolean;
     onExpand: (id: string)=> void;
@@ -25,55 +35,50 @@ interface ProjectProps {
 }
 
 export const ProjectCard = ({
-    hobby,
+    board,
     isActive,
     isExpanded,
     onExpand
 }:ProjectProps) => {
-   // const router = useRouter();
+    const router = useRouter();
 
     const routes = [{
         label: "Projects",
-        href: "/"
+        href: "/socials"
         //icon: 
         },
         {
         label: "Activity",
-        href: "/"
+        href: ""
         //icon: 
         },
         {
         label: "Settings",
-        href: "/"
+        href: ""
         //icon: 
         },
     ]
-    
-    
 
     const onClick = (href: string) =>{
 
+        router.push(`/servers/${board.id}`)
+
     }
-/*
-    return(
-        <button className="rounded-md m-4 p-3 flex flex-row justify-around hover:bg-slate-100" onClick={()=>{onClick()}}>
-            {/*icon*
-            <div id="thumbnail" className="size-14 text-center rounded-full bg-rose-600">PH</div>
-            {label}
-        </button>
-    )
-*/
+    
+    if (!board) {
+        return null
+    }
 
 
 
 //className="flex-row flex rounded-md gap-6 p-3 m-0 w-full hover:bg-slate-300"
     return (
         <AccordionItem 
-        value={hobby.id}
+        value={board.id }
         className="border-none"
         >
             <AccordionTrigger
-            onClick={()=> onExpand(hobby.id)}
+            onClick={()=> onExpand(board.id)}
             className={cn(
                 "flex flex-row gap-6 p-6 text-neutral-700 rounded-md hover:bg-slate-300 text-start no-underline hover:no-underline",
                 isActive && !isExpanded && "bg-sky-500/10 text-sky-700"
@@ -81,19 +86,20 @@ export const ProjectCard = ({
                 <div className="flex items-center gap-x-2">
 
                 </div>
-                <span className="">{hobby.name}</span>
+                <span className="">{board.name}</span>
             </AccordionTrigger>
             <AccordionContent
             className="pt-1 text-neutral-700 flex flex-col"
             >
                 {routes?.map((route)=>(
+                    
                     <Button
                     key={route.href}
                     size="sm"
                     onClick={()=>onClick(route.href)}>
                         {route.label}
                     </Button>
-                        
+                    
                 ))
                 }
             </AccordionContent>

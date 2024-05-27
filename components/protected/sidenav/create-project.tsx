@@ -6,13 +6,11 @@ import { Button } from "@/components/ui/button";
 
 interface CreateProjectProps {
     label: string;
-    href: string;
     icon: React.ReactNode;
 }
 
 export const CreateProjectButton = ({
     label,
-    href,
     icon
 }:CreateProjectProps) => {
 

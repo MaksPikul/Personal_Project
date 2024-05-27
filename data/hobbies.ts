@@ -1,9 +1,9 @@
 import { db } from '@/lib/db';
 
-export const getHobbiesByUserId = async (owner: string) => {
+export const getBoardByUserId = async (userId: string | undefined) => {
     try{
-        const hobby = await db.hobby.findMany({
-            where: {owner},
+        const hobby = await db.board.findMany({
+            where: {userId},
         })
         return hobby;
     }
@@ -12,7 +12,7 @@ export const getHobbiesByUserId = async (owner: string) => {
     }
 }
 
-export const getHobbiesById = async (id: string) => {
+export const getBoardById = async (id: string) => {
     try{
         const hobby = await db.user.findMany({
             where: {id},

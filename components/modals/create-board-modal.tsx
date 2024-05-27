@@ -30,11 +30,13 @@ import { useEffect, useState, useTransition } from "react"
 import { db } from "@/lib/db"
 import { CreateBoard } from "@/actions/create-board"
 import { useModal } from "@/hooks/use-modal-store"
+import { useRouter } from "next/navigation"
 
 
 export const CreateBoardModal = ()=> {
     const [isPending, startTransition] = useTransition();
     const {isOpen, onClose, type } = useModal();
+    const router = useRouter();
 
     const isModalOpen = isOpen && type === "CreateBoard";
 
@@ -51,6 +53,7 @@ export const CreateBoardModal = ()=> {
             startTransition(()=>{
                 CreateBoard(values)
                 form.reset();
+                router.refresh()
                 onClose();
             })
         }

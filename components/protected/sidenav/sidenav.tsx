@@ -1,35 +1,32 @@
 "use client"
 
-import { SideNavButton } from "./sidenav-button"
-import { ProjectCard , Hobby} from "./project-card"
-import { CreateProjectButton } from "./create-project"
+import { ProjectCard } from "./project-card"
 
-import { Home, CalendarFold, Clock, BookUser, Plus} from 'lucide-react';
 
-import { getHobbiesByUserId } from "@/data/hobbies";
+import { SNFeatures } from "./sidenav-features";
 
-import Link from "next/link";
 import {useLocalStorage } from "usehooks-ts"
-import { Separator } from "@/components/ui/separator";
 import { Accordion } from "@/components/ui/accordion";
+import { Boards, BoardItem } from "./project-card";
+import { useEffect } from "react";
+
+
 
 interface SideNavProps {
     storageKey?: string;
+    boards? : Boards;
 }
 
 export const SideNav =  ({
     storageKey = "nav-state",
+    boards
 }:SideNavProps) => {
+    
 
     const [expanded, setExpanded] = useLocalStorage<Record<string,any>>(
         storageKey, 
         {}
     );
-
-    const hobbies = [
-        {id:"1", owner:"clwj7cxnm0000vupv8bfhul2s", name:"programming"},
-        {id:"2", owner:"clwj7cxnm0000vupv8bfhul2s", name: "art"}
-    ]
 
     const activeHobby = "2"
      //const hobbies = await getHobbiesByUserId("clwj7djzc0001vupv47x8a1yi")
@@ -51,28 +48,19 @@ export const SideNav =  ({
     };
     return(
         <div className="w-64 bg-red-500 h-full flex flex-col">
-            <div id="features" className=" space-y-2  p-3">
-                <SideNavButton label="Home" href="/home" icon={<Home />}/>
-                <SideNavButton label="Socials" href="/socials" icon={<BookUser />}/>
-                <SideNavButton label="Schedule" href="/schedule" icon={<CalendarFold />}/>
-                <SideNavButton label="Focus Sessions" href="/focus" icon={<Clock />}/>
-                <Separator className="bg-black"/>
-                <CreateProjectButton label="Create Hobby" href="" icon={<Plus />} />
-                <Separator className="bg-black"/>
-                {/*<CreateProject href="/"/>*/}
-            </div>
-            
+            <SNFeatures />
+
             {/* my boards */}
             <Accordion
             type="multiple"
             defaultValue={defaultAccordionValues}
             className="space-y-2 p-3">
-                {hobbies?.map((hobby)=>(
+                {boards?.map((boardItem)=>(
                     <ProjectCard 
-                    key={hobby.id}
-                    hobby={hobby as Hobby}
-                    isActive={activeHobby === hobby.id}
-                    isExpanded={expanded[hobby.id]}
+                    key={boardItem.id}
+                    board={boardItem as BoardItem}
+                    isActive={activeHobby === boardItem.id}
+                    isExpanded={expanded[boardItem.id]}
                     onExpand={onExpand}/>
                 )) }
             </Accordion>
