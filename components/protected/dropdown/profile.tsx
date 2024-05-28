@@ -1,34 +1,57 @@
 "use client"
 
-import { Avatar , AvatarFallback , AvatarImage } from "@/components/ui/avatar"
-import { useState } from "react"
-import { DropDown } from "./dropdown"
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+  } from "@/components/ui/dropdown-menu"
 
 
-export const Profile = () => {
-    const [showDropDown, setDropDown] = useState(false)
+import { ProfileCard } from "./profile-card"
+import { ProfileInfo } from "./profile-info"
+import { ProfileActions } from "./profile-actions"
 
-    const openDropDown = () => {
-        setDropDown(!showDropDown)
-    }
-    
+export type User = {
+    id: string,
+    name: string,
+    email: string,
+    image: string | null,
+    expires: Date
+} | undefined
+
+interface ProfileProps {
+    user: User
+}
+
+export const Profile = ({
+    user
+}:ProfileProps) => {
+
     return (
-        <div>
-            <div className="px-10 py-3 flex bg-red-500">
-                <button onClick={()=>{openDropDown()}}>
-                        <Avatar>
-                            <AvatarImage src=""/>
-                            <AvatarFallback> P </AvatarFallback>
-                        </Avatar>
-                </button>
-            </div>
-                
-                {showDropDown ? 
-                <DropDown />
-                :
-                <div className="w-64 top-2 m-2 "></div>
-                }
-                
-        </div>
+    <DropdownMenu>
+            <ProfileCard 
+            name={user?.name}
+            imgUrl={user?.image}
+            status="Online"/>
+            
+        <DropdownMenuContent sideOffset={8} className="ml-2.5">
+            <DropdownMenuLabel>
+                <ProfileInfo 
+                name={user?.name}
+                email={user?.email}
+                imgUrl={user?.image}/>
+
+            </DropdownMenuLabel>
+            <DropdownMenuItem>
+                <ProfileActions 
+                label="lol"/>
+
+            </DropdownMenuItem>
+        </DropdownMenuContent>
+    </DropdownMenu>
     )
 }

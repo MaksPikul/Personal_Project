@@ -7,7 +7,7 @@ export const Header = () => {
     
 
     return (
-        <header className=" h-16 bg-red-500 flex w-full justify-end ">
+        <header className="h-16 bg-blue-500 flex border-solid border-b-2 border-black">
             
         </header>
     )

@@ -1,4 +1,4 @@
-
+import { Header } from "@/components/protected/dropdown/header"
 
 const FocusPage = async () => {
     

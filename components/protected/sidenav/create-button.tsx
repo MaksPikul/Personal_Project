@@ -17,14 +17,11 @@ export const CreateProjectButton = ({
     const { onOpen } = useModal();
 
     return(
-    
-    
         <button 
         onClick={()=>onOpen("CreateBoard")}
-        className="flex-row text-md flex rounded-md gap-6 p-3 m-0 w-full transition hover:bg-slate-300" >
-            <div>{icon}</div>
+        className="p-2 flex-row text-md flex w-60 rounded-md transition duration-100 hover:bg-slate-300" >
+            <div className="mx-3">{icon}</div>
             {label}
         </button>
-    
     )
 }

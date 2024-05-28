@@ -14,17 +14,17 @@ export const SideNavButton = ({
     icon
 }:ButtonProps) => {
 
-    const onClick = () =>{
 
-    }
 
     return(
-    
-    <Link href={href}>
-        <button className="flex-row text-md flex rounded-md gap-6 p-3 m-0 w-full transition hover:bg-slate-300" onClick={()=>{onClick()}}>
-            <div>{icon}</div>
-            {label}
+        
+    <Link href={href} className="">
+        <button 
+        className="p-2 flex-row text-md flex w-60 rounded-md transition duration-100 hover:bg-slate-300" >
+                <p className="mx-3">{icon}</p>
+                <p>{label}</p>   
         </button>
     </Link>
+    
     )
 }

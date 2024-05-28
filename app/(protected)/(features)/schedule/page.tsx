@@ -1,4 +1,4 @@
-import { CreateBoardModal } from "@/components/modals/create-board-modal"
+import { Header } from "@/components/protected/dropdown/header"
 
 const SchedulePage = async () => {
     

@@ -1,4 +1,5 @@
 import { auth, signOut } from '@/auth'
+import { Header } from "@/components/protected/dropdown/header"
 
 const HomePage = async () => {
     const session = await auth()
