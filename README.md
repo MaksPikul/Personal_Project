@@ -11,6 +11,14 @@ Learnt how to do modals on web apps (dialog components nested in root layout.tsx
 Users upon pressing create board will have a dialog pop up, they enter name and image, and upon pressing create,<br> 
 it closes and board entry along with related table entries are added, tomorrow im going to display these boards on the side nav.<br>
 -my "i" key is broken so i have it saved for pasting with ^V, annoyng to code f anyone cares :3
+### - 29/05/24 -
+Side Navigation, Header, Profile Actions dropdown are functionally finished, <br> 
+stylistically need work (color schemes, fonts, hovers and transitions), will do this near the end of project.<br>
+After making settings and Account/profile page & actions, i can move onto the core features of the app (very cool)<br>
+This is going much faster than expected, ideally ill finish this before September so that i can use it for school (most likely acheiveable). <br>
+If i want people to use this tho, the user experience will need to be close to perfect, something to worry about later down the line. <br>
+Project fun so far, need to decide wether to use Next.js backend features or move it to django or something, <br>
+When i deploy i want to use AWS, but i probably wont since money, ill draw up an architecture with terraform and aws services anyways.
 
 
 
