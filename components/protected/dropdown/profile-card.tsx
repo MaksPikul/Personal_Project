@@ -11,7 +11,7 @@ interface ProfileCardProps {
 
 export const ProfileCard = ({
     name,
-    imgUrl,
+    imgUrl = "",
     status = "status"
 }:ProfileCardProps) => {
 
@@ -21,7 +21,7 @@ export const ProfileCard = ({
         <div className="flex flex-row items-center w-60 m-1 rounded-md bg-blue-500 ">
         <DropdownMenuTrigger className="flex flex-row rounded-md w-full px-3 py-2 transition duration-200 hover:bg-slate-200">
             <Avatar className="mr-2 h-8 w-8 self-center">
-                <AvatarImage src={"imgUrl"} className="size-sm"/>
+                <AvatarImage src={"https://en.wikipedia.org"} className="size-sm"/>
                 <AvatarFallback> P </AvatarFallback>
             </Avatar>
             

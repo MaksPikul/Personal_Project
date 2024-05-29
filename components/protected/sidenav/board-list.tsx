@@ -1,23 +1,21 @@
 "use client"
 
 import { Boards, BoardItem } from "./board-button"
-import { Accordion } from "@/components/ui/accordion";
-import { useLocalStorage } from "usehooks-ts"
+import { useParams, usePathname } from "next/navigation";
 import { BoardCard } from "./board-button"
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+
 
 interface BoardListProps {
-    storageKey: string;
     boards? : Boards;
 }
 
 export const BoardList = ({
-    storageKey = "nav-state",
-    boards
+    boards,
 }:BoardListProps) => {
-
-    const activeHobby = "2"
+    const params = useParams()
+    console.log(params.boardId)
+   
 
     
     return(
@@ -28,7 +26,7 @@ export const BoardList = ({
                     <BoardCard 
                     key={boardItem.id}
                     board={boardItem as BoardItem}
-                    isActive={activeHobby === boardItem.id} 
+                    isActive={params.boardId === boardItem.id} 
                     />
                 )) }
             </div> 

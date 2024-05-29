@@ -48,8 +48,9 @@ export const BoardCard = ({
 //className="flex-row flex rounded-md gap-6 p-3 m-0 w-full hover:bg-slate-300"
     return (
         <button 
-        className="py-2 px-1 mx-1 items-center flex-row text-md flex w-60 rounded-md 
-        transition duration-200 hover:bg-slate-300"
+        className={`py-2 px-1 mx-1 items-center flex-row text-md flex w-60 rounded-md 
+        transition duration-200 hover:bg-slate-300
+        ${isActive  ? 'bg-red-200' : ''}`}
         onClick={()=>{onClick(board.id)}}>
                 <div className="bg-green-500 rounded-md size-14 mr-3 "></div>
             <div className="flex flex-col items-start text-nowrap">

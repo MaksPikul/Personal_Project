@@ -1,6 +1,6 @@
 import { db } from '@/lib/db';
 
-export const getBoardByUserId = async (userId: string | undefined) => {
+export const getBoardsByUserId = async (userId: string | undefined) => {
     try{
         const hobby = await db.board.findMany({
             where: {userId},
@@ -14,7 +14,7 @@ export const getBoardByUserId = async (userId: string | undefined) => {
 
 export const getBoardById = async (id: string) => {
     try{
-        const hobby = await db.user.findMany({
+        const hobby = await db.board.findUnique({
             where: {id},
         })
         return hobby;
