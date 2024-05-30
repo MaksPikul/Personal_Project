@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-export type ModalType = "CreateBoard" | "Account";
+export type ModalType = "CreateBoard" | "signOut";
 
 interface ModalStore {
     type: ModalType | null;
@@ -8,6 +8,8 @@ interface ModalStore {
     onOpen: (type: ModalType) => void;
     onClose: () => void;
 }
+
+
 
 export const useModal = create<ModalStore>((set) => ({
     type: null,

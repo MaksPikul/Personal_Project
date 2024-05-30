@@ -70,7 +70,7 @@ export const BoardCard = ({
         className={`
         relative flex items-center text-start my-1 h-12 py-2  
         font-medium rounded-md cursor-pointer 
-        transition-colors group ${
+        transition-all group ${
         isActive  ? "bg-gradient-to-tr from-rose-200 to-rose-100 text-indigo-800" 
         : "hover:bg-indigo-50 text-gray-600" }`}>
             <Moon className="size-12"/>

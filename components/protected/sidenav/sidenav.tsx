@@ -1,12 +1,14 @@
 "use client"
 
-import { Profile, User} from "../dropdown/profile";
+import { User} from "../profile/profile";
 import { Boards} from "./board-button";
 import { BoardList } from "./board-list";
 import { AppFeatures } from "./feature-list";
 import { CreateProjectButton } from "./create-button"
 import { useState } from "react";
 import { ChevronLast, ChevronFirst, Plus } from "lucide-react"
+import { ProfileCard } from "../profile/profile";
+
 
 interface SideNavProps {
     boards: Boards
@@ -21,21 +23,10 @@ export const SideNav = ({
 }:SideNavProps) => {
     const [expanded, setExpanded] = useState(true)
     
-    /*
-        <Separator className=" bg-black"/>
-            <AppFeatures expanded={expanded}/>
-                <Separator className=" bg-black"/>
-            <CreateProjectButton expanded={expanded} label="Create Board" icon={<Plus />} />
-                <Separator className=" bg-black"/>
-
-                <BoardList boards={boards} expanded={expanded}/>
-                <Separator className=" bg-black"/>
-            <Profile user={user} expanded={expanded}/>
-   */
 
     return(
         <div className="flex flex-col bg-red-500 rounded-md m-1">
-            <div className={`p-2 px-2 flex  items-center ${
+            <div className={`p-2  flex  m-2 rounded-md items-center ${
                 expanded ? "justify-between px-4 p-2 " : "justify-center p-2"
             }`}>
                 <img
@@ -54,7 +45,8 @@ export const SideNav = ({
             <AppFeatures expanded={expanded}/>
             <CreateProjectButton expanded={expanded} label="Create Board" icon={<Plus />} />
             <BoardList boards={boards} expanded={expanded}/>
-            <Profile user={user} expanded={expanded}/>
+
+            <ProfileCard user={user} status={"Online"} setExpanded={setExpanded} expanded={expanded}/>
         </div>
     )
 }

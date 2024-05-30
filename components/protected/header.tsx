@@ -1,5 +1,3 @@
-import { Toggle } from "@/components/ui/toggle"
-import { Profile } from "./profile"
 
 interface HeaderProps {
     title: string | null | undefined;
@@ -12,7 +10,7 @@ export const Header = ({
     
 
     return (
-        <header className="items-center justify-between h-16 bg-blue-500 text-2xl flex flex-row border-solid border-b-2 border-black">
+        <header className="items-center rounded-t-md justify-between h-16 bg-blue-500 text-2xl flex flex-row border-solid border-b-2 border-black">
             <div className="bg-red-500 p-2 ml-10">
                 {title} / Project Page (if on one)
             </div>

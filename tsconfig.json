@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/protected/dropdown/profile-info.tsx", "components/protected/dropdown/tester.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/protected/profile/profile-info.tsx", "components/protected/profile/tester.tsx"],
   "exclude": ["node_modules"]
 }

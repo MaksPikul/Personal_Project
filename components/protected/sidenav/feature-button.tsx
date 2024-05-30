@@ -27,7 +27,7 @@ export const SideNavButton = ({
         className={`
         relative flex items-center text-start self-center h-10 py-2 px-3 my-1
         font-medium rounded-md cursor-pointer 
-        transition-colors group ${
+        transition group ${
         path === href  ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800" 
         : "hover:bg-indigo-50 text-gray-600" }`}>
             {icon}  
