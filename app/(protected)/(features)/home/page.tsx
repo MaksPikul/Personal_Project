@@ -1,4 +1,7 @@
+
+
 import { auth } from '@/auth'
+import { useSession } from 'next-auth/react'
 
 
 const HomePage = async () => {

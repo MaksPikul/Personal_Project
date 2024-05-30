@@ -25,10 +25,12 @@ export type User = {
 
 interface ProfileProps {
     user: User
+    expanded: boolean
 }
 
 export const Profile = ({
-    user
+    user,
+    expanded
 }:ProfileProps) => {
 
     return (
@@ -36,20 +38,19 @@ export const Profile = ({
             <ProfileCard 
             name={user?.name}
             imgUrl={user?.image}
-            status="Online"/>
+            status="Online"
+            expanded={expanded}/>
             
-        <DropdownMenuContent sideOffset={8} className="ml-2.5">
+        <DropdownMenuContent sideOffset={8} className="ml-4">
             <DropdownMenuLabel>
-                <ProfileInfo 
-                name={user?.name}
-                email={user?.email}
-                imgUrl={user?.image}/>
+                <div className="flex flex-col items-center"> 
+                    User Actions
+                </div>
 
             </DropdownMenuLabel>
+            <DropdownMenuSeparator  className="bg-black"/>
             <DropdownMenuItem>
-                <ProfileActions 
-                label="lol"/>
-
+                <ProfileActions />
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>

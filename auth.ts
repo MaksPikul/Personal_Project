@@ -25,7 +25,8 @@ export const {
   },
   callbacks: {
     async jwt({token}){
-      console.log({token})
+      if (!token.sub) return token;
+      
       return token
     },
     async session({token, session}) {
@@ -37,7 +38,8 @@ export const {
     async signIn({user, account}) {
       if (account?.provider !== "credentials") return true;
 
-      const existingUser = await getUserByID(user.id)
+      const existingUser = await getUserByID(user?.id)
+
       if (!existingUser?.emailVerified) {return false}
 
       if (existingUser.isTwoFactorEnabled) {

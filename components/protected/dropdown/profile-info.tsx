@@ -14,7 +14,6 @@ export const ProfileInfo = ({
 }:ProfileInfoProps) => {
 
         return(
-            
                 <div className="flex flex-col items-center gap-y-2">
                     
                     <Avatar className="border-2 border-black size-20">
