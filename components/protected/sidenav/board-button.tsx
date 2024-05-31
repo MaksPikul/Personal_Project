@@ -68,19 +68,21 @@ export const BoardCard = ({
         <button 
         onClick={()=>{onClick(board.id)}}
         className={`
-        relative flex items-center text-start my-1 h-12 py-2  
+        relative flex items-center text-start  my-1 p-1 h-14
         font-medium rounded-md cursor-pointer 
         transition-all group ${
         isActive  ? "bg-gradient-to-tr from-rose-200 to-rose-100 text-indigo-800" 
         : "hover:bg-indigo-50 text-gray-600" }`}>
-            <Moon className="size-12"/>
-            <div
-            className={`overflow-hidden  transition-all ${
-                expanded ? "w-52 ml-2" : "w-0"
-            }`}>
 
-            <p >{board.name}</p>
-            <p className="text-sm">{"board type"}</p>
+            <div className="size-12 bg-green-500 rounded-md "/>
+            <div
+            className={`overflow-hidden  transition-all  ${
+                expanded ? "w-48 ml-2" : "w-0"
+            }`}>
+            <div>
+                <p >{board.name}</p>
+                <p className="text-sm">{"board type"}</p>
+            </div>
 
             </div>   
         </button>

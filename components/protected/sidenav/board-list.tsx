@@ -20,8 +20,8 @@ export const BoardList = ({
     console.log(params.boardId)
     
     return(
-        <>
-        <ScrollArea className="flex-1 items-center px-2 ">
+        
+        <ScrollArea className="flex-1 self-center">
             {boards?.map((boardItem)=>(
                 <BoardCard 
                 key={boardItem.id}
@@ -31,7 +31,7 @@ export const BoardList = ({
                 />
             )) }
         </ScrollArea>
-        <Separator className="bg-black"/>
-        </>
+        
+        
     )
 }

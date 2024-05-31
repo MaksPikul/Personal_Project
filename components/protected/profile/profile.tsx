@@ -31,41 +31,79 @@ export const ProfileCard = ({
     const router = useRouter()
     const { onOpen } = useModal();
 
-    //"p-3 m-3 space-x-4 justify-evenly rounded-md flex items-center bg-red-500 transition hover:bg-slate-300"
-    //"flex flex-col gap-x-2 gap-y-2 w-40 text-wrap "
+    /*
     return (
-        
-        <div className=" py-2 px-2 "> 
-        <div className={`flex justify-evenly rounded-md w-full items-center 
-        ${expanded ? "py-2":"transition duration-200 hover:bg-slate-200"}`}>
-            
-            
-                <Avatar className=" h-8 w-8 ">
-                    <AvatarImage src={"https://en.wikipedia.org"} className="size-sm"/>
-                    <AvatarFallback> X </AvatarFallback>
-                </Avatar>
-            
-            
-            <div 
-            className={`flex text-start items-center justify-center
-            overflow-hidden transition
-            ${expanded ? "w-52 ml-1.5 py-1  " : "w-0"}`}>
-                <div className="flex flex-row items-center ">
-                    <div className="flex flex-col mr-5">
-                        <p className="text-sm font-semibold trun" >{user?.name}</p>
-                        <p className="text-xs">{status}</p>
+        <div className="m-2"> 
+            <div className={`flex justify-center rounded-md w-full items-center 
+            ${expanded ? "":"transition duration-200 hover:bg-slate-200"}`}>
+                
+                
+                    <Avatar className=" h-8 w-8 ">
+                        <AvatarImage src={"https://en.wikipedia.org"}/>
+                        <AvatarFallback> X </AvatarFallback>
+                    </Avatar>
+                
+                
+                <div 
+                className={`flex text-start items-center justify-center
+                overflow-hidden transition
+                ${expanded ? "w-52 ml-2  " : "w-0"}`}>
+                    <div className="flex flex-row items-center ">
+                        <div className="flex flex-col mr-5">
+                            <p className="text-sm font-semibold trun" >{user?.name}</p>
+                            <p className="text-xs">{status}</p>
+                        </div>
+                        {expanded ? 
+                            (<div className=" mx-0.5 rounded-md ">
+                                <button className="hover:bg-slate-200 p-2  rounded-md" onClick={()=>router.push("/account")}><CircleUserRound className="size-5" /></button>
+                                <button className="hover:bg-slate-200 p-2  rounded-md" onClick={() => null}> <Moon className="size-5"/></button>
+                                <button className="hover:bg-slate-200 p-2  rounded-md" onClick={()=>onOpen("signOut")}> <LogOut className="size-5"/></button>
+                            </div>)
+                        :(<div></div>)}
                     </div>
-                    {expanded ? 
-                        (<div className=" mx-0.5 rounded-md ">
-                            <button className="hover:bg-slate-200 p-2  rounded-md" onClick={()=>router.push("/account")}><CircleUserRound className="size-5" /></button>
-                            <button className="hover:bg-slate-200 p-2  rounded-md" onClick={() => null}> <Moon className="size-5"/></button>
-                            <button className="hover:bg-slate-200 p-2  rounded-md" onClick={()=>onOpen("signOut")}> <LogOut className="size-5"/></button>
-                        </div>)
-                    :(<div></div>)}
                 </div>
             </div>
         </div>
+    )*/
+
+
+    return(
+        <div className="m-2">
+        {expanded ? 
+            (<div className=" flex justify-center transition-all items-center rounded-md w-full ">
+                <button 
+                className="transition hover:bg-slate-200 flex rounded-md p-3 mr-1"
+                    onClick={()=>setExpanded(!expanded)}>
+                        <Avatar className="h-8 w-8 mr-2">
+                            <AvatarImage src={"https://en.wikipedia.org"}/>
+                            <AvatarFallback> X </AvatarFallback>
+                        </Avatar>
+                
+
+                <div className="flex flex-col items-start self-center">
+                    <p className="text-sm font-semibold truncate" >{user?.name}</p>
+                    <p className="flex text-xs">{status}</p>
+                </div>
+                </button>
+
+                <div className="flex">
+                    <button className="hover:bg-slate-200 p-2  rounded-md" onClick={()=>router.push("/account")}><CircleUserRound className="size-5" /></button>
+                    <button className="hover:bg-slate-200 p-2  rounded-md" onClick={() => null}> <Moon className="size-5"/></button>
+                    <button className="hover:bg-slate-200 p-2  rounded-md" onClick={()=>onOpen("signOut")}> <LogOut className="size-5"/></button>
+                </div>
+
+                
+            </div>)
+            : 
+            (<button 
+            onClick={()=>setExpanded(!expanded)}
+            className="p-3 flex justify-center items-center rounded-md w-full transition-all hover:bg-slate-200">
+                <Avatar className="h-8 w-8 ">
+                    <AvatarImage src={"https://en.wikipedia.org"}/>
+                    <AvatarFallback> X </AvatarFallback>
+                </Avatar>
+            </button>)
+        }
         </div>
-        
     )
 }
