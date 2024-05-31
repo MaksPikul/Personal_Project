@@ -80,8 +80,8 @@ export const ProfileCard = ({
                         </Avatar>
                 
 
-                <div className="flex flex-col items-start self-center">
-                    <p className="text-sm font-semibold truncate" >{user?.name}</p>
+                <div className="flex flex-col items-start self-center truncate text-elipsis overflow-hidden w-16">
+                    <p className="text-sm font-semibold truncate line-clamp-1" >{user?.name}</p>
                     <p className="flex text-xs">{status}</p>
                 </div>
                 </button>

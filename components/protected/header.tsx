@@ -10,13 +10,14 @@ export const Header = ({
     
 
     return (
-        <header className="items-center rounded-t-md justify-between h-16 bg-blue-500 text-2xl flex flex-row border-solid border-b-2 border-black">
-            <div className="bg-red-500 p-2 ml-10">
+        <header className="items-center rounded-t-md justify-between p-3 bg-blue-500 text-2xl flex flex-row ">
+            <div className="bg-red-500 p-0 ml-10">
                 {title} / Project Page (if on one)
             </div>
-            <div id="Socials?" className="bg-green-500 p-2 mr-10">
+            <div id="Socials?" className="bg-green-500 p-1 mr-10">
                 Social sidenav? {/* toggle social side nav or component child, similar to sidenav? worry about this later */}
             </div>
+            
         </header>
     )
 

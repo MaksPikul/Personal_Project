@@ -3,7 +3,6 @@
 import { User} from "../profile/profile";
 import { Boards} from "./board-button";
 import { BoardList } from "./board-list";
-import { AppFeatures } from "./feature-list";
 import { CreateProjectButton } from "./create-button"
 import { useState } from "react";
 import { ChevronLast, ChevronFirst,} from "lucide-react"
@@ -32,8 +31,8 @@ export const SideNav = ({
 
     return(
         <div className="flex flex-col bg-red-500 rounded-md m-1">
-            <div className={`p-2  flex   rounded-md items-center ${
-                expanded ? "justify-between px-4 p-2 " : "justify-center p-4"
+            <div className={`p-3  flex   rounded-md items-center ${
+                expanded ? "justify-between px-4  " : "justify-center "
             }`}>
                 <img
                 src="https://img.logoipsum.com/288.svg"

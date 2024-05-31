@@ -18,7 +18,7 @@ const ProtectedLayout = async ({
 //Session must be fetched here, boards sent over from here, so that sidenav can be "use client"
 //<SideNav />
     return (
-      <div className="flex flex-row h-full">
+      <div className="flex flex-row h-full overflow-hidden">
         
         <SideNav boards={boards as Boards} user={user as User}/>
         {children} 

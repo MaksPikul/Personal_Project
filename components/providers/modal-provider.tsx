@@ -3,6 +3,7 @@
 import { CreateBoardModal } from "@/components/modals/create-board-modal"
 import { useEffect, useState } from "react"
 import { SignOutModal } from "../modals/signout-modal";
+import { AccountModal } from "../modals/account-modal";
 
 export const ModalProvider = () => {
     const [isMounted, setIsMounted] = useState(false);
@@ -19,6 +20,7 @@ export const ModalProvider = () => {
         <>
             <CreateBoardModal />
             <SignOutModal />
+            <AccountModal />
         </>
     )
 }
