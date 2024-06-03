@@ -2,42 +2,23 @@
 
 import { useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { User } from "./profile";
+import { UserInfo } from "./user-info";
 
 
 export const Account = () =>  {
     const {update, data: session} = useSession();
 
     return (
-        <div className='bg-purple-500  p-5 m-5 '>
-            <div className="flex flex-row bg-red-500 p-4">
-                <Avatar className="h-32 w-32 ">
+            <div className="flex flex-row bg-red-700 rounded-t-md p-4 ">
+                <Avatar className="h-32 w-32 mx-2">
                     <AvatarImage src={"https://en.wikipedia.org"}/>
                     <AvatarFallback> X </AvatarFallback>
                 </Avatar>
-                <div className="flex flex-col bg-red-100 justify-start p-4">
-                    <p className="">{session?.user.name}</p>
-                    <p className="">{session?.user.email}</p>
-                    <p className="">{"some other things"}</p>
-                </div>
-                <div className="flex flex-col bg-red-300 p-4">
-                    <p className="">{"Time spent focused: "}</p>
-                    <p className="">{"Daily focused streak: "}</p>
-                    <p className="">{"Projects Completed: "}</p>
-                </div>
+
+                <UserInfo user={session?.user as User} />
+
             </div>
-
-                <div className="bg-green-500">
-                    User Info / Mutual associates / Mutual Projects|Team
-                </div>
-
-                <div className="bg-yellow-500">
-                    Last Worked On Project / Completed projects showcase
-                </div>
-
-                <div className="bg-blue-500">
-                    Activity History
-                </div>
-        </div>
     )
 
 

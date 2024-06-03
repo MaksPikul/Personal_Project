@@ -22,12 +22,10 @@ export const AppFeatures = ({
     
     return( 
             <div className="px-2">
-                <Separator className=" bg-black"/>
                 <SideNavButton expanded={expanded} label="Home" href="/home" path={path} icon={<Home />}/>
                 <SideNavButton expanded={expanded} label="Socials" href="/socials" path={path} icon={<BookUser />}/>
                 <SideNavButton expanded={expanded} label="Schedule" href="/schedule" path={path} icon={<CalendarFold />}/>
                 <SideNavButton expanded={expanded} label="Focus Sessions" href="/focus" path={path} icon={<Clock />}/> 
-                <Separator className=" bg-black"/>
             </div>
     ) 
 }

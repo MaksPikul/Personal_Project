@@ -12,7 +12,7 @@ import { Moon } from "lucide-react";
 export type Boards = {
     id: string,
     name:string | null,
-    imageUrl:string | null,
+    imgUrl:string | null,
     userId:string,
     createdAt: Date,
     updatedAt: Date,
@@ -21,7 +21,7 @@ export type Boards = {
   export type BoardItem = {
     id: string,
     name:string | null,
-    imageUrl:string | null,
+    imgUrl:string | null,
     userId:string,
     createdAt: Date,
     updatedAt: Date,
@@ -49,20 +49,6 @@ export const BoardCard = ({
         return null
     }
     
-//className="flex-row flex rounded-md gap-6 p-3 m-0 w-full hover:bg-slate-300"
-    /*return (
-        <button 
-        className={`py-2 px-1 mx-1 items-center flex-row text-md flex w-60 rounded-md 
-        transition duration-200 hover:bg-slate-300
-        ${isActive  ? 'bg-red-200' : ''}`}
-        onClick={()=>{onClick(board.id)}}>
-                <div className="bg-green-500 rounded-md size-14 mr-3 "></div>
-            <div className="flex flex-col items-start text-nowrap">
-                <p >{board.name}</p>
-                <p className="text-sm">{"board type"}</p>
-            </div>
-        </button>
-    )*/
 
     return (
         <button 
@@ -71,17 +57,21 @@ export const BoardCard = ({
         relative flex items-center text-start  my-1 p-1 h-14
         font-medium rounded-md cursor-pointer 
         transition-all group ${
-        isActive  ? "bg-gradient-to-tr from-rose-200 to-rose-100 text-indigo-800" 
-        : "hover:bg-indigo-50 text-gray-600" }`}>
+        isActive  ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800 " 
+        : "hover:bg-indigo-50 hover:text-indigo-800" }`}>
 
-            <div className="size-12 bg-green-500 rounded-md "/>
+            
+            {board.imgUrl ? 
+            <img src={board.imgUrl} className="size-12 bg-green-500 rounded-md "/> 
+            :
+            <div className="size-12 bg-green-500 rounded-md "/>}
             <div
             className={`overflow-hidden  transition-all  ${
                 expanded ? "w-48 ml-2" : "w-0"
             }`}>
             <div>
-                <p >{board.name}</p>
-                <p className="text-sm">{"board type"}</p>
+                <p >{board.name} </p>
+                <p className="text-sm">{"Owner | deadline"}</p>
             </div>
 
             </div>   

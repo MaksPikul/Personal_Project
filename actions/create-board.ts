@@ -22,11 +22,14 @@ export const CreateBoard = async (values: z.infer<typeof createBoardSchema>) => 
 
     const {name, imageUrl} = validatedFields.data
 
+    const newId = uuidv4();
+
     await db.board.create({
         data: {
+            id: newId,
             userId: session?.user?.id,
             name,
-            imgUrl: "empty for now",
+            imgUrl: undefined,
             projects: {
                 create:[
                     {name: "First Project!", 
@@ -45,5 +48,6 @@ export const CreateBoard = async (values: z.infer<typeof createBoardSchema>) => 
         }
     })
 
-    return { success: "Board Created"}
+
+    return {boardId:newId , success:"Board Created"}
 }

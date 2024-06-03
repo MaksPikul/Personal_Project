@@ -7,12 +7,14 @@ export const LoginSchema = z.object({
     password: z.string().min(1, {
         message: "Password is required"
     }),
-    code: z.optional(z.string()),
+    pin: z.optional(z.string()),
 })
 
 export const RegisterSchema = z.object({
     name: z.string().min(3,{
         message: "Minimum name length - 3 characters"
+    }).max(20,{
+        message: "Maximum name length - 20 characters"
     }),
     email: z.string().email({
         message: "Email is required"
@@ -37,6 +39,8 @@ export const NewPasswordSchema = z.object({
 export const createBoardSchema = z.object({
     name: z.string().min(1,{
         message: "Board name required"
+    }).max(30,{
+        message: "Maximum name length - 30 characters"
     }),
     imageUrl: z.string()
 })

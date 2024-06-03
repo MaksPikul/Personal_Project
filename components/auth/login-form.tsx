@@ -12,7 +12,15 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
+    FormDescription
 } from "../ui/form"
+import {
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSlot,
+    InputOTPSeparator
+} from "@/components/ui/input-otp"
+
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { LoginButton } from "./login-button"
@@ -30,6 +38,7 @@ export const LoginForm = () => {
     const [show2FA, setShow2FA] = useState(false);
     const [isPending, startTransition] = useTransition();
     
+    
 
     const searchParams = useSearchParams();
     const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
@@ -41,6 +50,7 @@ export const LoginForm = () => {
         defaultValues: {
             email: "",
             password: "",
+            pin: undefined
         }
     })
 
@@ -76,10 +86,10 @@ export const LoginForm = () => {
             <Form {...form}>
                 <form 
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6">   
+                className="space-y-6 ">   
 
                     <div
-                    className="space-y-4">
+                    className="space-y-4 ">
 
                         
                     {!show2FA ? 
@@ -131,22 +141,52 @@ export const LoginForm = () => {
                         )}/>
                         </>
                     : 
+                        <div className=" self-center">
                         <FormField 
                         control={form.control}
-                        name="code"
+                        name="pin"
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="items-center">
                                 <FormLabel>2FA Code</FormLabel>
-                                <FormControl>
+                                <FormControl >
+
                                     <Input 
                                     {...field}
                                     disabled={isPending}
                                     placeholder="123456"
                                     />
+
+                        {/*
+                                    <InputOTP 
+                                    maxLength={6} 
+                                    {...field}
+                                    disabled={isPending}
+                                    
+                                    value={value}
+                                    onChange={(value) => setValue(value)}
+                                    >
+                                        <InputOTPGroup>
+                                            <InputOTPSlot index={0} />
+                                            <InputOTPSlot index={1} />
+                                            <InputOTPSlot index={2} />
+                                        </InputOTPGroup>
+                                            <InputOTPSeparator />
+                                        <InputOTPGroup>
+                                            <InputOTPSlot index={3} />
+                                            <InputOTPSlot index={4} />
+                                            <InputOTPSlot index={5} />
+                                        </InputOTPGroup>
+                                    </InputOTP>
+                        */}
                                 </FormControl>
+                                <FormDescription>
+                                Please enter the one-time password sent to your phone.
+                                </FormDescription>
                                 <FormMessage/>
                             </FormItem>
                         )}/>
+                        </div>
+
                     }
                     </div>
 
@@ -155,7 +195,7 @@ export const LoginForm = () => {
                     <Button
                     disabled={isPending}
                     type="submit"
-                    className="w-full">
+                    className="w-full ">
                         {show2FA? "confirm" : "Login"}
                     </Button>
                 </form>

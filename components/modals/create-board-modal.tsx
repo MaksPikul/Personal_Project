@@ -49,9 +49,11 @@ export const CreateBoardModal = ()=> {
         try{
             startTransition(()=>{
                 CreateBoard(values)
-                form.reset();
-                router.refresh()
-                onClose();
+                .then((data)=>{
+                    form.reset();
+                    router.refresh()
+                    onClose();
+                })
             })
         }
         catch (error){
@@ -68,7 +70,7 @@ export const CreateBoardModal = ()=> {
     
     return(
         <Dialog open={isModalOpen} onOpenChange={handleClose}>
-            <DialogContent className="bg-slate-300 p-0 overflow-hidden">
+            <DialogContent className=" p-0 items-center overflow-hidden">
         
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-center">
@@ -82,7 +84,7 @@ export const CreateBoardModal = ()=> {
                     <form 
                     onSubmit={form.handleSubmit(onSubmit)} 
                     className="space-y-8">
-                        <div className="sapce-y-8 px-6">
+                        <div className="space-y-8 px-6">
                             <div 
                             className="flex items-center justify-center text-center">
                                 image upload
@@ -108,14 +110,15 @@ export const CreateBoardModal = ()=> {
                             
                             />
                         </div>
-                        <DialogFooter className="">
-                                <Button 
-                                disabled={isPending}
-                                className=""
-                                >
+                                <div className="flex justify-center pb-6">
+                                    <Button 
+                                    disabled={isPending}
+                                    >
                                     Create
-                                </Button>
-                        </DialogFooter>
+                                    </Button>
+                                </div>
+                            
+                        
                     </form>
                 </Form>
             </DialogContent>

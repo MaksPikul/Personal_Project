@@ -9,7 +9,7 @@ export default function Home() {
 
     <main className="flex h-full flex-col items-center justify-center bg-red-700">
       <div className="space-y-6">
-        <h1 className="font-semibold text-white"> Auth </h1>
+        <h1 className="font-semibold text-white"> LorenIpsum </h1>
 
         <div>
           <LoginButton>

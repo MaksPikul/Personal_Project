@@ -18,13 +18,14 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "../ui/form"
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+} from "@/components/ui/form"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch"
 
-import { FormError } from "../form-error";
-import { FormSuccess } from "../form-success";
+import { FormError } from "@/components/form-error";
+import { FormSuccess } from "@/components/form-success";
+
 
 
 export const SettingsForm = () =>  {
@@ -65,7 +66,9 @@ export const SettingsForm = () =>  {
     //<header> Change Password and Authentication</header>
 
     return (
-        <div className="p-5 m-5 bg-blue-500">
+       
+            <div className="flex p-2  bg-blue-500 ">
+            
             <Form {...form}>
                 <form 
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -82,6 +85,7 @@ export const SettingsForm = () =>  {
                             {...field}
                             disabled={isPending}
                             placeholder={session?.user?.name}
+                            className="w-72 "
                             />
                         </FormControl>
                         <FormMessage/>
@@ -101,6 +105,7 @@ export const SettingsForm = () =>  {
                             {...field}
                             disabled={isPending}
                             placeholder={session?.user?.email}
+                            className="w-72"
                             />
                         </FormControl>
                         <FormMessage/>
@@ -116,6 +121,7 @@ export const SettingsForm = () =>  {
                             <Input 
                             {...field}
                             disabled={isPending}
+                            className="w-72"
                             />
                         </FormControl>
                         <FormMessage/>
@@ -131,6 +137,7 @@ export const SettingsForm = () =>  {
                             <Input 
                             {...field}
                             disabled={isPending}
+                            className="w-72"
                             />
                         </FormControl>
                         <FormMessage/>
@@ -169,11 +176,7 @@ export const SettingsForm = () =>  {
 
                 </form>
             </Form>
-            
-            
-
-
-
-        </div>
+        </div >
+       
     )
 }

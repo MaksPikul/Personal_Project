@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { getBoardById } from "@/data/hobbies";
 import { Separator } from "@/components/ui/separator";
 
+
 const BoardLayout = async ({
     children,
     params
@@ -13,9 +14,9 @@ const BoardLayout = async ({
     const board = await getBoardById(params.boardId)
 
     return (
-        <div className="flex flex-col bg-gray-400 rounded-md my-1 mr-1 w-full">
+        <div className="flex flex-col bg-card rounded-md my-1 mr-1 w-screen">
             <Header title={board?.name}/>
-            <Separator className="bg-black"/>
+            <Separator />
             <p>{JSON.stringify(board)}</p>
             {children}
         </div>

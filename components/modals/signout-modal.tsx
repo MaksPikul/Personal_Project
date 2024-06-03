@@ -17,7 +17,7 @@ export const SignOutModal = ()=> {
 
     return(
         <Dialog open={isModalOpen} onOpenChange={()=> onClose()}>
-            <DialogContent className="bg-slate-300 p-0 overflow-hidden">
+            <DialogContent className=" p-0 overflow-hidden">
             <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-center">
                         Confirm Sign-out
@@ -27,10 +27,12 @@ export const SignOutModal = ()=> {
                     </DialogDescription>
                 </DialogHeader>
             
-            <div className="flex flex-col gap-2 items-center m-2">
+            
+            <div className="flex flex-row gap-2 justify-center pb-6">
                 <Button onClick={()=>signOut()}>Sign out</Button>
                 <Button onClick={()=>onClose()}>Stay</Button>
             </div>
+            
             </DialogContent>
         </Dialog>
     )

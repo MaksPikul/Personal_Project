@@ -5,13 +5,14 @@ import { Boards} from "./board-button";
 import { BoardList } from "./board-list";
 import { CreateProjectButton } from "./create-button"
 import { useState } from "react";
-import { ChevronLast, ChevronFirst,} from "lucide-react"
+import { Menu } from "lucide-react"
 import { ProfileCard } from "../profile/profile";
 import { Separator } from "@/components/ui/separator";
 import { SideNavButton } from "./feature-button";
 import { usePathname } from "next/navigation";
 import { Home, CalendarFold, Clock, BookUser, Plus} from 'lucide-react';
 
+import { Card, CardContent } from "@/components/ui/card";
 
 
 interface SideNavProps {
@@ -30,7 +31,8 @@ export const SideNav = ({
     
 
     return(
-        <div className="flex flex-col bg-red-500 rounded-md m-1">
+        <Card className="flex flex-col rounded-md m-1 border-transparent">
+            
             <div className={`p-3  flex   rounded-md items-center ${
                 expanded ? "justify-between px-4  " : "justify-center "
             }`}>
@@ -42,23 +44,24 @@ export const SideNav = ({
 
                 <button
                 onClick={()=> setExpanded(!expanded)}
-                className="p-2 rounded-lg bg-slate-50 hover:bg-red-100">
-                    {expanded ? <ChevronFirst /> : <ChevronLast />}
+                className="p-2 rounded-lg bg-slate-50 text-indigo-800">
+                    {expanded ? <Menu className=""/> : <Menu className="rotate-90"/>}
                 </button>
             </div>
                 
-                <Separator className=" bg-black"/>
+                <Separator className=""/>
                     <SideNavButton expanded={expanded} label="Home" href="/home" path={path} icon={<Home />}/>
                     <SideNavButton expanded={expanded} label="Socials" href="/socials" path={path} icon={<BookUser />}/>
                     <SideNavButton expanded={expanded} label="Schedule" href="/schedule" path={path} icon={<CalendarFold />}/>
                     <SideNavButton expanded={expanded} label="Focus Sessions" href="/focus" path={path} icon={<Clock />}/> 
-                <Separator className=" bg-black"/>
+                <Separator className=" "/>
                     <CreateProjectButton expanded={expanded} label="Create Board" icon={<Plus />} />
-                <Separator className=" bg-black"/>
+                <Separator className=" "/>
                     <BoardList boards={boards} expanded={expanded}/>
-                <Separator className=" bg-black"/>
+                <Separator className=""/>
                     <ProfileCard user={user} status={"Online"} setExpanded={setExpanded} expanded={expanded}/>
-        </div>
+                    
+        </Card>
     )
 }
 
