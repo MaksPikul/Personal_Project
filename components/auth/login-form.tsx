@@ -141,7 +141,7 @@ export const LoginForm = () => {
                         )}/>
                         </>
                     : 
-                        <div className=" self-center">
+                        <div className="self-center">
                         <FormField 
                         control={form.control}
                         name="pin"

@@ -42,7 +42,7 @@ export const createBoardSchema = z.object({
     }).max(30,{
         message: "Maximum name length - 30 characters"
     }),
-    imageUrl: z.string()
+    imgUrl: z.optional(z.string())
 })
 
 export const SettingsSchema = z.object({

@@ -20,7 +20,7 @@ export const CreateBoard = async (values: z.infer<typeof createBoardSchema>) => 
         return null;
     }
 
-    const {name, imageUrl} = validatedFields.data
+    const {name, imgUrl} = validatedFields.data
 
     const newId = uuidv4();
 
@@ -29,7 +29,7 @@ export const CreateBoard = async (values: z.infer<typeof createBoardSchema>) => 
             id: newId,
             userId: session?.user?.id,
             name,
-            imgUrl: undefined,
+            imgUrl: imgUrl,
             projects: {
                 create:[
                     {name: "First Project!", 

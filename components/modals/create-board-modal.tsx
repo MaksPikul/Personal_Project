@@ -28,6 +28,8 @@ import { useTransition } from "react"
 import { CreateBoard } from "@/actions/create-board"
 import { useModal } from "@/hooks/use-modal-store"
 import { useRouter } from "next/navigation"
+import { FileUpload } from "../file-upload"
+import { DeleteFile } from "@/actions/delete-file"
 
 
 export const CreateBoardModal = ()=> {
@@ -64,6 +66,8 @@ export const CreateBoardModal = ()=> {
     // might need to change to transitioning state
     
     const handleClose = () => {
+        
+        DeleteFile(form.getValues().imgUrl)
         form.reset();
         onClose();
     }
@@ -83,32 +87,46 @@ export const CreateBoardModal = ()=> {
                 <Form {...form}>
                     <form 
                     onSubmit={form.handleSubmit(onSubmit)} 
-                    className="space-y-8">
-                        <div className="space-y-8 px-6">
-                            <div 
-                            className="flex items-center justify-center text-center">
-                                image upload
-                            </div>
-                            <FormField
-                                control={form.control}
-                                name="name"
-                                render={({field}) => (
-                                    <FormItem>
-                                        <FormLabel className="">
-                                            Board Name
-                                        </FormLabel>
-                                        <FormControl>
-                                            <Input 
-                                            disabled={isPending}
-                                            placeholder="Name"
-                                            {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            
-                            />
+                    className="space-y-4 items-center">
+                        <div className="space-y-4 px-6 ">
+                            <div className="flex items-center justify-center">
+
+                        <FormField
+                        control={form.control}
+                        name="imgUrl"
+                        className="flex items-center"
+                        render={({field}) => (
+                            <FormItem>
+                                
+                                <FormControl className="">
+                                    <FileUpload 
+                                    endpoint="projectImage"
+                                    value={field.value}
+                                    onChange={field.onChange} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}/>
+                        </div>
+                        
+                        <FormField
+                        control={form.control}
+                        name="name"
+                        render={({field}) => (
+                            <FormItem>
+                                <FormLabel className="">
+                                    Board Name
+                                </FormLabel>
+                                <FormControl>
+                                    <Input 
+                                    disabled={isPending}
+                                    placeholder="Name"
+                                    {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}/>
                         </div>
                                 <div className="flex justify-center pb-6">
                                     <Button 

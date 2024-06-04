@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Moon } from "lucide-react";
 
+import Image from "next/image";
+
 export type Boards = {
     id: string,
     name:string | null,
@@ -62,7 +64,12 @@ export const BoardCard = ({
 
             
             {board.imgUrl ? 
-            <img src={board.imgUrl} className="size-12 bg-green-500 rounded-md "/> 
+            <Image 
+            src={board.imgUrl} 
+            width={500}
+            height={500}
+            alt="Upload" 
+            className="size-12 rounded-md"/> 
             :
             <div className="size-12 bg-green-500 rounded-md "/>}
             <div
