@@ -23,6 +23,7 @@ When i deploy i want to use AWS, but i probably wont since money, ill draw up an
 ### - 05/05/25 -
 Over past days I've included image uploading and displaying using upload thing , cached users into local storage using redis instead of onto main database which i find cool,<br>
 I need to decide whether i need a verification token table, otherwise i'll cache that aswell (I love caching) <br>
+NOTE: I changed code to simply use cache to verify, no longer neccessary to have a verificationToken table or data utils, not going to delete them tho :3<br>
 Made the side nav toggleable on button click, dark and light mode (still deciding on colour scheme, wether to add hint of blue or just plain B/W shades)<br>
 Changed database from neon to supabase, I want to migrate from using prisma to using supabase, but i really dont like certain features like their auth and route protecting <br>
 I was under the impression that supabase CRUD ops would use sql, which is good cause i get that practice, but API is basically the same as prisma.
