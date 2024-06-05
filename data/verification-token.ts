@@ -1,4 +1,10 @@
+"use server"
+
 import { db } from "@/lib/db"
+
+/* 
+Might not need since tokens are now cached
+Too afraid to delete these files for now
 
 export const getVerificationTokenByEmail = async (
     email: string
@@ -14,6 +20,8 @@ export const getVerificationTokenByEmail = async (
     }
 }
 
+ 
+
 export const getVerificationTokenByToken = async (
     token: string
 ) => {
@@ -27,3 +35,4 @@ export const getVerificationTokenByToken = async (
         return null
     }
 }
+*/

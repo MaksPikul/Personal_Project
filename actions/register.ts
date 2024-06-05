@@ -3,7 +3,6 @@
 import { RegisterSchema } from "@/schemas"
 import bcrypt from "bcryptjs"
 import * as z from "zod"
-import { db } from "@/lib/db"
 import { v4 as uuidv4 } from "uuid"
 import { getUserByEmail } from "@/data/user"
 import { generateVerificationToken } from "@/lib/tokens"
@@ -38,23 +37,12 @@ export const Register = async (values: z.infer<typeof RegisterSchema>) => {
     .expire(token, 60 * 5)
     .exec()
 
-    /* 
-    await db.user.create({
-        data: {
-            name,
-            email,
-            password: hashedPass,
-        }
-    })
-    */
-
+    //const verificationToken = await generateVerificationToken(email, token);
     //send verification email
-    const verificationToken = await generateVerificationToken(email, token);
     await sendVerificationEmail(
-        verificationToken.email, 
-        verificationToken.token
+        email, 
+        token
     )
-
 
     return { success: "Email sent"}
 }

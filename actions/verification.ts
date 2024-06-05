@@ -1,30 +1,11 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { getUserByEmail } from "@/data/user";
-import { getVerificationTokenByToken } from "@/data/verification-token";
 import { getRedisClient } from "@/lib/redis"
 import { signIn } from "@/auth"
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes"
-import { AuthError } from "next-auth"
 
 export const Verification = async (token: string) => {
-    const existingToken = await getVerificationTokenByToken(token);
-    
-    if (!existingToken) {
-        return { error: "Token does not exist"}
-    }
-    const hasExpired = new Date(existingToken.expires) < new Date();
-    if (hasExpired) {
-        return {error: "Token has expired"}
-    }
-    
-    /*
-    const existingUser = await getUserByEmail(existingToken.email)
-    if (!existingUser) {
-        return {error: "Email does not exist"}
-    }
-    */
 
     const redisResult = await getRedisClient()
         .multi()
@@ -34,7 +15,7 @@ export const Verification = async (token: string) => {
 
         // no redis cache entry stored
     if (!redisResult || redisResult[0][0]){
-        return {error: "No token found"}
+        return {error: "Token does not exist or has expired"}
     }
 
     const cachedAccount = redisResult[0][1] as {
@@ -47,7 +28,7 @@ export const Verification = async (token: string) => {
         !cachedAccount.email ||
         !cachedAccount.password
     ) {
-        return {error: "No cached account to verify"}
+        return {error: "Cached account missing values to verify"}
     }
 
     console.log(cachedAccount)
@@ -60,17 +41,6 @@ export const Verification = async (token: string) => {
             emailVerified: new Date(),
         }
     })
-
-/*
-    await db.user.update({
-        where: {id : existingUser.id},
-        data: {
-            emailVerified: new Date(),
-            email: existingToken.email
-        }
-    })
-*/
-
 
     /*
     When doing sign in from verification, 
