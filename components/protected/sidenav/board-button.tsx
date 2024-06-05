@@ -42,19 +42,32 @@ export const BoardCard = ({
     expanded
 }:ProjectProps) => {
     const router = useRouter();
-
-    const onClick = (href: string) =>{
-        router.push(`/boards/${board.id}`)
-    }
-    
     if (!board) {
         return null
     }
-    
+
+
+    const onClick = () =>{
+        router.push(`/boards/${board.id}`)
+    }
+
+    const getBoardInitials = () => {
+        var parts = board?.name?.split(" ")
+        var initials = ''
+        if (!parts) {return ""}
+        for (var i=0; i<parts?.length; i++) {
+            if (parts[i].length > 0 && parts[i] !== '') 
+            {
+                initials +=  parts[i][0]
+            }
+        }
+        return initials
+    }
+
 
     return (
         <button 
-        onClick={()=>{onClick(board.id)}}
+        onClick={()=>{onClick()}}
         className={`
         relative flex items-center text-start  my-1 p-1 h-14
         font-medium rounded-md cursor-pointer 
@@ -71,7 +84,10 @@ export const BoardCard = ({
             alt="Upload" 
             className="size-12 rounded-md"/> 
             :
-            <div className="size-12 bg-green-500 rounded-md "/>}
+            <div 
+            className="size-12 bg-custom rounded-md flex justify-center  items-center">
+                 { getBoardInitials() } 
+            </div>}
             <div
             className={`overflow-hidden  transition-all  ${
                 expanded ? "w-48 ml-2" : "w-0"

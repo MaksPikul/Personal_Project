@@ -31,14 +31,14 @@ export const SideNav = ({
     
 
     return(
-        <Card className="flex flex-col rounded-md m-1 border-transparent">
+        <Card className="flex flex-col  rounded-md m-1 border-transparent">
             
             <div className={`p-3  flex   rounded-md items-center ${
-                expanded ? "justify-between px-4  " : "justify-center "
+                expanded ? " justify-between px-4  " : "justify-center "
             }`}>
                 <img
                 src="https://img.logoipsum.com/288.svg"
-                className={`overflow-hidden transition-all ${
+                className={`overflow-hidden transition-all  ${
                 expanded ? "w-32" : "w-0"}`}
                 alt=""/>
 
@@ -60,7 +60,7 @@ export const SideNav = ({
                     <BoardList boards={boards} expanded={expanded}/>
                 <Separator className=""/>
                     <ProfileCard user={user} status={"Online"} setExpanded={setExpanded} expanded={expanded}/>
-                    
+                
         </Card>
     )
 }
