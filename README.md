@@ -1,7 +1,8 @@
 
 # -Log-
-### - 15/05/24 - 
-Started by doing login and sign up stuff with email verification, Social Login, 2FA and password resetting. <br>
+### - 15/05/24 -
+Log to keep track of what I've done and another thing to motivate me. <br>
+Started by doing login and sign up stuff with email verification, Social Login, 2FA and password resetting. 
 ### - 23/05/24
 Finished Authentication 2 days ago but was too eager to continue that i went straight onto designing dashboard layout<br>
 So far ive done the sidebar for navigation and profile tab for user settings which will be consitent for all pages<br>
@@ -19,6 +20,17 @@ This is going much faster than expected, ideally ill finish this before Septembe
 If i want people to use this tho, the user experience will need to be close to perfect, something to worry about later down the line. <br>
 Project fun so far, need to decide wether to use Next.js backend features or move it to django or something, <br>
 When i deploy i want to use AWS, but i probably wont since money, ill draw up an architecture with terraform and aws services anyways.
+### - 05/05/25 -
+Over past days I've included image uploading and displaying using upload thing , cached users into local storage using redis instead of onto main database which i find cool,<br>
+I need to decide whether i need a verification token table, otherwise i'll cache that aswell (I love caching) <br>
+Made the side nav toggleable on button click, dark and light mode (still deciding on colour scheme, wether to add hint of blue or just plain B/W shades)<br>
+Changed database from neon to supabase, I want to migrate from using prisma to using supabase, but i really dont like certain features like their auth and route protecting <br>
+I was under the impression that supabase CRUD ops would use sql, which is good cause i get that practice, but API is basically the same as prisma.
+Also i dont like the fact im using uploadThing, i would rather upload to s3 bucket in supabase, but everything is new and complicated right now so i want to get the app working, <br>
+and then later work on optimisations and scaling.<br><br>
+I've set myself a deadline to complete certain things by 21/6, so i have 16 days to finish General app layout (which is just colour) as well as start doing Project pages<br>
+Ill need to do project pages before i can start any other page (home, schedule, ...) because they rely on data input into project<br>
+Fun stuff fr.
 
 
 
