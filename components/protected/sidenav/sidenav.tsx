@@ -31,9 +31,9 @@ export const SideNav = ({
     
 
     return(
-        <Card className="flex flex-col  rounded-md m-1 border-transparent">
+        <Card className="flex flex-col rounded-md m-1 border-transparent">
             
-            <div className={`p-3  flex   rounded-md items-center ${
+            <div className={`h-14  flex   rounded-t-md items-center  ${
                 expanded ? " justify-between px-4  " : "justify-center "
             }`}>
                 <img
@@ -44,21 +44,21 @@ export const SideNav = ({
 
                 <button
                 onClick={()=> setExpanded(!expanded)}
-                className="p-2 rounded-lg bg-slate-50 text-indigo-800">
+                className="p-2 rounded-lg bg-indigo-100 text-card-foreground">
                     {expanded ? <Menu className=""/> : <Menu className="rotate-90"/>}
                 </button>
             </div>
                 
-                <Separator className=""/>
+                <Separator className="bg-card-foreground"/>
                     <SideNavButton expanded={expanded} label="Home" href="/home" path={path} icon={<Home />}/>
                     <SideNavButton expanded={expanded} label="Socials" href="/socials" path={path} icon={<BookUser />}/>
                     <SideNavButton expanded={expanded} label="Schedule" href="/schedule" path={path} icon={<CalendarFold />}/>
                     <SideNavButton expanded={expanded} label="Focus Sessions" href="/focus" path={path} icon={<Clock />}/> 
-                <Separator className=" "/>
+                <Separator className="bg-card-foreground"/>
                     <CreateProjectButton expanded={expanded} label="Create Board" icon={<Plus />} />
-                <Separator className=" "/>
+                <Separator className="bg-card-foreground"/>
                     <BoardList boards={boards} expanded={expanded}/>
-                <Separator className=""/>
+                <Separator className="bg-card-foreground"/>
                     <ProfileCard user={user} status={"Online"} setExpanded={setExpanded} expanded={expanded}/>
                 
         </Card>

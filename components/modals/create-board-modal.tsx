@@ -20,12 +20,12 @@ import {
 
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { createBoardSchema } from "@/schemas"
+import { createProjectSchema } from "@/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { useTransition } from "react"
-import { CreateBoard } from "@/actions/create-board"
+import { CreateProject} from "@/actions/create-project"
 import { useModal } from "@/hooks/use-modal-store"
 import { useRouter } from "next/navigation"
 import { FileUpload } from "../file-upload"
@@ -40,17 +40,17 @@ export const CreateBoardModal = ()=> {
     const isModalOpen = isOpen && type === "CreateBoard";
 
     const form = useForm({
-        resolver: zodResolver(createBoardSchema),
+        resolver: zodResolver(createProjectSchema),
         defaultValues: {
             name: "",
             imageUrl: "",
         }
     });
 
-    const onSubmit = (values: z.infer<typeof createBoardSchema>) => {
+    const onSubmit = (values: z.infer<typeof createProjectSchema>) => {
         try{
             startTransition(()=>{
-                CreateBoard(values)
+                CreateProject(values)
                 .then((data)=>{
                     form.reset();
                     router.refresh()
@@ -67,7 +67,7 @@ export const CreateBoardModal = ()=> {
     
     const handleClose = () => {
         
-        DeleteFile(form.getValues().imgUrl)
+        DeleteFile(form.getValues().imageUrl)
         form.reset();
         onClose();
     }
@@ -93,8 +93,8 @@ export const CreateBoardModal = ()=> {
 
                         <FormField
                         control={form.control}
-                        name="imgUrl"
-                        className="flex items-center"
+                        name="imageUrl"
+                        
                         render={({field}) => (
                             <FormItem>
                                 
@@ -135,8 +135,6 @@ export const CreateBoardModal = ()=> {
                                     Create
                                     </Button>
                                 </div>
-                            
-                        
                     </form>
                 </Form>
             </DialogContent>

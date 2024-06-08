@@ -17,7 +17,6 @@ model User {
   password String
 
   accounts Account[]
-  boards Board[]
   members Member[]
   projects Project[]
 
@@ -81,16 +80,16 @@ model TwoFactorConfirmation {
   @@unique([userId])
 }
 
-model Board {
-  id String @id @default(cuid())
-  name String?
-  imgUrl String?
+model Project {
+  id String @id @default(uuid())
+  name String
+  imageUrl String?
 
-  projects Project[]
-  
+  members Member[]
+
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -120,21 +119,3 @@ model Member {
   @@index([projectId])
 }
 
-model Project {
-  id String @id @default(uuid())
-  name String
-
-  members Member[]
-
-  userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  boardId String
-  board Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
-  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId])
-  @@index([boardId])
-}

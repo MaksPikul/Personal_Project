@@ -1,25 +1,19 @@
+import { usePathname } from "next/navigation";
+import { Separator } from "../ui/separator";
 
 
-interface HeaderProps {
-    title: string | null | undefined;
-}
 
-export const Header = ({
-    title
-}:HeaderProps) => {
-    
+export const Header = () => {
+    const path = usePathname()
+    const title = path[1].toUpperCase() + path.substring(2);
 
     
 
     return (
-        <header  className="items-center rounded-t-md justify-between p-0 bg-header text-2xl flex flex-row ">
-            <div className=" p-4 flex justify-center w-1/5 rounded-tl-md border-r">
-                {title} 
+        <header  className="items-center rounded-t-md p-0 bg-header text-l font-bold flex flex-row ">
+            <div className=" h-14 py-3 items-center flex pl-4 truncate w-60 rounded-tl-md border-r border-card-foreground">
+                {title + " Dashboard"} 
             </div>
-            <div id="Socials?" className="bg-green-500 p-1 mr-10">
-                Social sidenav? {/* toggle social side nav or component child, similar to sidenav? worry about this later */}
-            </div>
-            
         </header>
     )
 

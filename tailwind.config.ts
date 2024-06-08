@@ -62,6 +62,9 @@ export default withUt({
         },
         custom: {
           DEFAULT: "hsl(var(--custom))",
+        },
+        shadcol: {
+          DEFAULT: "hsl(var(--custom))",
         }
       },
       borderRadius: {

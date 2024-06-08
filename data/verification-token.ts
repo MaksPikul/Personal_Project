@@ -20,8 +20,6 @@ export const getVerificationTokenByEmail = async (
     }
 }
 
- 
-
 export const getVerificationTokenByToken = async (
     token: string
 ) => {

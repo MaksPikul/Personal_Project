@@ -36,13 +36,13 @@ export const NewPasswordSchema = z.object({
     }),
 })
 
-export const createBoardSchema = z.object({
+export const createProjectSchema = z.object({
     name: z.string().min(1,{
         message: "Board name required"
     }).max(30,{
         message: "Maximum name length - 30 characters"
     }),
-    imgUrl: z.optional(z.string())
+    imageUrl: z.optional(z.string())
 })
 
 export const SettingsSchema = z.object({

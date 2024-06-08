@@ -1,11 +1,10 @@
+import { ProjectPage } from "@/components/protected/project/ProjectPage"
 
 const BoardPage = () => {
     
     //get board 
     return (
-        <div>
-            board page
-        </div>
+        <ProjectPage /> 
     )
 }
 

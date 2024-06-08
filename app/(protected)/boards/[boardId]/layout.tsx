@@ -1,5 +1,4 @@
-import { Header } from "@/components/protected/header";
-import { auth } from "@/auth";
+import { ProjectHeader } from "@/components/protected/project/project-header";
 import { getBoardById } from "@/data/hobbies";
 import { Separator } from "@/components/ui/separator";
 
@@ -14,10 +13,10 @@ const BoardLayout = async ({
     const board = await getBoardById(params.boardId)
 
     return (
-        <div className="flex flex-col bg-card rounded-md my-1 mr-1 w-screen">
-            <Header title={board?.name}/>
-            <Separator />
-            <p>{JSON.stringify(board)}</p>
+        <div className="flex flex-col  bg-card rounded-md my-1 mr-1 w-screen">
+            {/* make it a different header component */}
+            <ProjectHeader title={board?.name}/>
+            <Separator className="bg-card-foreground"/> 
             {children}
         </div>
     )
