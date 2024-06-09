@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User } from "./profile";
+import { User } from "@prisma/client";
 import { UserInfo } from "./user-info";
 
 
@@ -16,7 +16,7 @@ export const Account = () =>  {
                     <AvatarFallback> X </AvatarFallback>
                 </Avatar>
 
-                <UserInfo user={session?.user as User} />
+                <UserInfo user={session?.user as unknown as User} />
 
             </div>
     )

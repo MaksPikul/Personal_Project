@@ -1,58 +1,33 @@
-"use client"
-
-import { AccordionItem , AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
-
-import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-
-import Link from "next/link";
-import { Moon } from "lucide-react";
-
 import Image from "next/image";
-
-export type Boards = {
-    id: string,
-    name:string | null,
-    imgUrl:string | null,
-    userId:string,
-    createdAt: Date,
-    updatedAt: Date,
-  }[] | null
-
-  export type BoardItem = {
-    id: string,
-    name:string | null,
-    imgUrl:string | null,
-    userId:string,
-    createdAt: Date,
-    updatedAt: Date,
-  }
+import { Badge } from "@/components/ui/badge";
+import { MemberRole, Project } from "@prisma/client";
 
 interface ProjectProps {
-    board: BoardItem;
+    project: Project;
     isActive: boolean;
-    expanded: boolean
-    //icon: React.ReactNode;
+    expanded: boolean;
+    role: MemberRole;
 }
 
 export const BoardCard = ({
-    board,
+    project,
     isActive,
-    expanded
+    expanded,
+    role
 }:ProjectProps) => {
     const router = useRouter();
-    if (!board) {
+    if (!project) {
         return null
     }
-
+    
 
     const onClick = () =>{
-        router.push(`/boards/${board.id}`)
+        router.push(`/boards/${project.id}`)
     }
 
     const getBoardInitials = () => {
-        var parts = board?.name?.split(" ")
+        var parts = project?.name?.split(" ")
         var initials = ''
         if (!parts) {return ""}
         for (var i=0; i<parts?.length; i++) {
@@ -65,6 +40,8 @@ export const BoardCard = ({
     }
 
 
+    // get role from member by project.id where user == user.id
+    
     return (
         <button 
         onClick={()=>{onClick()}}
@@ -76,9 +53,9 @@ export const BoardCard = ({
         : "hover:bg-indigo-50 hover:text-indigo-800" }`}>
 
             
-            {board.imgUrl ? 
+            {project.imageUrl ? 
             <Image 
-            src={board.imgUrl} 
+            src={project.imageUrl} 
             width={500}
             height={500}
             alt="Upload" 
@@ -93,8 +70,10 @@ export const BoardCard = ({
                 expanded ? "w-48 ml-2" : "w-0"
             }`}>
             <div>
-                <p >{board.name} </p>
-                <p className="text-sm">{"Owner | deadline"}</p>
+                <p >{project.name} </p>
+                <div className="text-sm ">
+                    <Badge className="text-primary bg-secondary">{role}</Badge> 
+                    <Badge className="text-primary bg-secondary">deadline</Badge></div>
             </div>
 
             </div>   

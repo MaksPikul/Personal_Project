@@ -3,6 +3,7 @@
 import { CreateBoardModal } from "@/components/modals/create-board-modal"
 import { useEffect, useState } from "react"
 import { SignOutModal } from "../modals/signout-modal";
+import { InviteModal } from "../modals/invite-modal";
 
 
 export const ModalProvider = () => {
@@ -20,7 +21,7 @@ export const ModalProvider = () => {
         <>
             <CreateBoardModal />
             <SignOutModal />
-            
+            <InviteModal />   
         </>
     )
 }

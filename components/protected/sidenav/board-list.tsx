@@ -1,37 +1,40 @@
-"use client"
 
-import { Boards, BoardItem } from "./board-button"
-import { useParams, usePathname } from "next/navigation";
+
+import { useParams,} from "next/navigation";
 import { BoardCard } from "./board-button"
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+
+import { Membership } from "@/types";
+import { MemberRole, User} from "@prisma/client";
 
 
 interface BoardListProps {
-    boards? : Boards;
-    expanded: boolean
+    memberships: Membership[];
+    expanded: boolean;
+    user: User;
 }
 
 export const BoardList = ({
-    boards,
-    expanded
+    memberships,
+    expanded,
+    user
 }:BoardListProps) => {
     const params = useParams()
-    console.log(params.boardId)
-    
+
     return(
-        
         <ScrollArea className="flex-1 self-center">
-            {boards?.map((boardItem)=>(
-                <BoardCard 
-                key={boardItem.id}
-                board={boardItem as BoardItem}
-                isActive={params.boardId === boardItem.id} 
-                expanded={expanded}
+            {memberships?.map((item)=>{
+
+                return(
+                    <BoardCard 
+                    key={item.project.id}
+                    project={item.project}
+                    isActive={params.boardId === item.project.id} 
+                    expanded={expanded}
+                    role={item.role as MemberRole}
                 />
-            )) }
+                )
+            }) }
         </ScrollArea>
-        
-        
     )
 }

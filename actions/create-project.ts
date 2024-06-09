@@ -22,14 +22,18 @@ export const CreateProject = async (values: z.infer<typeof createProjectSchema>)
 
     const {name, imageUrl} = validatedFields.data
 
-    const newId = uuidv4();
+    const inviteCode = uuidv4();
+    const newId = uuidv4()
+    
 
     await db.project.create({
         data: {
             id: newId,
             userId: session?.user?.id,
             name,
+            inviteCode,
             imageUrl: imageUrl,
+
             members: {
                 create:[
                     {

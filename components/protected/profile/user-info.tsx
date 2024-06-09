@@ -1,4 +1,4 @@
-import { User } from "./profile"
+import { User } from "@prisma/client"
 
 interface UserInfoProps {
     user: User

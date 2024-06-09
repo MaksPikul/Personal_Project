@@ -1,39 +1,40 @@
 "use client"
 
-import { User} from "../profile/profile";
-import { Boards} from "./board-button";
+//Components
 import { BoardList } from "./board-list";
 import { CreateProjectButton } from "./create-button"
-import { useState } from "react";
-import { Menu } from "lucide-react"
 import { ProfileCard } from "../profile/profile";
 import { Separator } from "@/components/ui/separator";
 import { SideNavButton } from "./feature-button";
 import { usePathname } from "next/navigation";
-import { Home, CalendarFold, Clock, BookUser, Plus} from 'lucide-react';
-
-import { Card, CardContent } from "@/components/ui/card";
-
+import { Card} from "@/components/ui/card";
+//icons
+import { Home, CalendarFold, Clock, BookUser, Plus, Menu } from 'lucide-react';
+//react
+import { useState } from "react";
+//types
+import { User, Member } from "@prisma/client";
+import { Membership, ProjectWithMembers, UserWithProjectsWithMembers } from "@/types";
 
 interface SideNavProps {
-    boards: Boards
+    memberships: Membership[];
     user: User
-    
 }
 
 export const SideNav = ({
-    boards,
+    memberships,
     user,
-    
 }:SideNavProps) => {
     const [expanded, setExpanded] = useState(true)
     const path = usePathname()
+    
+   
     
 
     return(
         <Card className="flex flex-col rounded-md m-1 border-transparent">
             
-            <div className={`h-14  flex   rounded-t-md items-center  ${
+            <div className={`h-14  flex rounded-t-md items-center  ${
                 expanded ? " justify-between px-4  " : "justify-center "
             }`}>
                 <img
@@ -45,7 +46,7 @@ export const SideNav = ({
                 <button
                 onClick={()=> setExpanded(!expanded)}
                 className="p-2 rounded-lg bg-indigo-100 text-card-foreground">
-                    {expanded ? <Menu className=""/> : <Menu className="rotate-90"/>}
+                    {expanded ? <Menu className="text-primary"/> : <Menu className="text-primary rotate-90"/>}
                 </button>
             </div>
                 
@@ -57,38 +58,10 @@ export const SideNav = ({
                 <Separator className="bg-card-foreground"/>
                     <CreateProjectButton expanded={expanded} label="Create Board" icon={<Plus />} />
                 <Separator className="bg-card-foreground"/>
-                    <BoardList boards={boards} expanded={expanded}/>
+                    <BoardList memberships={memberships as Membership[]} expanded={expanded} user={user as User}/>
                 <Separator className="bg-card-foreground"/>
-                    <ProfileCard user={user} status={"Online"} setExpanded={setExpanded} expanded={expanded}/>
+                    <ProfileCard user={user as User} status={"Online"} setExpanded={setExpanded} expanded={expanded}/>
                 
         </Card>
     )
 }
-
-
-/*
-<div className="flex flex-col bg-red-500 rounded-md m-1">
-            <div className={`p-2  flex  m-2 rounded-md items-center ${
-                expanded ? "justify-between px-4 p-2 " : "justify-center p-2"
-            }`}>
-                <img
-                src="https://img.logoipsum.com/288.svg"
-                className={`overflow-hidden transition-all ${
-                expanded ? "w-32" : "w-0"}`}
-                alt=""/>
-
-                <button
-                onClick={()=> setExpanded(!expanded)}
-                className="p-1.5 rounded-lg bg-slate-50 hover:bg-red-100">
-                    {expanded ? <ChevronFirst /> : <ChevronLast />}
-                </button>
-
-            </div>
-            
-            <AppFeatures expanded={expanded}/>
-            <CreateProjectButton expanded={expanded} label="Create Board" icon={<Plus />} />
-            <BoardList boards={boards} expanded={expanded}/>
-
-            <ProfileCard user={user} status={"Online"} setExpanded={setExpanded} expanded={expanded}/>
-        </div>
-*/

@@ -23,3 +23,29 @@ export const getUserByID = async (id: string | undefined) => {
         return null;
     }
 }
+
+export const getUserWithProjectsWithMembers = async (userId : string | undefined) => {
+    try{
+        const user = await db.user.findUnique({
+            where: {
+                id: userId
+            },
+            include:{
+                projects:{
+                    include:{
+                        members:{
+                            include:{
+                                user: true
+                            }
+                        }
+                    }
+                }
+            }
+        })
+
+        return user
+    }
+    catch{
+        return null
+    }
+}

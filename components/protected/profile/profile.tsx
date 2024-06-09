@@ -5,15 +5,9 @@ import { Moon, LogOut, CircleUserRound } from 'lucide-react';
 import { ModeToggle } from "./mode-toggle";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
+import { User } from "@prisma/client";
 
 
-export type User = {
-    id: string,
-    name: string,
-    email: string,
-    image: string | null,
-    expires: Date
-} | undefined
 
 
 interface ProfileCardProps {
@@ -31,10 +25,6 @@ export const ProfileCard = ({
 }:ProfileCardProps) => {
     const router = useRouter()
     const { onOpen } = useModal();
-    
-    
-   
-
     
 
 
