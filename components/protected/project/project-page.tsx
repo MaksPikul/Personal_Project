@@ -4,21 +4,17 @@ import { MembersWithProfiles, ProjectWithMembersWithProfiles } from "@/types"
 import { MemberRole, } from "@prisma/client"
 
 interface ProjectPageProps {
-    project : ProjectWithMembersWithProfiles;
-    role: MemberRole;
-    members: MembersWithProfiles
+    name: string | undefined
 }
 export const ProjectPage = ({
-    project, 
-    role,
-    members
+    name
 }: ProjectPageProps) => {
 
 
     //this component will receive members
     return (
         <div className="h-full bg-red-500 ">
-            <p>{role}</p>
+            <p>{name}</p>
         </div>
     )
 }

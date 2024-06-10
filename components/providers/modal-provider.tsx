@@ -4,6 +4,8 @@ import { CreateBoardModal } from "@/components/modals/create-board-modal"
 import { useEffect, useState } from "react"
 import { SignOutModal } from "../modals/signout-modal";
 import { InviteModal } from "../modals/invite-modal";
+import { LeaveProjectModal } from "../modals/leave-project-modal";
+import { DeleteProjectModal } from "../modals/delete-project-modal";
 
 
 export const ModalProvider = () => {
@@ -22,6 +24,8 @@ export const ModalProvider = () => {
             <CreateBoardModal />
             <SignOutModal />
             <InviteModal />   
+            <LeaveProjectModal />
+            <DeleteProjectModal />
         </>
     )
 }

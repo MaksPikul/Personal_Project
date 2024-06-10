@@ -30,6 +30,10 @@ export const ResetSchema = z.object({
     }),
 })
 
+export const DeleteProjectSchema = z.object({
+    name: z.string()
+})
+
 export const NewPasswordSchema = z.object({
     password: z.string().min(6,{
         message: "Minimum password length - 6 characters"

@@ -3,9 +3,22 @@ import { auth } from "@/auth";
 
 import { getProjectWithMembersWithProfiles } from "@/data/project";
 import { MembersWithProfiles, ProjectWithMembersWithProfiles } from "@/types";
-import { MemberRole } from "@prisma/client";
+import { MemberRole, ViewType } from "@prisma/client";
+import { redirect} from "next/navigation";
+import { getInitialView } from "@/data/view";
+
+const BoardPage = async (
+    {params}: {params: {boardId: string}}
+) => {
+    const session = await auth()
+    const project = await getInitialView(params.boardId, session?.user?.id)
+    const initialView = project?.views[0]
+
+    return redirect(`/boards/${params.boardId}/views/${initialView?.id}`)
+}
 
 
+/*
 const BoardPage = async (
 {params}: {params: {boardId: string}}
 ) => {
@@ -22,7 +35,7 @@ const BoardPage = async (
     return (
         
         <div className="h-full">
-            {/* This page will get members and send to component */}
+            {/* This page will get members and send to component 
             <ProjectPage 
             project={project as ProjectWithMembersWithProfiles} 
             role={role as MemberRole}
@@ -30,5 +43,5 @@ const BoardPage = async (
         </div>
     )
 }
-
+*/
 export default BoardPage

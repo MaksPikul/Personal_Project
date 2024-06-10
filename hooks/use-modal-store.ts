@@ -1,7 +1,8 @@
 import { Project } from "@prisma/client";
 import { create } from "zustand"
 
-export type ModalType = "CreateBoard" | "signOut" | "invite";
+export type ModalType = "CreateBoard" | "signOut" | "invite" | 
+"LeaveProject" | "DeleteProject";
 
 interface ModalData {
     project?: Project

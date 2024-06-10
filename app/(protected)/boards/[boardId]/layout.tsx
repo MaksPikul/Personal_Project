@@ -2,11 +2,13 @@
 
 import { ProjectHeader } from "@/components/protected/project/project-header";
 import { Separator } from "@/components/ui/separator";
-import { MemberRole} from "@prisma/client";
+import { MemberRole, View} from "@prisma/client";
 
 import { auth } from "@/auth";
 import { getProjectWithMembersWithProfiles , getProjectById } from "@/data/project";
-import { ProjectWithMembersWithProfiles } from "@/types";
+import { ProjectWithMembersWithProfiles, ProjectWithViews } from "@/types";
+import { getInitialView } from "@/data/view";
+import { db } from "@/lib/db";
 
 const BoardLayout = async ({
     children,
@@ -22,15 +24,26 @@ const BoardLayout = async ({
     const role = project?.members.find((member)=>
         member.userId === session?.user.id)?.role
 
-    //members={members}
+    // fetch and put views into project header to allow for navigation
+    // inside navigation bar, ill map the 4 types, thell always be in the same place
+    const views = await db.view.findMany({
+        where:{
+            projectId: params.boardId
+        } 
+    })
+    
+    // if i want to display members in header then : members={members}
+    
     return (
         <div className="flex flex-col bg-card rounded-md my-1 mr-1 w-screen">
             {/* send over members associated with project */}
             <ProjectHeader 
             project={project as ProjectWithMembersWithProfiles} 
             role={role as MemberRole}
-            />
-            <Separator className="bg-card-foreground"/>
+            views={views as View[]}/>
+            {/* might need a page options header, somewhere */}
+            <Separator 
+            className="bg-card-foreground"/>
             {children}
         </div>
     )
