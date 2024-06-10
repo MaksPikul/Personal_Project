@@ -43,7 +43,8 @@ Might look to refactor some code, mayhaps, hmmm, ...
 ### - 10/06/24 - 
 Finished deleting projects, leaving projects (depending on role), i also did navigation to different views in the project which took more time than i wanted it to<br>
 ITS OK DOE, we learnt, which means we Up (yippie), going to style the header navigation, immma need to show some screenshots of the application, <br>
-i think it looks good in light mode, and then pretty bad in dark mode, probably something to do with the colours, ill fix and see if its fit for showing
+i think it looks good in light mode, and then pretty bad in dark mode, probably something to do with the colours, ill fix and see if its fit for showing <br>
+In 5 days, it'll hit a month ive been doing this, if anyone cares. tbh i dont expect anyone to read this log, i need to dump thoughts out somewhere :3
 
 
 
