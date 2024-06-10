@@ -32,7 +32,7 @@ and then later work on optimisations and scaling.<br><br>
 I've set myself a deadline to complete certain things by 21/6, so i have 16 days to finish General app layout (which is just colour) as well as start doing Project pages<br>
 Ill need to do project pages before i can start any other page (home, schedule, ...) because they rely on data input into project<br>
 Fun stuff fr.
-### - 09/05/25 -
+### - 09/05/24 -
 Made it possible to invite people to my project using a link, will do send email later cause why not, <br>
 I also changed the side nav to show projects that are shared with current user, it also has a badge saying user role, <br>
 This required me to play around with typescript types and I learnt a bit more about them, very interesting, <br>
@@ -40,6 +40,10 @@ With project pages and headers receiveing members and role props, i'll be able t
 i already started with Admins and Mods being able to invite only <br>
 Next up, I'll do more project management options such as deleting project, managing users, leaving for guests ... and then Ill do navigation for different views in project page, Task table, notepad, kanban, roadmap. <br>
 Might look to refactor some code, mayhaps, hmmm, ...
+### - 10/06/24 - 
+Finished deleting projects, leaving projects (depending on role), i also did navigation to different views in the project which took more time than i wanted it to<br>
+ITS OK DOE, we learnt, which means we Up (yippie), going to style the header navigation, immma need to show some screenshots of the application, <br>
+i think it looks good in light mode, and then pretty bad in dark mode, probably something to do with the colours, ill fix and see if its fit for showing
 
 
 
