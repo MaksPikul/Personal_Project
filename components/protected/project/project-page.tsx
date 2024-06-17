@@ -10,11 +10,8 @@ export const ProjectPage = ({
     name
 }: ProjectPageProps) => {
 
-
     //this component will receive members
     return (
-        <div className="h-full bg-red-500 ">
-            <p>{name}</p>
-        </div>
+        <div className="">{name}</div>   
     )
 }

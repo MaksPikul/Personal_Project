@@ -4,6 +4,10 @@ import { db } from "@/lib/db";
 import { authRoutes } from "@/routes";
 import { redirect } from "next/navigation";
 
+import { TableKanbanOptions } from "@/components/protected/project/view/table-kanban-options";
+import { RoadmapOptions } from "@/components/protected/project/view/roadmap-options";
+import { NotepadOptions } from "@/components/protected/project/view/notepad-options";
+
 interface ChannelIdPageProps {
     params: {
         projectId: string;
@@ -33,7 +37,18 @@ const ViewIdPage = async ({
     //Table and kaban will share the same options, 
     //cause they both work with tasks
     return(
-        <ProjectPage name={view?.type}/>
+        <div>
+            {(view?.type==="TABLE" || view?.type==="KANBAN") &&
+            <TableKanbanOptions />}
+
+            {(view?.type==="NOTEPAD") && 
+            <NotepadOptions />}
+
+            {(view?.type==="ROADMAP") && 
+            <RoadmapOptions />}
+
+            <ProjectPage name={view?.type}/>
+        </div>
     )
 }
 

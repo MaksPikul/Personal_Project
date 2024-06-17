@@ -6,9 +6,10 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
-import { UserPlus, DoorOpen, Trash2, Settings } from "lucide-react";
+import { UserPlus, DoorOpen, Trash2, Settings, ChevronDown, X } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
 import { ProjectWithMembersWithProfiles } from "@/types";
+import { useState } from "react";
 
 interface ProjectDropdownProps {
     project: ProjectWithMembersWithProfiles;
@@ -22,12 +23,14 @@ export const ProjectDropdown = ({
     isMod
 }:ProjectDropdownProps) =>{
     const { onOpen } = useModal()
+    const [opened, setOpened] = useState(false)
+
 
     return(
-    <DropdownMenu >
+    <DropdownMenu onOpenChange={()=>setOpened(!opened)}>
         <DropdownMenuTrigger>
-            <div className=" h-14 py-3 items-center flex pl-4 truncate w-60 rounded-tl-md border-r border-card-foreground">
-                {project?.name} 
+            <div className=" h-14 py-3 items-center justify-between flex p-4 truncate w-60 rounded-tl-md border-r border-card-foreground">
+                {project?.name} {opened ? <X/>:<ChevronDown />}
             </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 border-0 flex flex-col justify-center">

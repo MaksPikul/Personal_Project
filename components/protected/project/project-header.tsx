@@ -26,6 +26,7 @@ export const ProjectHeader = ({
     <header  className="items-center rounded-t-md p-0 bg-header text-l font-bold flex flex-row ">
         <ProjectDropdown project={project as ProjectWithMembersWithProfiles} isAdmin={isAdmin} isMod={isMod}/>
         <ProjectNavbar views={views as View[]} projectId={project.id}/> 
+        {/*<ProjectMembers>*/}
     </header>
     )
 
