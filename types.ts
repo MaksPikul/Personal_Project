@@ -1,4 +1,4 @@
-import { Member, Project, User, $Enums, View } from "@prisma/client";
+import { Member, Project, User, $Enums, View, List, Task } from "@prisma/client";
 
 export type ProjectWithMembersWithProfiles = Project & {
     members: (Member & {user: User})[]
@@ -17,4 +17,7 @@ export type ProjectWithViews = View[] & Project
 
 
 export type Membership = ({project: Project} & {member: Member})
+
+export type ListWithCards = List & {tasks: Task[]};
+export type CardWithList = Task & {list: List};
 

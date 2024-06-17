@@ -73,3 +73,13 @@ export const SettingsSchema = z.object({
     message: "Password is required",
     path: ["password"]
 })
+
+export const CreateListSchema = z.object({
+    title: z.string({
+        required_error: "Title is required",
+        invalid_type_error: "Title is required"
+    }).min(3,{
+        message: "Minimum title length - 3 characters"
+    }),
+    projectId: z.string()
+})

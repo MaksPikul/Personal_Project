@@ -89,6 +89,7 @@ model Project {
 
   members Member[]
   views View[]
+  lists List[]
 
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -146,4 +147,36 @@ model View {
   @@index([userId])
   @@index([projectId])
 }
+
+model List {
+  id String @id @default(uuid())
+  title String
+  order Int
+
+  tasks Task[] 
+
+  projectId String
+  project Project @relation(fields:[projectId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([projectId])
+}
+
+model Task {
+  id String @id @default(uuid())
+  title String
+  order Int
+  description String
+
+  listId String
+  list List @relation(fields:[listId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([listId])
+}
+
 

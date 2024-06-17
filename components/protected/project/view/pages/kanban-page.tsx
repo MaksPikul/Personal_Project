@@ -1,12 +1,12 @@
 "use client"
 
 
-interface ProjectPageProps {
+interface KanbanProps {
     name: string | undefined
 }
-export const ProjectPage = ({
+export const KanbanPage = ({
     name
-}: ProjectPageProps) => {
+}: KanbanProps) => {
 
     //this component will receive members
     return (

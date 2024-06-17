@@ -1,12 +1,12 @@
 "use client"
 
 
-interface ProjectPageProps {
+interface NotepadProps {
     name: string | undefined
 }
-export const ProjectPage = ({
+export const NotepadPage = ({
     name
-}: ProjectPageProps) => {
+}: NotepadProps) => {
 
     //this component will receive members
     return (

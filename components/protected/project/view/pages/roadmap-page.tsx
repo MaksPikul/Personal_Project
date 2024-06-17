@@ -1,12 +1,12 @@
 "use client"
 
 
-interface ProjectPageProps {
+interface RoadmapProps {
     name: string | undefined
 }
-export const ProjectPage = ({
+export const RoadmapPage = ({
     name
-}: ProjectPageProps) => {
+}: RoadmapProps) => {
 
     //this component will receive members
     return (

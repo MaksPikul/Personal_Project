@@ -4,9 +4,18 @@ import { db } from "@/lib/db";
 import { authRoutes } from "@/routes";
 import { redirect } from "next/navigation";
 
-import { TableKanbanOptions } from "@/components/protected/project/view/table-kanban-options";
-import { RoadmapOptions } from "@/components/protected/project/view/roadmap-options";
-import { NotepadOptions } from "@/components/protected/project/view/notepad-options";
+import { TableOptions } from "@/components/protected/project/view/options/table-options";
+import { RoadmapOptions } from "@/components/protected/project/view/options/roadmap-options";
+import { NotepadOptions } from "@/components/protected/project/view/options/notepad-options";
+import { KanbanOptions } from "@/components/protected/project/view/options/kanban-options";
+
+import { TablePage } from "@/components/protected/project/view/pages/table-page";
+import { KanbanPage } from "@/components/protected/project/view/pages/kanban-page";
+import { NotepadPage } from "@/components/protected/project/view/pages/notepad-page";
+import { RoadmapPage } from "@/components/protected/project/view/pages/roadmap-page";
+import { View } from "@prisma/client";
+import { ListWithCards } from "@/types";
+
 
 interface ChannelIdPageProps {
     params: {
@@ -18,12 +27,33 @@ interface ChannelIdPageProps {
 const ViewIdPage = async ({
     params
 }:ChannelIdPageProps) => {
+
     const session = await auth()
     if (!session?.user) {
         return redirect(authRoutes[0])
     }
 
+    /*if (!params.projectId ){
+        redirect("/home")
+    }*/
+
+    const lists = await db.list.findMany({
+        where: {
+            projectId: params.projectId
+        },
+        include: {
+            tasks: {
+                orderBy: {
+                    order: "asc"
+                }
+            }
+        },
+        orderBy: {
+            order: "asc"
+        }
+    })
     
+    //fetch all views, pass them into the corresponding component
     const view = await db.view.findFirst({
         where:{
             id: params.viewId
@@ -38,16 +68,40 @@ const ViewIdPage = async ({
     //cause they both work with tasks
     return(
         <div>
-            {(view?.type==="TABLE" || view?.type==="KANBAN") &&
-            <TableKanbanOptions />}
+            {(view?.type==="TABLE") &&
+            <div>
+            <TableOptions 
+            projectId={params.projectId}/>
+            <TablePage 
+            //will be replaced with view prop
+            lists={lists as ListWithCards[]}
+            view={view as View}
+            projectId={params.projectId}/>
+            </div>
+            }
+
+            {(view?.type==="KANBAN") &&
+            <div>
+            <KanbanOptions />
+            <KanbanPage 
+            name={view?.type}/>
+            </div>}
 
             {(view?.type==="NOTEPAD") && 
-            <NotepadOptions />}
+            <div>
+            <NotepadOptions />
+            <NotepadPage 
+            name={view?.type}/>
+            </div>}
 
             {(view?.type==="ROADMAP") && 
-            <RoadmapOptions />}
+            <div>
+            <RoadmapOptions />
+            <RoadmapPage 
+            name={view?.type}/>
+            </div>}
 
-            <ProjectPage name={view?.type}/>
+            {/*<ProjectPage name={view?.type}/>*/}
         </div>
     )
 }
