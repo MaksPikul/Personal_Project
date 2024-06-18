@@ -1,7 +1,6 @@
 "use client"
 
-import { FormInput } from "@/components/form/form-input"
-import { Plus, X } from "lucide-react"
+import { Check, Plus, X } from "lucide-react"
 import { useParams } from "next/navigation"
 
 import {
@@ -9,14 +8,10 @@ import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel,
     FormMessage,
-    FormDescription
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { ToastAction } from "@/components/ui/toast"
-import { useToast } from "@/components/ui/use-toast"
 
 import { useState, useRef, ElementRef, useTransition} from "react"
 import { useEventListener, useOnClickOutside } from "usehooks-ts"
@@ -28,6 +23,7 @@ import { FormError } from "@/components/form-error"
 
 import { CreateListSchema } from "@/schemas"
 import { createList } from "@/actions/create-list"
+import { useRouter } from "next/navigation"
 
 interface NewListButtonProps {
     projectId: string
@@ -37,18 +33,16 @@ export const NewListButton = ({
     projectId
 }:NewListButtonProps) => {   
     const params = useParams()
+    const router = useRouter();
     
     const [isEditing, setIsEditing] = useState(false)
     const [error, setError] = useState<string | undefined>("");
-    
-   
     const [isPending, startTransition] = useTransition();
 
     const formRef = useRef<ElementRef<"form">>(null);
     const inputRef = useRef<ElementRef<"input">>(null);
 
     const enableEditing = () => {
-        
         setIsEditing(true)
         setTimeout(()=>{
             inputRef.current?.focus();
@@ -58,10 +52,11 @@ export const NewListButton = ({
 
     const disableEditing = () => {
         setIsEditing(false)
+        form.reset();
     }
 
     const onKeyDown = (e: KeyboardEvent) => {
-        if(e.key == "Escape"){
+        if(e.key == "Enter"){
             //setIsEditing(false)
             formRef.current?.requestSubmit()
         }
@@ -78,8 +73,6 @@ export const NewListButton = ({
     })
 
     const onSubmit = (values: z.infer<typeof CreateListSchema>) => {
-        
-        console.log("here")
 
         startTransition(()=>{
             createList(values)
@@ -90,14 +83,11 @@ export const NewListButton = ({
                 }
                 else {
                     disableEditing();
-                    form.reset();
+                    router.refresh()
                 }
-                
             })
         })
     }
-
-
 
     if (isEditing){
         return(
@@ -105,41 +95,42 @@ export const NewListButton = ({
             <form
             onSubmit={form.handleSubmit(onSubmit)}
             ref={formRef}>
-                
+                <div className="flex flex-row rounded-md border-white border border-solid items-center transition-all h-8 w-64">
                 <FormField 
                     control={form.control}
                     name="title"
                     render={({ field }) => (
-                        <FormItem>
+                        <FormItem
+                        className="flex flex-col">
                             {/*<FormLabel>Enter group title</FormLabel>*/}
                             <FormControl>
                                 <Input 
                                 {...field}
                                 disabled={isPending}
-                                placeholder="Enter Group title"
+                                
                                 defaultValue=""
+                                className="rounded-r-none border-transparent border-white h-8"
                                 //ref={inputRef}
                                 />
                             </FormControl>
-                            <FormMessage/>
+                            {/*<FormMessage className="relative h-8"/>*/}
                         </FormItem>
                     )}/>
                 
-
-                <FormError message={error } />
                 <Button
                     disabled={isPending}
                     type="submit"
-                    className="w-full">
-                    add
+                    className="bg-green-600 relative hover:bg-green-700 border-y rounded-none h-8">
+                    <Check className="size-3.5"/>
                 </Button>
 
                 <Button 
-                onClick={disableEditing}>
-                    <X className="size-5" />
+                onClick={disableEditing}
+                className="bg-red-600 hover:bg-red-700 border-y border-white rounded-l-none h-8">
+                    <X className="size-3.5" />
                 </Button>
-
-                
+                <FormError message={error }/>
+                </div>
                 
             </form>
         </Form>
@@ -148,14 +139,12 @@ export const NewListButton = ({
     else {
 
         return (
-            
                 <button 
                 onClick={enableEditing}
-                className="">
+                className="w-64 gap-x-4  transition-all flex flex-row rounded-md bg-green-600 hover:bg-green-700 justify-center items-center">
+                    <p>Add Group</p>
                     <Plus />
-                    Add a group
                 </button>
-        
         )
 }
 }

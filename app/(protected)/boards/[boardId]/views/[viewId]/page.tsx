@@ -1,13 +1,7 @@
 import { auth } from "@/auth";
-import { ProjectPage } from "@/components/protected/project/project-page";
 import { db } from "@/lib/db";
 import { authRoutes } from "@/routes";
 import { redirect } from "next/navigation";
-
-import { TableOptions } from "@/components/protected/project/view/options/table-options";
-import { RoadmapOptions } from "@/components/protected/project/view/options/roadmap-options";
-import { NotepadOptions } from "@/components/protected/project/view/options/notepad-options";
-import { KanbanOptions } from "@/components/protected/project/view/options/kanban-options";
 
 import { TablePage } from "@/components/protected/project/view/pages/table-page";
 import { KanbanPage } from "@/components/protected/project/view/pages/kanban-page";
@@ -15,11 +9,12 @@ import { NotepadPage } from "@/components/protected/project/view/pages/notepad-p
 import { RoadmapPage } from "@/components/protected/project/view/pages/roadmap-page";
 import { View } from "@prisma/client";
 import { ListWithCards } from "@/types";
+import { ViewOptionHeader } from "@/components/protected/project/view/view-option-header";
 
 
 interface ChannelIdPageProps {
     params: {
-        projectId: string;
+        boardId: string;
         viewId: string;
     }
 }
@@ -36,10 +31,11 @@ const ViewIdPage = async ({
     /*if (!params.projectId ){
         redirect("/home")
     }*/
+   console.log(params.boardId)
 
     const lists = await db.list.findMany({
         where: {
-            projectId: params.projectId
+            projectId: params.boardId
         },
         include: {
             tasks: {
@@ -67,42 +63,32 @@ const ViewIdPage = async ({
     //Table and kaban will share the same options, 
     //cause they both work with tasks
     return(
-        <div>
-            {(view?.type==="TABLE") &&
             <div>
-            <TableOptions 
-            projectId={params.projectId}/>
-            <TablePage 
-            //will be replaced with view prop
-            lists={lists as ListWithCards[]}
-            view={view as View}
-            projectId={params.projectId}/>
+                <ViewOptionHeader view={view as View} projectId={params.boardId}/>
+
+                {(view?.type==="KANBAN") &&
+                <KanbanPage 
+                name={view?.type}/>
+                }
+
+                {(view?.type==="TABLE") &&
+                <TablePage 
+                //will be replaced with view prop
+                lists={lists as ListWithCards[]}
+                view={view as View}
+                projectId={params.boardId}/>
+                }
+
+                {(view?.type==="NOTEPAD") && 
+                <NotepadPage 
+                name={view?.type}/>
+                }
+
+                {(view?.type==="ROADMAP") &&
+                <RoadmapPage 
+                name={view?.type}/>
+                }
             </div>
-            }
-
-            {(view?.type==="KANBAN") &&
-            <div>
-            <KanbanOptions />
-            <KanbanPage 
-            name={view?.type}/>
-            </div>}
-
-            {(view?.type==="NOTEPAD") && 
-            <div>
-            <NotepadOptions />
-            <NotepadPage 
-            name={view?.type}/>
-            </div>}
-
-            {(view?.type==="ROADMAP") && 
-            <div>
-            <RoadmapOptions />
-            <RoadmapPage 
-            name={view?.type}/>
-            </div>}
-
-            {/*<ProjectPage name={view?.type}/>*/}
-        </div>
     )
 }
 

@@ -2,6 +2,7 @@
 
 import { ProjectHeader } from "@/components/protected/project/project-header";
 import { Separator } from "@/components/ui/separator";
+import { ViewOptionHeader } from "@/components/protected/project/view/view-option-header"
 import { MemberRole, View} from "@prisma/client";
 
 import { auth } from "@/auth";
@@ -15,7 +16,9 @@ const BoardLayout = async ({
     params
 }:{
     children: React.ReactNode;
-    params: {boardId: string}
+    params: {
+        boardId: string,
+        viewId: string}
 }) => {
     const session = await auth()
     const project = await getProjectWithMembersWithProfiles(params.boardId)
@@ -31,6 +34,11 @@ const BoardLayout = async ({
             projectId: params.boardId
         } 
     })
+    const view = await db.view.findFirst({
+        where:{
+            id: params.viewId
+        }
+    })
     
     // if i want to display members in header then : members={members}
     
@@ -45,6 +53,7 @@ const BoardLayout = async ({
             <Separator 
             className="bg-card-foreground"/>
             {children}
+            
         </div>
     )
 }

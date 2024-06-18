@@ -23,7 +23,7 @@ export const TablePage = ({
 
     //this component will receive members
     return (
-        <ol>
+        <ol className="bg-red-500 flex flex-col gap-y-3 h-full">
             {orderedData.map((list,index)=>{
                 return(
                     <ListItem 

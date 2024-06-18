@@ -83,3 +83,14 @@ export const CreateListSchema = z.object({
     }),
     projectId: z.string()
 })
+
+export const UpdateListSchema = z.object({
+    title: z.string({
+        required_error: "Title is required",
+        invalid_type_error: "Title is required"
+    }).min(3,{
+        message: "Minimum title length - 3 characters"
+    }),
+    id: z.string(),
+    projectId: z.string()
+})

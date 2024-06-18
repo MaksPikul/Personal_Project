@@ -14,7 +14,7 @@ export const createList = async (values: z.infer<typeof CreateListSchema>) => {
     const { projectId, title} = validatedFields?.data
     let list;
     
-
+    console.log(projectId)
     try{
         const project = await db.project.findUnique({
             where: {
