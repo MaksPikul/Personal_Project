@@ -94,3 +94,18 @@ export const UpdateListSchema = z.object({
     id: z.string(),
     projectId: z.string()
 })
+
+
+// will need checkboxs, description and column row options
+
+export const UpdateTaskSchema = z.object({
+    title: z.string({
+        required_error: "Title is required",
+        invalid_type_error: "Title is required"
+    }).min(3,{
+        message: "Minimum title length - 3 characters"
+    }),
+    id: z.string(),
+    listId: z.string()
+})
+

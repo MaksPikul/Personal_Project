@@ -1,35 +1,38 @@
 "use client"
 
-import { View } from "@prisma/client"
+import { Task, View } from "@prisma/client"
 import { ListWithCards } from "@/types";
-import { useState, useEffect } from "react";
-import { ListItem } from "@/components/protected/project/view/list-item";
+import { ListItem } from "@/components/protected/project/view/list/list-item";
+import { useState , useEffect, useOptimistic} from "react"
+
 
 interface TableProps {
     view: View;
     lists: ListWithCards[];
     projectId: string
+
 }
 export const TablePage = ({
     view,
     lists,
-    projectId
-}: TableProps) => {
-    const [orderedData, setOrderedData] = useState(lists);
+    projectId,
 
-    useEffect (()=>{
-        setOrderedData(lists)
-    },[lists])
+}: TableProps) => {
+
+
+    
+
 
     //this component will receive members
     return (
-        <ol className="bg-red-500 flex flex-col gap-y-3 h-full">
-            {orderedData.map((list,index)=>{
+        <ol className="bg-red-500 flex flex-col gap-y-3 h-full m-0">
+            {lists.map((list,index)=>{
+                
                 return(
                     <ListItem 
                     key={list.id}
                     index={index}
-                    data={list}
+                    list={list}
                     />
                 )
             })}

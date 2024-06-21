@@ -7,14 +7,15 @@ import { getTwoFactorTokenByEmail } from "@/data/2fa-token"
 import { db } from "@/lib/db"
 import { getTwoFactorConfirmationByUserId } from "@/data/2fa-confirmation"
 import { CreateListSchema } from "@/schemas"
+import { List } from "@prisma/client"
 
 
-export const createList = async (values: z.infer<typeof CreateListSchema>) => {
+export const createList = async (values: z.infer<typeof CreateListSchema>, listToAdd: List) => {
     const validatedFields = CreateListSchema.safeParse(values);
     const { projectId, title} = validatedFields?.data
     let list;
     
-    console.log(projectId)
+    
     try{
         const project = await db.project.findUnique({
             where: {
@@ -34,11 +35,7 @@ export const createList = async (values: z.infer<typeof CreateListSchema>) => {
         const newOrder = lastList ? lastList.order + 1 : 1;
 
         list = await db.list.create({
-            data: {
-                title: title,
-                projectId: projectId,
-                order: newOrder
-            }
+            data: listToAdd
         })
     }
     catch (error) {

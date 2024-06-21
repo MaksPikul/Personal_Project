@@ -1,11 +1,12 @@
-import { Project } from "@prisma/client";
+import { List, Project } from "@prisma/client";
 import { create } from "zustand"
 
 export type ModalType = "CreateBoard" | "signOut" | "invite" | 
-"LeaveProject" | "DeleteProject";
+"LeaveProject" | "DeleteProject" | "DeleteList";
 
 interface ModalData {
     project?: Project
+    list?: List
 }
 
 interface ModalStore {

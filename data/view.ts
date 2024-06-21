@@ -30,4 +30,18 @@ export const getInitialView = async (projectId: string, userId: string | undefin
     }
 }
 
+export const getViewByViewId = async (viewId : string)=> {
+    try{
+        const view = await db.view.findFirst({
+            where:{
+                id: viewId
+            }
+        })
+        return view
+    }
+    catch{
+        return null
+    }
+}
+
 

@@ -6,9 +6,24 @@ import { getInitialView } from "@/data/view";
 const BoardPage = async (
     {params}: {params: {boardId: string}}
 ) => {
+
+
+    if (!params.boardId ){
+        redirect("/home")
+    }
+
+    
     const session = await auth()
     const project = await getInitialView(params.boardId, session?.user?.id)
+
+
+
     const initialView = project?.views[0]
+
+
+
+
+
 
     return redirect(`/boards/${params.boardId}/views/${initialView?.id}`)
 }

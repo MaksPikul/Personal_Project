@@ -3,13 +3,12 @@ import { db } from "@/lib/db";
 import { authRoutes } from "@/routes";
 import { redirect } from "next/navigation";
 
-import { TablePage } from "@/components/protected/project/view/pages/table-page";
-import { KanbanPage } from "@/components/protected/project/view/pages/kanban-page";
-import { NotepadPage } from "@/components/protected/project/view/pages/notepad-page";
-import { RoadmapPage } from "@/components/protected/project/view/pages/roadmap-page";
+
+import { getViewByViewId } from "@/data/view";
+import { getManyListsByProjectId } from "@/data/list";
 import { View } from "@prisma/client";
 import { ListWithCards } from "@/types";
-import { ViewOptionHeader } from "@/components/protected/project/view/view-option-header";
+import { ViewPage } from "@/components/protected/project/view/view-page";
 
 
 interface ChannelIdPageProps {
@@ -28,33 +27,16 @@ const ViewIdPage = async ({
         return redirect(authRoutes[0])
     }
 
-    /*if (!params.projectId ){
+    if (!params.boardId ){
         redirect("/home")
-    }*/
-   console.log(params.boardId)
+    }
 
-    const lists = await db.list.findMany({
-        where: {
-            projectId: params.boardId
-        },
-        include: {
-            tasks: {
-                orderBy: {
-                    order: "asc"
-                }
-            }
-        },
-        orderBy: {
-            order: "asc"
-        }
-    })
-    
+    const lists = await getManyListsByProjectId(params.boardId)
+
     //fetch all views, pass them into the corresponding component
-    const view = await db.view.findFirst({
-        where:{
-            id: params.viewId
-        }
-    })
+    const view = await getViewByViewId(params.viewId)
+    
+    
 
     //fetch the view
 
@@ -63,32 +45,7 @@ const ViewIdPage = async ({
     //Table and kaban will share the same options, 
     //cause they both work with tasks
     return(
-            <div>
-                <ViewOptionHeader view={view as View} projectId={params.boardId}/>
-
-                {(view?.type==="KANBAN") &&
-                <KanbanPage 
-                name={view?.type}/>
-                }
-
-                {(view?.type==="TABLE") &&
-                <TablePage 
-                //will be replaced with view prop
-                lists={lists as ListWithCards[]}
-                view={view as View}
-                projectId={params.boardId}/>
-                }
-
-                {(view?.type==="NOTEPAD") && 
-                <NotepadPage 
-                name={view?.type}/>
-                }
-
-                {(view?.type==="ROADMAP") &&
-                <RoadmapPage 
-                name={view?.type}/>
-                }
-            </div>
+        <ViewPage lists={lists as ListWithCards[]} view={view as View} projectId={params.boardId}/>
     )
 }
 

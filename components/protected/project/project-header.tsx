@@ -3,6 +3,8 @@ import { MemberRole , View } from "@prisma/client";
 import { ProjectWithMembersWithProfiles, ProjectWithViews } from "@/types";
 import { ProjectDropdown } from "./project-dropdown";
 import { ProjectNavbar } from "./project-navbar";
+import { ViewOptionHeader } from "./view/view-option-header";
+import { useParams } from "next/navigation";
 
 
 interface ProjectHeaderProps {
@@ -25,7 +27,7 @@ export const ProjectHeader = ({
     return (
     <header  className="items-center rounded-t-md p-0 bg-header text-l font-bold flex flex-row ">
         <ProjectDropdown project={project as ProjectWithMembersWithProfiles} isAdmin={isAdmin} isMod={isMod}/>
-        <ProjectNavbar views={views as View[]} projectId={project.id}/> 
+        <ProjectNavbar views={views as View[]} projectId={project.id}/>
         {/*<ProjectMembers>*/}
     </header>
     )

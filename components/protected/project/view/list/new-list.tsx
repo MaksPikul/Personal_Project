@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
-import { useState, useRef, ElementRef, useTransition} from "react"
+import { useState, useRef, ElementRef, useTransition, useOptimistic} from "react"
 import { useEventListener, useOnClickOutside } from "usehooks-ts"
 
 import { useForm } from "react-hook-form"
@@ -25,12 +25,18 @@ import { CreateListSchema } from "@/schemas"
 import { createList } from "@/actions/create-list"
 import { useRouter } from "next/navigation"
 
+import { v4 as uuidV4 } from "uuid"
+import { ListWithCards } from "@/types"
 interface NewListButtonProps {
     projectId: string
+    optimisticLists: ListWithCards[]
+    addOptimisticLists:(action: ListWithCards) => void
 }
 
 export const NewListButton = ({
-    projectId
+    projectId,
+    optimisticLists,
+    addOptimisticLists
 }:NewListButtonProps) => {   
     const params = useParams()
     const router = useRouter();
@@ -38,6 +44,8 @@ export const NewListButton = ({
     const [isEditing, setIsEditing] = useState(false)
     const [error, setError] = useState<string | undefined>("");
     const [isPending, startTransition] = useTransition();
+
+    
 
     const formRef = useRef<ElementRef<"form">>(null);
     const inputRef = useRef<ElementRef<"input">>(null);
@@ -75,7 +83,17 @@ export const NewListButton = ({
     const onSubmit = (values: z.infer<typeof CreateListSchema>) => {
 
         startTransition(()=>{
-            createList(values)
+            const listToAdd = {
+                id: uuidV4(),
+                title: values.title,
+                order: 1,
+                projectId: "0f9ffede-3275-4b0a-acfb-5db2cf941b4f",
+                createdAt: new Date(Date.now()),
+                updatedAt: new Date(Date.now()),
+            }
+
+            addOptimisticLists({...listToAdd,tasks:[]})
+            createList(values, listToAdd)
             .then((data) =>{
                 if (data?.error){
                     form.reset();

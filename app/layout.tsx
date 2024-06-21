@@ -5,6 +5,7 @@ import { ModalProvider } from "@/components/providers/modal-provider";
 import { SessionProvider, useSession } from "next-auth/react";
 import { Session } from 'next-auth'
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout(
           <ModalProvider />
           {children}
           </ThemeProvider>
+          <Toaster />
         </SessionProvider>
         </body>
     </html>
