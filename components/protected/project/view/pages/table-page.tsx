@@ -19,15 +19,9 @@ export const TablePage = ({
 
 }: TableProps) => {
 
-
-    
-
-
     //this component will receive members
     return (
-<>
-          
-            
+    <>
         <ol className="bg-red-600 flex flex-col  h-full m-0">
             {lists.map((list,index)=>{
                 

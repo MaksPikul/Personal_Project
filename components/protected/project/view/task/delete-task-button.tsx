@@ -3,7 +3,7 @@
 import { useTransition, useState} from "react";
 import { X, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { DeleteTask } from "@/actions/delete-task";
+import { DeleteTask } from "@/actions/tasks/delete-task";
 import { Task } from "@prisma/client";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast"

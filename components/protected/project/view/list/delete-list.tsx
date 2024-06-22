@@ -2,7 +2,7 @@
 import { List } from "@prisma/client";
 import { Trash2 } from "lucide-react"
 import { useTransition } from "react"
-import { DeleteList } from "@/actions/delete-list";
+import { DeleteList } from "@/actions/lists/delete-list";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 

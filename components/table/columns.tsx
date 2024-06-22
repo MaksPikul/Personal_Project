@@ -2,10 +2,12 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "../ui/checkbox"
-import { useEditing } from "@/hooks/use-title-editing"
-import { EditTaskForm } from "../protected/project/view/task/edit-task-form"
-import { DataTableDelete } from "./data-table-row-actions"
+import { DataTableDelete, DataTableStatus } from "./data-table-row-actions"
+import { DataTableEdit } from "./data-table-row-actions"
 import { Task } from "@prisma/client"
+import * as z from "zod"
+import { UpdateTaskSchema } from "@/schemas"
+
 
 
 export type TaskCols = {
@@ -18,23 +20,19 @@ export type TaskCols = {
 
 
 
-/*
-const {
-type,
-isEditing,
-editingData,
-enableEditing,
-disableEditing,
-editingIndex
-} = useEditing()
-const isEditingOpen = isEditing && type === "taskTitle";
-*/
+
 interface ColumnnProps {
-  onDelete: (task: Task)
+  onDelete: (task: Task) => void
+  onEdit: (task: Task, values: z.infer<typeof UpdateTaskSchema>) => void
+  setStatus: () => void
 }
 
 
-export const getColumns =({onDelete}:ColumnnProps): ColumnDef<TaskCols>[] => [
+export const getColumns =({
+  onDelete, 
+  onEdit, 
+  setStatus
+}:ColumnnProps): ColumnDef<TaskCols>[] => [
     {
         id: "select",
         header: ({ table }) => (
@@ -63,53 +61,27 @@ export const getColumns =({onDelete}:ColumnnProps): ColumnDef<TaskCols>[] => [
         //enableHiding: false,
     },
 
-
-
-    /*{
-
-
-        id: "taskTitle",
-        header: ({ table }) => (
-            
-          
-          editingData.title
-          
-        ),
-        cell: ({ row }) => (
-            <>
-            {
-                isEditing && editingData.index === editingIndex+1? 
-                <EditTaskForm 
-                task={task}
-                enableEditing={enableEditing}
-                disableEditing={disableEditing}
-                disableTaskEditing={disableTaskEditing}
-                setOptimisticTitle={setOptimisticTitle}
-                />
-               :
-                <button 
-                className="h-8 items-center text-lg flex hover:border rounded-md px-3"
-                onClick={()=>enableEditing("taskTitle",{},editingIndex)}>
-                    {/*optimisticTitle
-                </button>
-           }
-            </>
-
-        ),
-
-
-    },*/
-    
-
-
-
     {
+      header: "Task Title",
+      id:"title",
+      cell: ({row}) => 
+      <DataTableEdit 
+      row={row} 
+      onEdit={onEdit} 
+      />
+    },
+    {
+      id:"z",
         accessorKey: "assignee",
         header: "Assignee",
+        
       },
     {
-      accessorKey: "status",
       header: "Status",
+      cell: ({row})=>
+        <DataTableStatus 
+        row={row} 
+        onEdit={onEdit}/>
     },
     {
         accessorKey: "due",

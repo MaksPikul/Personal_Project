@@ -19,7 +19,7 @@ import { useModal } from "@/hooks/use-modal-store";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { useTransition , useState } from "react";
-import { DeleteList } from "@/actions/delete-list";
+import { DeleteList } from "@/actions/lists/delete-list";
 
 
 export const DeleteListModal = ()=> {

@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button"
 import { useTransition, useOptimistic, useRef} from "react"
  
-import { CreateTask } from "@/actions/create-task"
+import { CreateTask } from "@/actions/tasks/create-task"
 import { useRouter } from "next/navigation"
 import { List, Task } from "@prisma/client";
 import { Dispatch, SetStateAction } from "react";
@@ -11,21 +11,13 @@ import { v4 as uuidV4 } from "uuid";
 
 interface CreateTaskButtonProps {
     list: ListWithCards
-    addOptimisticTask:(action: {
-        id: string;
-        title: string;
-        order: number;
-        description: string;
-        listId: string;
-        createdAt: Date;
-        updatedAt: Date;
-    }) => void
+    
     
 }
 
 export const CreateTaskButton = ({
     list,
-    addOptimisticTask,
+    
 }:CreateTaskButtonProps) => {
     const [isPending, startTransition] = useTransition();
     const router = useRouter()
@@ -40,7 +32,7 @@ export const CreateTaskButton = ({
             startTransition(()=>{
                 
                 
-                addOptimisticTask(formData)
+                
 
                 CreateTask(list.id)
                 .then((data) =>{

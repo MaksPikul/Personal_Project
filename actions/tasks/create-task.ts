@@ -1,8 +1,10 @@
 "use server"
 
+import { auth } from "@/auth"
 import { db } from "@/lib/db"
 
 export const CreateTask = async (listId: string) => {
+    const session = await auth()
 
     try{
         const lastList = await db.task.findFirst({
@@ -17,7 +19,10 @@ export const CreateTask = async (listId: string) => {
                 title: "New Task!",
                 listId,
                 order: newOrder,
-                description: ""
+                description: "",
+                urgency: "LOW",
+                assignee: session?.user.name,
+                status: "PENDING"
             }
         })
         return task

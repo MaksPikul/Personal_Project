@@ -10,7 +10,7 @@ import { CreateListSchema } from "@/schemas"
 import { List } from "@prisma/client"
 
 
-export const createList = async (values: z.infer<typeof CreateListSchema>, listToAdd: List) => {
+export const createList = async (values: z.infer<typeof CreateListSchema>) => {
     const validatedFields = CreateListSchema.safeParse(values);
     const { projectId, title} = validatedFields?.data
     let list;
@@ -35,7 +35,11 @@ export const createList = async (values: z.infer<typeof CreateListSchema>, listT
         const newOrder = lastList ? lastList.order + 1 : 1;
 
         list = await db.list.create({
-            data: listToAdd
+            data: {
+                title: title,
+                projectId: projectId,
+                order: newOrder
+            }
         })
     }
     catch (error) {

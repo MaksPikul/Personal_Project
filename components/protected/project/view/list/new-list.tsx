@@ -22,7 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { FormError } from "@/components/form-error"
 
 import { CreateListSchema } from "@/schemas"
-import { createList } from "@/actions/create-list"
+import { createList } from "@/actions/lists/create-list"
 import { useRouter } from "next/navigation"
 
 import { v4 as uuidV4 } from "uuid"
@@ -92,7 +92,7 @@ export const NewListButton = ({
                 updatedAt: new Date(Date.now()),
             }
 
-            addOptimisticLists({...listToAdd,tasks:[]})
+            //addOptimisticLists({...listToAdd,tasks:[]})
             createList(values, listToAdd)
             .then((data) =>{
                 if (data?.error){

@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { FormError } from "@/components/form-error"
 import { UpdateListSchema } from "@/schemas"
 import { useParams, useRouter } from "next/navigation"
-import { UpdateList } from "@/actions/update-list"
+import { UpdateList } from "@/actions/lists/update-list"
 
 import {
     Form,

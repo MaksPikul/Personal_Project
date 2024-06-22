@@ -170,6 +170,11 @@ model Task {
   order Int
   description String
 
+  status Status
+  due DateTime @default(now())
+  urgency Urgency
+  assignee String
+
   listId String
   list List @relation(fields:[listId], references: [id], onDelete: Cascade)
   
@@ -177,6 +182,19 @@ model Task {
   updatedAt DateTime @updatedAt
 
   @@index([listId])
+}
+
+enum Status {
+  PENDING
+  INPROGRESS
+  DONE
+  ERROR
+}
+
+enum Urgency {
+  LOW
+  MEDIUM
+  HIGH
 }
 
 
