@@ -8,6 +8,9 @@ import { List, Task } from "@prisma/client"
 import { useRouter } from "next/navigation"
 import { Columns } from "./columns"
 
+import { DataTable } from "@/components/table/data-table"
+import { columns } from "@/components/table/columns"
+
 
 interface ListItemProps {
     index: number
@@ -34,7 +37,15 @@ export const ListItem = ({
     )
 
 
+    const taskData = [{
+        id: "728ed52f",
+        assignee: "maks",
+        status: "pending",
+        due: new Date(Date.now()),
+        urgency: "low" 
+    }]
 
+      
     return (
         <li className="bg-green-600 ">
             <ListHeader
@@ -61,6 +72,26 @@ export const ListItem = ({
             )})}
             </div>
             }
+
+
+            {collapsed ? 
+            <div>
+                hidden
+            </div>
+            :
+            <div>
+            {optimisticTasks.map((task , index)=>{
+            return(
+                <DataTable columns={columns} data={taskData} />
+            )})}
+            </div>
+            }
+
+
+
+
+
+
 
             <div> add task </div>
         </li>

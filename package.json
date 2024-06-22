@@ -30,6 +30,7 @@
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.43.4",
+    "@tanstack/react-table": "^8.17.3",
     "@uploadthing/react": "^6.6.0",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",

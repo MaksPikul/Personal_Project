@@ -22,6 +22,12 @@ const ProtectedLayout = async ({
 
 //Session must be fetched here, boards sent over from here, so that sidenav can be "use client"
 //<SideNav />
+
+if (!memberships){
+  return (
+  <p>loading</p>)
+}
+
     return (
       <div className="flex flex-row h-full overflow-hidden">
         <SideNav 

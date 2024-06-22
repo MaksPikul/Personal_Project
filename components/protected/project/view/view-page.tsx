@@ -27,11 +27,15 @@ export const ViewPage = ({
             return[...state, newList]
         }
     )
+
+    
     
 
 
     return(
         <div>
+
+            
             <ViewOptionHeader 
             view={view as View} 
             projectId={projectId} 
@@ -63,6 +67,7 @@ export const ViewPage = ({
             <RoadmapPage 
             name={view?.type}/>
             }
+            
         </div>
     )
 }

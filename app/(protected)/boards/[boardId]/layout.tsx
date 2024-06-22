@@ -41,6 +41,11 @@ const BoardLayout = async ({
     })
     
     // if i want to display members in header then : members={members}
+
+
+    
+
+    
     
     return (
         <div className="flex flex-col bg-card rounded-md my-1 mr-1 w-screen">
@@ -52,7 +57,14 @@ const BoardLayout = async ({
             {/* might need a page options header, somewhere */}
             <Separator 
             className="bg-card-foreground"/>
+            
             {children}
+            
+            
+            
+            
+
+           
             
         </div>
     )

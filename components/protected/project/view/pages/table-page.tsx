@@ -25,7 +25,10 @@ export const TablePage = ({
 
     //this component will receive members
     return (
-        <ol className="bg-red-500 flex flex-col gap-y-3 h-full m-0">
+<>
+          
+            
+        <ol className="bg-red-600 flex flex-col  h-full m-0">
             {lists.map((list,index)=>{
                 
                 return(
@@ -37,5 +40,7 @@ export const TablePage = ({
                 )
             })}
         </ol>  
+    
+</>
     )
 }

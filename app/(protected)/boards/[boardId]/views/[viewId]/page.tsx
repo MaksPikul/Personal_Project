@@ -45,7 +45,13 @@ const ViewIdPage = async ({
     //Table and kaban will share the same options, 
     //cause they both work with tasks
     return(
+        
+        <>
+        
         <ViewPage lists={lists as ListWithCards[]} view={view as View} projectId={params.boardId}/>
+        
+        
+        </>
     )
 }
 

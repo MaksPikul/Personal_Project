@@ -40,6 +40,7 @@ export const TaskItem = ({
         }
     )
     
+    
     //CheckBox , TaskItem , More info | columns
     return (
         <div className="flex flex-row">
