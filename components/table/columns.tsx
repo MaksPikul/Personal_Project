@@ -4,6 +4,9 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "../ui/checkbox"
 import { useEditing } from "@/hooks/use-title-editing"
 import { EditTaskForm } from "../protected/project/view/task/edit-task-form"
+import { DataTableDelete } from "./data-table-row-actions"
+import { Task } from "@prisma/client"
+
 
 export type TaskCols = {
     id: string
@@ -26,8 +29,12 @@ editingIndex
 } = useEditing()
 const isEditingOpen = isEditing && type === "taskTitle";
 */
+interface ColumnnProps {
+  onDelete: (task: Task)
+}
 
-export const columns: ColumnDef<TaskCols>[] = [
+
+export const getColumns =({onDelete}:ColumnnProps): ColumnDef<TaskCols>[] => [
     {
         id: "select",
         header: ({ table }) => (
@@ -111,6 +118,10 @@ export const columns: ColumnDef<TaskCols>[] = [
     {
       accessorKey: "urgency",
       header: "Urgency",
+    },
+    {
+      id: "delete",
+      cell: ({row}) => <DataTableDelete row={row} onDelete={onDelete}/>
     },
     
   ]
