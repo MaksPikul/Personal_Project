@@ -1,28 +1,29 @@
 "use client"
 
-import { Task, View } from "@prisma/client"
-import { ListWithCards } from "@/types";
+import { Member, Task, User, View } from "@prisma/client"
+import { ListWithCards, ProjectWithMembersWithProfiles } from "@/types";
 import { ListItem } from "@/components/protected/project/view/list/list-item";
 import { useState , useEffect, useOptimistic} from "react"
+import { Card } from "@/components/ui/card";
 
 
 interface TableProps {
     view: View;
     lists: ListWithCards[];
-    projectId: string
+    project: ProjectWithMembersWithProfiles
 
 }
 export const TablePage = ({
     view,
     lists,
-    projectId,
+    project,
 
 }: TableProps) => {
 
     //this component will receive members
     return (
     <>
-        <ol className="bg-red-600 flex flex-col  h-full m-0">
+        <ol className=" flex flex-col h-full m-1 gap-y-5">
             {lists.map((list,index)=>{
                 
                 return(
@@ -30,6 +31,7 @@ export const TablePage = ({
                     key={list.id}
                     index={index}
                     list={list}
+                    members={project.members}
                     />
                 )
             })}

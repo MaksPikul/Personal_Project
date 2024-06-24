@@ -30,14 +30,10 @@ export const CreateTaskButton = ({
 
     const onClick = (formData:string) => {
             startTransition(()=>{
-                
-                
-                
-
                 CreateTask(list.id)
                 .then((data) =>{
                     if (data.error){
-                        console.log("error lol")
+                        console.log(data.error)
                     }
                     else {
                         router.refresh()
@@ -66,6 +62,7 @@ export const CreateTaskButton = ({
             name="task"
             value="New Task!"/>
                 <Button
+                variant="ghost"
                 type="submit"
                 className="text-white"
                 disabled={isPending}>

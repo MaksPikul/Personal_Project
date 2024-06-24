@@ -66,7 +66,7 @@ export const DeleteListModal = ()=> {
                     <Button 
                     onClick={()=>onClick()}
                     disabled={isPending}>Delete</Button>
-                    <Button onClick={()=>onClose()}>Stay</Button>
+                    <Button onClick={()=>onClose()}>Keep</Button>
                 </div>
             </DialogContent>
         </Dialog>

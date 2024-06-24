@@ -5,6 +5,7 @@ import { useTransition } from "react"
 import { DeleteList } from "@/actions/lists/delete-list";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
+import { Button } from "@/components/ui/button";
 
 interface DeleteListProps {
     list : List
@@ -18,10 +19,11 @@ export const DeleteListButton = ({
     
 
     return (
-        <button
+        <Button
         onClick={()=>onOpen("DeleteList", {list:list})}
-        className="">
+        className=""
+        variant="ghost">
                 <Trash2 />
-        </button>
+        </Button>
     )
 }

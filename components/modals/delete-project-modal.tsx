@@ -59,6 +59,7 @@ export const DeleteProjectModal = ()=> {
                     setError(data?.error)
                 }
                 else {
+                    form.reset();
                     onClose();
                     router.push(DEFAULT_LOGIN_REDIRECT)
                 }

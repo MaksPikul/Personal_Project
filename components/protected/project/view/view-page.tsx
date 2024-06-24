@@ -4,21 +4,23 @@ import { KanbanPage } from "@/components/protected/project/view/pages/kanban-pag
 import { NotepadPage } from "@/components/protected/project/view/pages/notepad-page";
 import { RoadmapPage } from "@/components/protected/project/view/pages/roadmap-page";
 import { View } from "@prisma/client";
-import { ListWithCards } from "@/types";
+import { ListWithCards, ProjectWithMembersWithProfiles } from "@/types";
 import { ViewOptionHeader } from "@/components/protected/project/view/view-option-header";
 import { useState, useEffect, useOptimistic } from "react";
 
 interface ViewPageProps {
     lists : ListWithCards[]
     view : View
-    projectId: string
+    project: ProjectWithMembersWithProfiles,
+    
 }
 
 
 export const ViewPage = ({
     lists,
     view,
-    projectId
+    project,
+    
 }:ViewPageProps) => {
     
     const [optimisticLists, addOptimisticLists] = useOptimistic(
@@ -33,12 +35,10 @@ export const ViewPage = ({
 
 
     return(
-        <div>
-
-            
+        <div className="m-2">
             <ViewOptionHeader 
             view={view as View} 
-            projectId={projectId} 
+            project={project} 
             optimisticLists={lists as ListWithCards[]}
             addOptimisticLists={addOptimisticLists}/>
 
@@ -46,7 +46,7 @@ export const ViewPage = ({
             <TablePage 
             lists={lists as ListWithCards[]}
             view={view as View}
-            projectId={projectId}/>}
+            project={project}/>}
 
 
 

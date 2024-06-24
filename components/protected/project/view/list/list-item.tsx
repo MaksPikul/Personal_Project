@@ -2,9 +2,9 @@
 
 import { ListWithCards } from "@/types"
 import { ListHeader } from "./list-header"
-import { useState , useEffect , useOptimistic, useCallback, useMemo, useTransition, useRef, ElementRef, } from "react"
+import { useState , useEffect , useOptimistic, useCallback, useMemo, useTransition, useRef, ElementRef, Dispatch, SetStateAction, } from "react"
 
-import { List, Task } from "@prisma/client"
+import { List, Member, Status, Task, Urgency, User } from "@prisma/client"
 import { useRouter } from "next/navigation"
 import { Columns } from "./columns"
 
@@ -13,7 +13,7 @@ import { getColumns } from "@/components/table/columns"
 import { DeleteTask } from "@/actions/tasks/delete-task";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast"
-import { UpdateTask } from "@/actions/tasks/update-task"
+import { UpdateTask, UpdateTaskDate, UpdateTaskDesc, UpdateTaskUrgency } from "@/actions/tasks/update-task"
 
 import {
     Form,
@@ -27,7 +27,11 @@ import { Input } from "@/components/ui/input"
 import { UseFormReturn, useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { UpdateTaskSchema } from "@/schemas"
+import { UpdateDescSchema, UpdateTaskSchema } from "@/schemas"
+import { UpdateTaskStatus } from "@/actions/tasks/update-task-status"
+import { SortingState, Table, getCoreRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { Card } from "@/components/ui/card"
 
 
 
@@ -36,12 +40,14 @@ import { UpdateTaskSchema } from "@/schemas"
 interface ListItemProps {
     index: number
     list: ListWithCards
+    members: (Member & User)[]
     
 }
 
 export const ListItem = ({
     index,
     list,
+    members
 }:ListItemProps) => {
     const router = useRouter()
     const [collapsed, setCollapsed] = useState(false)
@@ -49,7 +55,9 @@ export const ListItem = ({
     const [isPending, startTransition] = useTransition()
     //const [confirm, setConfirm] = useState(false)
    
-    const onDelete = useCallback((taskToDelete: Task)=> {
+    const onDelete = useCallback((
+        taskToDelete: Task
+    )=> {
         toast({
             title: `you deleted task ${taskToDelete.title}`,
             action: <ToastAction altText="Undo?">Undo</ToastAction>
@@ -88,27 +96,149 @@ export const ListItem = ({
         
     }, [])
 
-    const setStatus = useCallback(()=>{
-        return
+    const setStatus = useCallback((
+        taskToEditStatus: Task,
+        newStatus: Status,
+        setCurrentVal: Dispatch<SetStateAction<string>>
+    )=>{
+        setCurrentVal(newStatus)
+        startTransition(()=>{
+            UpdateTaskStatus(taskToEditStatus, newStatus)
+            .then((data) =>{
+                if (data?.error){
+                    setCurrentVal(taskToEditStatus.status)
+                    toast({
+                        title: `Error setting status for ${taskToEditStatus.title}`,
+                        description: data?.error,
+                        action: <ToastAction altText="Undo?">Undo</ToastAction>
+                    })
+                }
+                else {
+                    router.refresh()
+                }
+            })
+        })
     }, [])
 
-    const columns = useMemo(()=> getColumns({onDelete, onEdit, setStatus}),[])
+    const setUrgency = useCallback((
+        taskToEditUrgency: Task,
+        newUrgency: Urgency,
+        setCurrentVal: Dispatch<SetStateAction<string>>
+    )=>{
+        setCurrentVal(newUrgency)
+        startTransition(()=>{
+            UpdateTaskUrgency(taskToEditUrgency, newUrgency)
+            .then((data) =>{
+                if (data?.error){
+                    setCurrentVal(taskToEditUrgency.urgency)
+                    toast({
+                        title: `Error setting status for ${taskToEditUrgency.title}`,
+                        description: data?.error,
+                        action: <ToastAction altText="Undo?">Undo</ToastAction>
+                    })
+                }
+                else {
+                    
+                    router.refresh()
+                }
+            })
+        })
+    }, [])
+
+    const setDate = useCallback((
+        taskToEditStatus: Task,
+        newDate: any
+    )=>{
+        console.log("new date?")
+        
+        startTransition(()=>{
+            UpdateTaskDate(taskToEditStatus, newDate)
+            .then((data) =>{
+                if (data?.error){
+                    console.log("?")
+                }
+                else {
+                    console.log("no way")
+                    router.refresh()
+                }
+            })
+        })
+    }, [])
+
+    
+
+    const saveNote = useCallback((
+        values: z.infer<typeof UpdateDescSchema>,
+        setSuccess: Dispatch<SetStateAction<string | undefined>>,
+        setError: Dispatch<SetStateAction<string | undefined>>
+    )=>{
+        startTransition(()=>{
+            UpdateTaskDesc(values)
+            .then((data) =>{
+                if (data?.error){
+                    setError(data?.error)
+                }
+                else {
+                    setSuccess(data?.message)
+                    router.refresh()
+                }
+            })
+        })
+    }, [])
+
+    const setMember = useCallback((
+        taskToEditMember: Task,
+        newMember: Date
+    )=>{
+        startTransition(()=>{
+            UpdateTaskMember(taskToEditMember, newMember)
+            .then((data) =>{
+                if (data?.error){
+                    //setError(data?.error)
+                }
+                else {
+                    //setSuccess(data?.message)
+                    router.refresh()
+                }
+            })
+        })
+    }, [])
+
+    const columns = useMemo(()=> getColumns({onDelete, onEdit, setStatus, setUrgency, setDate, saveNote, setMember, members}),[])
+    const [sorting, setSorting] = useState([])
+    const table = useReactTable({
+        data: list.tasks,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+        onSortingChange: setSorting,
+        getSortedRowModel: getSortedRowModel(),
+        state: {
+        sorting,
+        },
+    })
+    
     return (
-        <li className="bg-green-600 ">
+        <>
+        <li className=" flex flex-col m-1 gap-y-0 rounded-md  p-1">
             <ListHeader
             data={list}
-            
+            table={table}
             collapsed={collapsed}
             setCollapsed={setCollapsed}
             />
             
             {collapsed ? 
-            <div>
-                hidden
+            <div className="h-10 text-sm text-muted-foreground border-white border rounded-b-md flex justify-center items-center">
+                Task Hidden
             </div>
             :
-            <DataTable columns={columns} data={list.tasks} />
+            <ScrollArea 
+            className="">
+                <DataTable table={table} columns={columns} />
+                <ScrollBar orientation="horizontal" />
+            </ScrollArea>
             }
         </li>
+        </>
     )
 }

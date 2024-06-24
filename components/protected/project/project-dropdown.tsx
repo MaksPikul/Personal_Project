@@ -10,6 +10,7 @@ import { UserPlus, DoorOpen, Trash2, Settings, ChevronDown, X } from "lucide-rea
 import { useModal } from "@/hooks/use-modal-store";
 import { ProjectWithMembersWithProfiles } from "@/types";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface ProjectDropdownProps {
     project: ProjectWithMembersWithProfiles;
@@ -24,11 +25,12 @@ export const ProjectDropdown = ({
 }:ProjectDropdownProps) =>{
     const { onOpen } = useModal()
     const [opened, setOpened] = useState(false)
+    const router = useRouter()
 
 
     return(
     <DropdownMenu onOpenChange={()=>setOpened(!opened)}>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
             <div className=" h-14 py-3 items-center justify-between flex p-4 truncate w-60 rounded-tl-md border-r border-card-foreground">
                 {project?.name} {opened ? <X/>:<ChevronDown />}
             </div>
@@ -45,7 +47,10 @@ export const ProjectDropdown = ({
             {isAdmin && (
                 <DropdownMenuItem
                 className="flex justify-between"
-                onClick={()=>onOpen("DeleteProject", {project:project})}>
+                onClick={()=>{
+                    onOpen("DeleteProject", {project:project})
+                    //setOpened(!opened)
+                    }}>
                     Delete Project
                     <Trash2 />
                 </DropdownMenuItem>
@@ -53,7 +58,11 @@ export const ProjectDropdown = ({
             {!isAdmin && (
             <DropdownMenuItem
             className="flex justify-between"
-            onClick={()=>onOpen("LeaveProject", {project:project})}>
+            onClick={()=>{
+                
+                onOpen("LeaveProject", {project:project})
+                
+                }}>
                 Leave Project
                 <DoorOpen />
             </DropdownMenuItem>

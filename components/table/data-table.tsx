@@ -5,39 +5,40 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
+  SortingState,
+  getSortedRowModel,
 } from "@tanstack/react-table"
  
 import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { useState } from "react"
  
 interface DataTableProps<TData, TValue> {
+  table: any,
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
 }
  
 export function DataTable<TData, TValue>({
+  table,
   columns,
-  data,
 }: DataTableProps<TData, TValue>) {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  })
- 
+  const [sorting, setSorting] = useState<SortingState>([])
+  
   return (
-    <div className="rounded-md border">
-      <Table>
+    <div className="rounded-b-md border">
+      <Table
+      className="">
 
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} >
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
@@ -72,11 +73,12 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+              <TableCell colSpan={columns.length} className="h-16 text-center text-muted-foreground">
+                No Tasks in this Group
               </TableCell>
             </TableRow>
           )}
+          
         </TableBody>
       </Table>
     </div>

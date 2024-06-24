@@ -6,7 +6,7 @@ import { UpdateListSchema } from "@/schemas"
 
 
 export const UpdateList = async (values: z.infer<typeof UpdateListSchema>) => {
-    const validatedFields = UpdateTaskSchema.safeParse(values);
+    const validatedFields = UpdateListSchema.safeParse(values);
     const { title, id, projectId} = validatedFields?.data
     let list;
     

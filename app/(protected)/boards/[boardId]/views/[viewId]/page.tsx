@@ -7,8 +7,9 @@ import { redirect } from "next/navigation";
 import { getViewByViewId } from "@/data/view";
 import { getManyListsByProjectId } from "@/data/list";
 import { View } from "@prisma/client";
-import { ListWithCards } from "@/types";
+import { ListWithCards, ProjectWithMembersWithProfiles } from "@/types";
 import { ViewPage } from "@/components/protected/project/view/view-page";
+import { getProjectWithMembersWithProfiles } from "@/data/project";
 
 
 interface ChannelIdPageProps {
@@ -35,6 +36,8 @@ const ViewIdPage = async ({
 
     //fetch all views, pass them into the corresponding component
     const view = await getViewByViewId(params.viewId)
+
+    const project = getProjectWithMembersWithProfiles(params.boardId)
     
     
 
@@ -48,7 +51,7 @@ const ViewIdPage = async ({
         
         <>
         
-        <ViewPage lists={lists as ListWithCards[]} view={view as View} projectId={params.boardId}/>
+        <ViewPage lists={lists as ListWithCards[]} view={view as View} project={project }/>
         
         
         </>

@@ -100,7 +100,7 @@ export const EditListTitle = ({
     }
 
     return(
-        <>
+        <div className="mx-2">
         {isEditing ? 
             <Form {...form} >
                 <form
@@ -131,12 +131,14 @@ export const EditListTitle = ({
                 </form>
             </Form>
                 :
-            <button 
-            className="h-8 items-center text-lg flex hover:border rounded-md px-3"
-            onClick={()=>enableEditing()}>
-                {title}
-            </button>
+            <div className="w-96">
+                <button 
+                className="h-8 items-center text-lg flex transition-all hover:bg-red-600 rounded-md px-3 py-4"
+                onClick={()=>enableEditing()}>
+                    {title}
+                </button>
+            </div>
             }
-        </>
+        </div>
     )
 }

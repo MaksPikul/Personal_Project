@@ -5,18 +5,18 @@ import { NewListButton } from "./list/new-list";
 import { FilterButton } from "./filter-button";
 import { SearchButton } from "./search-button";
 import { SortButton } from "./sort-button";
-import { ListWithCards } from "@/types";
+import { ListWithCards, ProjectWithMembersWithProfiles } from "@/types";
 
 interface ViewOptionHeaderProps {
     view: View;
-    projectId: string
+    project: ProjectWithMembersWithProfiles
     optimisticLists: ListWithCards[]
     addOptimisticLists: (action: ListWithCards) => void
 }
 
 export const ViewOptionHeader = ({
     view,
-    projectId,
+    project,
     optimisticLists,
     addOptimisticLists,
 }:ViewOptionHeaderProps) => {
@@ -26,7 +26,7 @@ export const ViewOptionHeader = ({
         <div className="gap-2 flex flex-row m-4">
             {(view?.type==="TABLE") &&
             <>
-                <NewListButton projectId={projectId} optimisticLists={optimisticLists} addOptimisticLists={addOptimisticLists} />
+                <NewListButton projectId={project.id} optimisticLists={optimisticLists} addOptimisticLists={addOptimisticLists} />
                 <FilterButton /> 
                 <SortButton /> 
                 <SearchButton />

@@ -109,3 +109,9 @@ export const UpdateTaskSchema = z.object({
     listId: z.string()
 })
 
+export const UpdateDescSchema = z.object({
+    desc: z.string(),
+    id: z.string(),
+    listId: z.string()
+})
+

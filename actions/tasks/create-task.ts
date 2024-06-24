@@ -22,12 +22,16 @@ export const CreateTask = async (listId: string) => {
                 description: "",
                 urgency: "LOW",
                 assignee: session?.user.name,
+                userId: session?.user.id,
+                isAllocated: false,
                 status: "PENDING"
             }
         })
         return task
     }
-    catch {
-        return {error: "Failed to create Task"}
+    catch (error) {
+        console.log(error)
+        return {error: "Failed to create Task"
+        }
     }
 }

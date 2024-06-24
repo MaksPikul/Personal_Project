@@ -20,6 +20,7 @@ model User {
   members Member[]
   projects Project[]
   views View[]
+  tasks Task[]
 
 
   isTwoFactorEnabled Boolean @default(false)
@@ -90,6 +91,7 @@ model Project {
   members Member[]
   views View[]
   lists List[]
+  
 
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -175,6 +177,10 @@ model Task {
   urgency Urgency
   assignee String
 
+  isAllocated Boolean
+  userId String
+  user User @relation(fields:[userId], references: [id], onDelete: Cascade)
+
   listId String
   list List @relation(fields:[listId], references: [id], onDelete: Cascade)
   
@@ -182,6 +188,7 @@ model Task {
   updatedAt DateTime @updatedAt
 
   @@index([listId])
+  @@index([userId])
 }
 
 enum Status {
