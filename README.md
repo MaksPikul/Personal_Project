@@ -45,7 +45,19 @@ Finished deleting projects, leaving projects (depending on role), i also did nav
 ITS OK DOE, we learnt, which means we Up (yippie), going to style the header navigation, immma need to show some screenshots of the application, <br>
 i think it looks good in light mode, and then pretty bad in dark mode, probably something to do with the colours, ill fix and see if its fit for showing <br>
 In 5 days, it'll hit a month ive been doing this, if anyone cares. tbh i dont expect anyone to read this log, i need to dump thoughts out somewhere :3
-
+### - 24/06/24 -
+![image](https://github.com/MaksPikul/Planner_WebApp_Project/assets/128612499/29d9400b-5bea-4872-aa9f-ff1e193aa599)
+a preview of what im working on, not finished,
+sort, filter may not be added, i have other stuff i want to work on like data pipe lines and aws, <br>
+kanban and notepad wont be added, same reason, Roadmap will be a drawer component which slides from the bottom, <br>
+the side nav moves fyi,  <br>
+colours and style need to be more "serious" and for work, too many curves,  <br>
+socials will be a sidenav on the right, <br>
+home will contain the schedule,  <br>,
+been working on this for a month and 9 days, i want to wrap up the table, so there will be less features, <br>
+reason for this is because i want to start learning messaging and real time data editing, not just work on CRUD operations in the table <br>
+i need to calm my abmitions, cause i want to make something big in so little time, <br>
+When Table is closer to finishing, or finished, ill take a video of everything so far and paste it here
 
 
 
