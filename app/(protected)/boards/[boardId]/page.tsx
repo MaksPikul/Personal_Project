@@ -9,6 +9,8 @@ import { authRoutes } from "@/routes";
 import { getProjectWithMembersWithProfiles } from "@/data/project";
 import { getManyListsByProjectId } from "@/data/list";
 import { ListWithCards, ProjectWithMembersWithProfiles } from "@/types";
+import { roleContext } from "@/components/protected/project/project-header";
+import { MemberRole } from "@prisma/client";
 
 const BoardPage = async (
     {params}: {params: {boardId: string}}
@@ -25,14 +27,23 @@ const BoardPage = async (
     
     const project = await getProjectWithMembersWithProfiles(params.boardId)
     const lists = await getManyListsByProjectId(params.boardId)
+    const role = project?.members.find((member)=>
+        member.userId === session?.user.id)?.role
+
+    
+
+
 
     //return redirect(`/boards/${params.boardId}/views/${initialView?.id}`)
     return(
+        
         <ScrollArea>
             <ProjectPage 
             lists={lists as ListWithCards[]} 
-            project={project as ProjectWithMembersWithProfiles}/>
+            project={project as ProjectWithMembersWithProfiles}
+            role={role as MemberRole}/>
         </ScrollArea>
+       
     )
 }
 export default BoardPage

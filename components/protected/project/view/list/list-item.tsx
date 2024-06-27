@@ -2,7 +2,7 @@
 
 import { ListWithCards } from "@/types"
 import { ListHeader } from "./list-header"
-import { useState , useEffect , useOptimistic, useCallback, useMemo, useTransition, useRef, ElementRef, Dispatch, SetStateAction, } from "react"
+import { useState , useEffect , useOptimistic, useCallback, useMemo, useTransition, useRef, ElementRef, Dispatch, SetStateAction, useContext, } from "react"
 
 import { List, Member, Status, Task, Urgency, User } from "@prisma/client"
 import { useRouter } from "next/navigation"
@@ -34,6 +34,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Card } from "@/components/ui/card"
 
 import { Draggable, Droppable } from "@hello-pangea/dnd"
+import { projectContext } from "../project-page"
 
 
 
@@ -44,20 +45,20 @@ import { Draggable, Droppable } from "@hello-pangea/dnd"
 interface ListItemProps {
     index: number
     list: ListWithCards
-    members: (Member & User)[]
-    
+     isMod: boolean; 
 }
 
 export const ListItem = ({
     index,
     list,
-    members
+    
 }:ListItemProps) => {
     const router = useRouter()
     const [collapsed, setCollapsed] = useState(false)
     const { toast } = useToast()
     const [isPending, startTransition] = useTransition()
-    //const [confirm, setConfirm] = useState(false)
+
+    const projectInfo = useContext(projectContext)
 
     const [isMounted, setIsMounted] = useState(false);
 
@@ -217,9 +218,13 @@ export const ListItem = ({
         })
     }, [])
 
-    const columns = useMemo(()=> getColumns({onDelete, onEdit, setStatus, setUrgency, setDate, saveNote, setMember, members}),[])
+    //add roles to this
+    const roles = projectInfo.roles
+
+    const columns = useMemo(()=> getColumns({onDelete, onEdit, setStatus, setUrgency, setDate, saveNote, setMember, roles}),[])
     const [sorting, setSorting] = useState([])
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+
     const table = useReactTable({
         data: list.tasks,
         columns,
@@ -252,6 +257,7 @@ export const ListItem = ({
                         table={table}
                         collapsed={collapsed}
                         setCollapsed={setCollapsed}
+                        
                         />
                         
                         
@@ -276,8 +282,6 @@ export const ListItem = ({
                     null}
                     </>
                     }
-                    
-                            
                     </div>
                 </li>
             )}

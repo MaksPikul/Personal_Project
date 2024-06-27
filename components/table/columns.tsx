@@ -37,7 +37,10 @@ interface ColumnnProps {
     setError: Dispatch<SetStateAction<string | undefined>>,
   ) => void,
   setMember: ((task: Task, newMember: Member) => void),
-  members: (Member & User)[]
+  roles:{
+    isAdmin:boolean, 
+    isMod:boolean
+  }
 }
 
 const statusOptions = [
@@ -62,7 +65,7 @@ export const getColumns =({
   setDate, 
   saveNote,
   setMember,
-  members
+  roles
 }:ColumnnProps): ColumnDef<TaskCols>[] => [
     {
         id: "select",
@@ -180,9 +183,16 @@ export const getColumns =({
       
 
       cell: ({row}) => 
+        <>
+      {roles?.isMod ?
       <DataTableDelete 
-      row={row} 
-      onDelete={onDelete}/>
+        row={row} 
+        onDelete={onDelete}/>
+      :
+      null
+      }
+      </>
+      
     },
     
   ]

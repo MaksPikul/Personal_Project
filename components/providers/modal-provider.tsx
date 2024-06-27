@@ -7,6 +7,7 @@ import { InviteModal } from "../modals/invite-modal";
 import { LeaveProjectModal } from "../modals/leave-project-modal";
 import { DeleteProjectModal } from "../modals/delete-project-modal";
 import { DeleteListModal } from "../modals/delete-list-modal";
+import { ManageMemberModal } from "../modals/manage-members-modal";
 
 
 export const ModalProvider = () => {
@@ -21,13 +22,14 @@ export const ModalProvider = () => {
     }
 
     return (
-        <>
-            <CreateBoardModal />
-            <SignOutModal />
-            <InviteModal />   
-            <LeaveProjectModal />
-            <DeleteProjectModal />
-            <DeleteListModal />
-        </>
+    <>
+        <CreateBoardModal />
+        <SignOutModal />
+        <InviteModal />   
+        <LeaveProjectModal />
+        <DeleteProjectModal />
+        <DeleteListModal />
+        <ManageMemberModal />
+    </>
     )
 }

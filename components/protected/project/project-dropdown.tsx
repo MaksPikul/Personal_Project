@@ -6,28 +6,31 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
-import { UserPlus, DoorOpen, Trash2, Settings, ChevronDown, X, Delete } from "lucide-react";
+import { UserPlus, DoorOpen, Trash2, Settings, ChevronDown, X, Delete, Users } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
-import { ProjectWithMembersWithProfiles } from "@/types";
-import { useState } from "react";
+import { ProjectWithMembersWithProfiles, UserWithProjectsWithMembers } from "@/types";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { DeleteProjectModal } from "@/components/modals/delete-project-modal";
 import { InviteModal } from "@/components/modals/invite-modal";
+import { roleContext } from "./project-header";
+import { Member, User } from "@prisma/client";
+import { ManageMemberModal } from "@/components/modals/manage-members-modal";
 
 interface ProjectDropdownProps {
     project: ProjectWithMembersWithProfiles;
-    isAdmin: boolean;
-    isMod: boolean;
+    members: (Member&{user: User})[]
 }
 
 export const ProjectDropdown = ({
     project,
-    isAdmin,
-    isMod
+    members
 }:ProjectDropdownProps) =>{
     const { onOpen, onClose } = useModal()
     const [opened, setOpened] = useState(false)
     const router = useRouter()
+    
+    const role = useContext(roleContext)
 
 
     return(
@@ -40,16 +43,31 @@ export const ProjectDropdown = ({
         <DropdownMenuContent className="w-56 border-0 flex flex-col justify-center">
             <DeleteProjectModal />
             <InviteModal />
-            {isMod && (
+            <ManageMemberModal />
+
+            {role?.isMod && (
             <DropdownMenuItem
             onSelect={(e) => e.preventDefault()}
             className="flex justify-between"
             onClick={()=>onOpen("invite", {project:project})}>
-                Invite new associates
+                Invite new Members
                 <UserPlus />
             </DropdownMenuItem> 
             )}
-            {isAdmin && (
+            
+            {role?.isAdmin && (
+                <DropdownMenuItem
+                onSelect={(e) => e.preventDefault()}
+                className="flex justify-between"
+                onClick={()=>{
+                    onOpen("ManageMembers", {members: members})
+                    }}>
+                    Manage Members
+                    <Users />
+                </DropdownMenuItem>
+            )}
+
+            {role?.isAdmin && (
                 <DropdownMenuItem
                 onSelect={(e) => e.preventDefault()}
                 className="flex justify-between"
@@ -61,7 +79,8 @@ export const ProjectDropdown = ({
                     <Trash2 />
                 </DropdownMenuItem>
             )}
-            {!isAdmin && (
+            
+            {!role?.isMod && (
             <DropdownMenuItem
             className="flex justify-between"
             onClick={()=>{
@@ -73,6 +92,7 @@ export const ProjectDropdown = ({
                 <DoorOpen />
             </DropdownMenuItem>
             )}
+
             <DropdownMenuItem
             onClick={()=>{}}
             className="flex justify-between">

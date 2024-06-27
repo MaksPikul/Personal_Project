@@ -9,15 +9,19 @@ import { Dispatch, SetStateAction } from "react";
 import { ListWithCards } from "@/types";
 import { v4 as uuidV4 } from "uuid";
 
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+
 interface CreateTaskButtonProps {
-    list: ListWithCards
-    
-    
+    list: ListWithCards,
+    roles: {
+        isAdmin:boolean,
+        isMod:boolean
+    }
 }
 
 export const CreateTaskButton = ({
     list,
-    
+    roles
 }:CreateTaskButtonProps) => {
     const [isPending, startTransition] = useTransition();
     const router = useRouter()
@@ -53,22 +57,39 @@ export const CreateTaskButton = ({
     }
     
     return (
-        <form 
-        action={onClick} 
-        ref={formRef}>
-            <input 
-            hidden 
-            type="text" 
-            name="task"
-            value="New Task!"/>
-                <Button
-                variant="ghost"
-                type="submit"
-                className="text-white"
-                disabled={isPending}>
-                    Add Task
-                </Button>
-        </form>
+        <Tooltip>
+            
+                <form 
+                action={onClick} 
+                ref={formRef}>
+                    <input 
+                    hidden 
+                    type="text" 
+                    name="task"
+                    value="New Task!"/>
+                    <TooltipTrigger asChild>
+                        <Button
+                        variant="ghost"
+                        type="submit"
+                        className={` text-white`}
+                        disabled={isPending || !(roles?.isMod)}>
+                            Add Task
+                        </Button> 
+                    </TooltipTrigger>
+                </form>
+           
+            
+            {(roles?.isMod) ?
+            null
+                :
+                <TooltipContent>
+            <p>Cannot create task as member</p>
+                </TooltipContent>
+            }
+            
+        </Tooltip>
+        
+        
 
     )
 }

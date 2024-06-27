@@ -3,13 +3,13 @@
 import { ProjectHeader } from "@/components/protected/project/project-header";
 import { Separator } from "@/components/ui/separator";
 import { ViewOptionHeader } from "@/components/protected/project/view/view-option-header"
-import { MemberRole, View} from "@prisma/client";
+import { Member, MemberRole, User, } from "@prisma/client";
 
 import { auth } from "@/auth";
 import { getProjectWithMembersWithProfiles , getProjectById } from "@/data/project";
-import { ProjectWithMembersWithProfiles, ProjectWithViews } from "@/types";
-import { getInitialView } from "@/data/view";
-import { db } from "@/lib/db";
+import { ProjectWithMembersWithProfiles, ProjectWithViews, UserWithProjectsWithMembers } from "@/types";
+
+
 
 const BoardLayout = async ({
     children,
@@ -30,21 +30,19 @@ const BoardLayout = async ({
     // fetch and put views into project header to allow for navigation
     // inside navigation bar, ill map the 4 types, thell always be in the same place
    
-    
     // if i want to display members in header then : members={members}
-
-
-    
-
+ 
     
     
     return (
         <div className="flex flex-col bg-card rounded-md my-1 mr-1 w-screen">
             <ProjectHeader 
             project={project as ProjectWithMembersWithProfiles} 
-            role={role as MemberRole}/>
+            role={role as MemberRole}
+            members={members}/>
             <Separator 
             className="bg-card-foreground"/>
+
             {children}
         </div>
     )

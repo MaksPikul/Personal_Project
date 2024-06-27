@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
-import { useState, useRef, ElementRef, useTransition, useOptimistic} from "react"
+import { useState, useRef, ElementRef, useTransition, useOptimistic, useContext} from "react"
 import { useEventListener, useOnClickOutside } from "usehooks-ts"
 
 import { useForm } from "react-hook-form"
@@ -27,17 +27,19 @@ import { useRouter } from "next/navigation"
 
 import { v4 as uuidV4 } from "uuid"
 import { ListWithCards } from "@/types"
-interface NewListButtonProps {
-    projectId: string
-    
-}
+import { roleContext } from "../../project-header"
 
-export const NewListButton = ({
-    projectId,
-    
-}:NewListButtonProps) => {   
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+  } from "@/components/ui/tooltip"
+
+export const NewListButton = () => {   
     const params = useParams()
     const router = useRouter();
+    const role = useContext(roleContext)
     
     const [isEditing, setIsEditing] = useState(false)
     const [error, setError] = useState<string | undefined>("");
@@ -155,12 +157,27 @@ export const NewListButton = ({
     else {
 
         return (
-                <button 
-                onClick={enableEditing}
-                className="w-64 gap-x-4  transition-all flex flex-row rounded-md bg-green-600 hover:bg-green-700 justify-center items-center">
-                    <p>Add Group</p>
-                    <Plus />
-                </button>
+            <TooltipProvider delayDuration={100} >
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <button 
+                        onClick={enableEditing}
+                        disabled={!(role?.isAdmin || role?.isMod)}
+                        className={` ${!(role?.isAdmin || role?.isMod) && "bg-green-900 opacity-50 "}
+                        w-64 gap-x-4  transition-all flex flex-row rounded-md 
+                        bg-green-600 hover:bg-green-700 justify-center items-center`}>
+                            <p>Add List</p>
+                            <Plus />
+                        </button>
+                    </TooltipTrigger>
+                    {!(role?.isAdmin || role?.isMod) ?
+                    <TooltipContent >
+                        <p>Cannot create list as member</p>
+                    </TooltipContent>
+                    :null
+                    }
+                </Tooltip>
+            </TooltipProvider>
         )
 }
 }

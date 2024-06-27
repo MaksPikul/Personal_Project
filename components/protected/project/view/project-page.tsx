@@ -2,12 +2,13 @@
 
 import { ListWithCards, ProjectWithMembersWithProfiles } from "@/types";
 import { ViewOptionHeader } from "@/components/protected/project/view/view-option-header";
-import { useState, useEffect, useOptimistic, useTransition, useCallback } from "react";
+import { useState, useEffect, useOptimistic, useTransition, useCallback, createContext } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { UpdateListOrder } from "@/actions/lists/update-list-order";
 import { ListItem } from "./list/list-item";
 import { UpdateTaskOrder } from "@/actions/lists/update-task-order";
+import { MemberRole } from "@prisma/client";
 
 function reorder<T>(lists: T[], startIndex:number, endIndex:number){
     const result = Array.from(lists);
@@ -19,14 +20,25 @@ function reorder<T>(lists: T[], startIndex:number, endIndex:number){
 interface ProjectProps {
     lists : ListWithCards[]
     project: ProjectWithMembersWithProfiles,
+    role: MemberRole
 }
-
+export const projectContext = createContext(undefined)
 export const ProjectPage = ({
     lists,
     project,
+    role
 }:ProjectProps) => {
     const [orderedLists, setOrderedLists] = useState(lists)
     const [isPending, startTransition] = useTransition()
+
+    const isAdmin = role === MemberRole.ADMIN;
+    const isMod = isAdmin || role === MemberRole.MOD;
+    const [projectInfo, setProjectInfo] = useState({roles:{isAdmin: isAdmin, isMod: isMod}})
+    
+    
+
+
+
 
     useEffect(()=>{
         setOrderedLists(lists)
@@ -70,8 +82,6 @@ export const ProjectPage = ({
 
     const onDragEnd = (result: any) => {
         const { destination, source, type} = result
-        
-
         if(!destination){
             return;
         }
@@ -162,15 +172,9 @@ export const ProjectPage = ({
    
 
 
-
-
-
-
-
-
-
     //this component will receive members
     return (
+    <projectContext.Provider value={projectInfo}>
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable 
             droppableId="lists" 
@@ -187,7 +191,6 @@ export const ProjectPage = ({
                             key={list.id}
                             index={index}
                             list={list}
-                            members={project.members}
                             />
                         )
                     })}
@@ -196,5 +199,6 @@ export const ProjectPage = ({
                 )}
             </Droppable>
         </DragDropContext>
+    </projectContext.Provider>
     )
 }

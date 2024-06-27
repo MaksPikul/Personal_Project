@@ -23,16 +23,24 @@ import {
 } from "@/components/ui/form"
 
 import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip"
+import { UseAction } from "@/hooks/use-action"
 
 
 
 
 interface EditListTitleProps {
-    data: List
+    data: List,
+    roles: {
+        isAdmin:boolean,
+        isMod:boolean
+    }
 }
 
 export const EditListTitle = ({
-    data
+    data,
+    roles
 }:EditListTitleProps) => {
     const params = useParams()
     const router = useRouter()
@@ -117,7 +125,7 @@ export const EditListTitle = ({
                                     <Input 
                                     {...field}
                                     type="text"
-                                    disabled={isPending}
+                                    disabled={isPending|| !(roles?.isMod)}
                                     defaultValue={title}
                                     className={`text-lg w-96 text-red-50 border-transparent border-white h-8`}
                                     ref={inputRef}
@@ -132,11 +140,23 @@ export const EditListTitle = ({
             </Form>
                 :
             <div className="w-96">
-                <button 
-                className="h-8 items-center text-lg flex transition-all hover:bg-red-600 rounded-md px-3 py-4"
-                onClick={()=>enableEditing()}>
-                    {title}
-                </button>
+                <Tooltip delayDuration={100}>
+                    <TooltipTrigger asChild>
+                        <button 
+                        disabled={!(roles?.isMod)}
+                        className="h-8 justify-center w-96 items-center text-lg flex transition-all hover:bg-red-600 rounded-md px-3 py-4"
+                        onClick={()=>enableEditing()}>
+                            {title}
+                        </button>
+                    </TooltipTrigger>
+                    {(roles?.isMod) ?
+                        null
+                        :
+                        <TooltipContent>
+                            <p>Cannot edit title as member</p>
+                        </TooltipContent>
+                    }
+                </Tooltip>
             </div>
             }
         </div>

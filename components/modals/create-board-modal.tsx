@@ -17,14 +17,12 @@ import {
     FormMessage, 
 } from "../ui/form"
 
-
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { createProjectSchema } from "@/actions/createProject/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-import { useTransition } from "react"
 
 import { useModal } from "@/hooks/use-modal-store"
 import { useRouter } from "next/navigation"
@@ -33,17 +31,15 @@ import { DeleteFile } from "@/actions/delete-file"
 
 
 import { UseAction } from "@/hooks/use-action"
-import { FormInput } from "../form/form-input"
-import { FormSubmit } from "../form/form-submit"
 import { FormError } from "../form/form-error"
-import { title } from "process"
 import { createProject } from "@/actions/createProject/create-project"
 
 
 export const CreateBoardModal = ()=> {
-    const {isOpen, onClose, type } = useModal();
+    const {isOpen, onClose, type,} = useModal();
     const router = useRouter();
 
+    
     const isModalOpen = isOpen && type === "CreateBoard";
     
     const {execute, fieldErrors, isLoading} = UseAction(createProject, {
