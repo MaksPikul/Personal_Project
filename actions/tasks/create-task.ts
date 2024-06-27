@@ -24,7 +24,7 @@ export const CreateTask = async (listId: string) => {
                 assignee: session?.user.name,
                 userId: session?.user.id,
                 isAllocated: false,
-                status: "PENDING"
+                status: "NEW"
             }
         })
         return task

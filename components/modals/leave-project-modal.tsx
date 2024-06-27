@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog"
 import { useModal } from "@/hooks/use-modal-store";
 import { Button } from "../ui/button";
-import { LeaveProject } from "@/actions/leave-project";
+import { LeaveProject } from "@/actions/projects/leave-project";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import {

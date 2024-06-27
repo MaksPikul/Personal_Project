@@ -8,55 +8,25 @@ import { SortButton } from "./sort-button";
 import { ListWithCards, ProjectWithMembersWithProfiles } from "@/types";
 
 interface ViewOptionHeaderProps {
-    view: View;
     project: ProjectWithMembersWithProfiles
-    optimisticLists: ListWithCards[]
-    addOptimisticLists: (action: ListWithCards) => void
 }
 
 export const ViewOptionHeader = ({
-    view,
     project,
-    optimisticLists,
-    addOptimisticLists,
+    
 }:ViewOptionHeaderProps) => {
     
 
     return (
         <div className="gap-2 flex flex-row m-4">
-            {(view?.type==="TABLE") &&
             <>
-                <NewListButton projectId={project.id} optimisticLists={optimisticLists} addOptimisticLists={addOptimisticLists} />
-                <FilterButton /> 
-                <SortButton /> 
-                <SearchButton />
+                <NewListButton 
+                projectId={project.id} 
+                />
+                {/*<Members /> */}
+                Project Activity |
+                Members 
             </>
-            }
-
-
-
-
-
-
-            {(view?.type==="KANBAN")&&
-            <>
-                <FilterButton /> 
-                <SortButton /> 
-                <SearchButton />
-            </>
-            }
-
-            {(view?.type==="NOTEPAD") &&
-            <>
-                lol notepad
-            </>
-            }
-
-            {(view?.type==="ROADMAP") && 
-            <>
-                lol
-            </>
-            }
         </div>
     )
 }

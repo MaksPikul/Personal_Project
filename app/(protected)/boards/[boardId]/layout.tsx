@@ -29,16 +29,7 @@ const BoardLayout = async ({
 
     // fetch and put views into project header to allow for navigation
     // inside navigation bar, ill map the 4 types, thell always be in the same place
-    const views = await db.view.findMany({
-        where:{
-            projectId: params.boardId
-        } 
-    })
-    const view = await db.view.findFirst({
-        where:{
-            id: params.viewId
-        }
-    })
+   
     
     // if i want to display members in header then : members={members}
 
@@ -49,23 +40,12 @@ const BoardLayout = async ({
     
     return (
         <div className="flex flex-col bg-card rounded-md my-1 mr-1 w-screen">
-            {/* send over members associated with project */}
             <ProjectHeader 
             project={project as ProjectWithMembersWithProfiles} 
-            role={role as MemberRole}
-            views={views as View[]}/>
-            {/* might need a page options header, somewhere */}
+            role={role as MemberRole}/>
             <Separator 
             className="bg-card-foreground"/>
-            
             {children}
-            
-            
-            
-            
-
-           
-            
         </div>
     )
 }

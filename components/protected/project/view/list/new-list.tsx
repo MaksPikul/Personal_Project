@@ -19,7 +19,7 @@ import { useEventListener, useOnClickOutside } from "usehooks-ts"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { FormError } from "@/components/form-error"
+import { FormError } from "@/components/form/form-error"
 
 import { CreateListSchema } from "@/schemas"
 import { createList } from "@/actions/lists/create-list"
@@ -29,14 +29,12 @@ import { v4 as uuidV4 } from "uuid"
 import { ListWithCards } from "@/types"
 interface NewListButtonProps {
     projectId: string
-    optimisticLists: ListWithCards[]
-    addOptimisticLists:(action: ListWithCards) => void
+    
 }
 
 export const NewListButton = ({
     projectId,
-    optimisticLists,
-    addOptimisticLists
+    
 }:NewListButtonProps) => {   
     const params = useParams()
     const router = useRouter();

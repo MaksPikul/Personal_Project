@@ -5,7 +5,7 @@ import { CircleLoader } from "react-spinners"
 import { useSearchParams} from "next/navigation"
 import { useCallback, useEffect, useState} from "react"
 import { Verification } from "@/actions/verification"
-import { FormError } from "../form-error"
+import { FormError } from "../form/form-error"
 import { FormSuccess } from "../form-success"
 
 export const VerificationForm = () => {

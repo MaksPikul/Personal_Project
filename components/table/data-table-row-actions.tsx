@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 
 import { Member, Status, Task, Urgency, User } from "@prisma/client"
 import { useEventListener,useOnClickOutside } from "usehooks-ts";
-import { useRef, ElementRef, useTransition, useState, RefObject, Dispatch, SetStateAction, } from "react";
+import { useRef, ElementRef, useTransition, useState, RefObject, Dispatch, SetStateAction, useEffect, } from "react";
 import {
     Form,
     FormControl,
@@ -52,7 +52,7 @@ import {
 import { Label } from "@/components/ui/label"
 import { Textarea } from "../ui/textarea";
 import { FormSuccess } from "../form-success";
-import { FormError } from "../form-error";
+import { FormError } from "../form/form-error";
 import { ScrollArea } from "../ui/scroll-area";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 
@@ -236,7 +236,7 @@ export const DataTableDropdown = <TData,>({
     const [val, setCurrentVal] = useState(currentVal)
 
     const colourMap = {
-        ["NEW"]: "lol",
+        ["NEW"]: "bg-blue-600 hover:bg-blue-700 ",
 
         ["DONE"]: "bg-green-600 hover:bg-green-700 ",
         ["LOW"]: "bg-green-600 hover:bg-green-700 ",
@@ -367,6 +367,11 @@ export const DataTableEdit = <TDdata,>({
     const [isEditingTask, setIsEditingTask] = useState(false)
     const [title, setTitle] = useState(row.original.title)
 
+    
+    //useEffect(()=>{
+    //    setTitle(row.original.title)
+    //},[title])
+
     const enableTaskEditing = () => {
         setIsEditingTask(true)
     }
@@ -389,7 +394,7 @@ export const DataTableEdit = <TDdata,>({
     })
 
     const onSubmit = (values: z.infer<typeof UpdateTaskSchema>) =>{
-        setTitle(values.title)
+        
         inputRef.current.blur()
         onEdit(values, disableTaskEditing)
         
@@ -417,7 +422,8 @@ export const DataTableEdit = <TDdata,>({
         {/*isEditingTask ? */}
         <Form {...form} >
             <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={
+                form.handleSubmit(onSubmit)}
             ref={formRef}>
                 <FormField 
                     control={form.control}

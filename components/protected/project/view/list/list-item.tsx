@@ -29,11 +29,15 @@ import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { UpdateDescSchema, UpdateTaskSchema } from "@/schemas"
 import { UpdateTaskStatus } from "@/actions/tasks/update-task-status"
-import { SortingState, Table, getCoreRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
+import { ColumnFiltersState, SortingState, Table, getCoreRowModel, getFilteredRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Card } from "@/components/ui/card"
 
+import { Draggable, Droppable } from "@hello-pangea/dnd"
 
+
+
+    
 
 
 
@@ -54,7 +58,16 @@ export const ListItem = ({
     const { toast } = useToast()
     const [isPending, startTransition] = useTransition()
     //const [confirm, setConfirm] = useState(false)
-   
+
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+    
+
+
+
     const onDelete = useCallback((
         taskToDelete: Task
     )=> {
@@ -206,39 +219,70 @@ export const ListItem = ({
 
     const columns = useMemo(()=> getColumns({onDelete, onEdit, setStatus, setUrgency, setDate, saveNote, setMember, members}),[])
     const [sorting, setSorting] = useState([])
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const table = useReactTable({
         data: list.tasks,
         columns,
         getCoreRowModel: getCoreRowModel(),
         onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
+        onColumnFiltersChange: setColumnFilters,
+        getFilteredRowModel: getFilteredRowModel(),
         state: {
         sorting,
+        columnFilters
         },
     })
     
     return (
-        <>
-        <li className=" flex flex-col m-1 gap-y-0 rounded-md  p-1">
-            <ListHeader
-            data={list}
-            table={table}
-            collapsed={collapsed}
-            setCollapsed={setCollapsed}
-            />
-            
-            {collapsed ? 
-            <div className="h-10 text-sm text-muted-foreground border-white border rounded-b-md flex justify-center items-center">
-                Task Hidden
-            </div>
-            :
-            <ScrollArea 
-            className="">
-                <DataTable table={table} columns={columns} />
-                <ScrollBar orientation="horizontal" />
-            </ScrollArea>
-            }
-        </li>
-        </>
+        <Draggable 
+        draggableId={list.id} 
+        index={index}>
+            {(provided)=>(
+
+                <li 
+                {...provided.draggableProps}
+                ref={provided.innerRef}
+                className=" flex flex-col m-1 gap-y-0 rounded-md  p-1">
+                    
+                    <div 
+                    {...provided.dragHandleProps}>
+                        <ListHeader
+                        data={list}
+                        table={table}
+                        collapsed={collapsed}
+                        setCollapsed={setCollapsed}
+                        />
+                        
+                        
+                                
+                    {collapsed ? 
+                    <div className="h-10 text-sm text-muted-foreground border-white border rounded-b-md flex justify-center items-center">
+                        Tasks Hidden
+                    </div>
+                    :
+                    <>
+                    {isMounted ? 
+                    <Droppable droppableId={list.id} type="task" >
+                        {(provided)=>(
+                        <div
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}>
+                            <DataTable table={table} columns={columns} />
+                            {provided.placeholder}
+                        </div>
+                        )}
+                    </Droppable>:
+                    null}
+                    </>
+                    }
+                    
+                            
+                    </div>
+                </li>
+            )}
+        </Draggable>
     )
 }
+
+

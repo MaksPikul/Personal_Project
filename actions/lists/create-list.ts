@@ -36,7 +36,7 @@ export const createList = async (values: z.infer<typeof CreateListSchema>) => {
 
         list = await db.list.create({
             data: {
-                title: title,
+                title: title ? title : "New List!",
                 projectId: projectId,
                 order: newOrder
             }

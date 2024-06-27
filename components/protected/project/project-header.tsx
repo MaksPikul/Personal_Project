@@ -10,13 +10,11 @@ import { useParams } from "next/navigation";
 interface ProjectHeaderProps {
     project: ProjectWithMembersWithProfiles;
     role?: MemberRole;
-    views: View[];
 }
 
 export const ProjectHeader = ({
     project,
     role,
-    views
 }:ProjectHeaderProps) => {
     const isAdmin = role === MemberRole.ADMIN;
     const isMod = isAdmin || role === MemberRole.MOD;
@@ -26,8 +24,12 @@ export const ProjectHeader = ({
     //might need a Options header here, or ill add in page
     return (
     <header  className="items-center rounded-t-md p-0 bg-header text-l font-bold flex flex-row ">
-        <ProjectDropdown project={project as ProjectWithMembersWithProfiles} isAdmin={isAdmin} isMod={isMod}/>
-        <ProjectNavbar views={views as View[]} projectId={project.id}/>
+        <ProjectDropdown 
+            project={project as ProjectWithMembersWithProfiles} 
+            isAdmin={isAdmin} 
+            isMod={isMod}/>
+        <ViewOptionHeader
+            project={project} />
         {/*<ProjectMembers>*/}
     </header>
     )

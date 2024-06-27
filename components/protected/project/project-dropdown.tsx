@@ -6,11 +6,13 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
-import { UserPlus, DoorOpen, Trash2, Settings, ChevronDown, X } from "lucide-react";
+import { UserPlus, DoorOpen, Trash2, Settings, ChevronDown, X, Delete } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
 import { ProjectWithMembersWithProfiles } from "@/types";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { DeleteProjectModal } from "@/components/modals/delete-project-modal";
+import { InviteModal } from "@/components/modals/invite-modal";
 
 interface ProjectDropdownProps {
     project: ProjectWithMembersWithProfiles;
@@ -23,7 +25,7 @@ export const ProjectDropdown = ({
     isAdmin,
     isMod
 }:ProjectDropdownProps) =>{
-    const { onOpen } = useModal()
+    const { onOpen, onClose } = useModal()
     const [opened, setOpened] = useState(false)
     const router = useRouter()
 
@@ -36,8 +38,11 @@ export const ProjectDropdown = ({
             </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 border-0 flex flex-col justify-center">
+            <DeleteProjectModal />
+            <InviteModal />
             {isMod && (
             <DropdownMenuItem
+            onSelect={(e) => e.preventDefault()}
             className="flex justify-between"
             onClick={()=>onOpen("invite", {project:project})}>
                 Invite new associates
@@ -46,6 +51,7 @@ export const ProjectDropdown = ({
             )}
             {isAdmin && (
                 <DropdownMenuItem
+                onSelect={(e) => e.preventDefault()}
                 className="flex justify-between"
                 onClick={()=>{
                     onOpen("DeleteProject", {project:project})

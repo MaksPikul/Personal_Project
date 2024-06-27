@@ -19,7 +19,6 @@ model User {
   accounts Account[]
   members Member[]
   projects Project[]
-  views View[]
   tasks Task[]
 
 
@@ -89,9 +88,7 @@ model Project {
   inviteCode String @unique
 
   members Member[]
-  views View[]
   lists List[]
-  
 
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -126,29 +123,9 @@ model Member {
   @@unique([userId, projectId])
 }
 
-enum ViewType {
-  TABLE
-  KANBAN
-  NOTEPAD
-  ROADMAP
-}
 
-model View {
-  id String @id @default(uuid())
-  type ViewType 
-  
-  userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  projectId String
-  project Project @relation(fields:[projectId], references: [id], onDelete: Cascade)
-  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
-  @@index([userId])
-  @@index([projectId])
-}
 
 model List {
   id String @id @default(uuid())
@@ -192,9 +169,9 @@ model Task {
 }
 
 enum Status {
-  PENDING
-  INPROGRESS
-  DONE
+  NEW 
+  INPROGRESS 
+  DONE 
   ERROR
 }
 

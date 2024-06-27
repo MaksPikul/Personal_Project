@@ -20,24 +20,47 @@ import {
 
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { createProjectSchema } from "@/schemas"
+import { createProjectSchema } from "@/actions/createProject/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { useTransition } from "react"
-import { CreateProject} from "@/actions/create-project"
+
 import { useModal } from "@/hooks/use-modal-store"
 import { useRouter } from "next/navigation"
 import { FileUpload } from "../file-upload"
 import { DeleteFile } from "@/actions/delete-file"
 
 
+import { UseAction } from "@/hooks/use-action"
+import { FormInput } from "../form/form-input"
+import { FormSubmit } from "../form/form-submit"
+import { FormError } from "../form/form-error"
+import { title } from "process"
+import { createProject } from "@/actions/createProject/create-project"
+
+
 export const CreateBoardModal = ()=> {
-    const [isPending, startTransition] = useTransition();
     const {isOpen, onClose, type } = useModal();
     const router = useRouter();
 
     const isModalOpen = isOpen && type === "CreateBoard";
+    
+    const {execute, fieldErrors, isLoading} = UseAction(createProject, {
+        onSuccess(data) {
+            form.reset();
+            router.refresh();
+            onClose();
+        },
+        onError(error) {
+            console.log(error)
+        },
+    });
+
+    const onSubmits = (values: z.infer<typeof createProjectSchema>) => {
+        const {name, imageUrl} = values
+        execute({name, imageUrl});
+    }
 
     const form = useForm({
         resolver: zodResolver(createProjectSchema),
@@ -46,27 +69,8 @@ export const CreateBoardModal = ()=> {
             imageUrl: "",
         }
     });
-
-    const onSubmit = (values: z.infer<typeof createProjectSchema>) => {
-        try{
-            startTransition(()=>{
-                CreateProject(values)
-                .then((data)=>{
-                    form.reset();
-                    router.refresh()
-                    onClose();
-                })
-            })
-        }
-        catch (error){
-            console.log(error)
-        }
-    }
-
-    // might need to change to transitioning state
     
     const handleClose = () => {
-        
         DeleteFile(form.getValues().imageUrl)
         form.reset();
         onClose();
@@ -86,7 +90,8 @@ export const CreateBoardModal = ()=> {
                 </DialogHeader>
                 <Form {...form}>
                     <form 
-                    onSubmit={form.handleSubmit(onSubmit)} 
+                    onSubmit={form.handleSubmit(onSubmits)} 
+                    //action={onSubmit}
                     className="space-y-4 items-center">
                         <div className="space-y-4 px-6 ">
                             <div className="flex items-center justify-center">
@@ -100,6 +105,7 @@ export const CreateBoardModal = ()=> {
                                 
                                 <FormControl className="">
                                     <FileUpload 
+                                    {...field}
                                     endpoint="projectImage"
                                     value={field.value}
                                     onChange={field.onChange} />
@@ -119,7 +125,7 @@ export const CreateBoardModal = ()=> {
                                 </FormLabel>
                                 <FormControl>
                                     <Input 
-                                    disabled={isPending}
+                                    disabled={isLoading}
                                     placeholder="Name"
                                     {...field}
                                     />
@@ -130,11 +136,14 @@ export const CreateBoardModal = ()=> {
                         </div>
                                 <div className="flex justify-center pb-6">
                                     <Button 
-                                    disabled={isPending}
+                                    disabled={isLoading}
                                     >
                                     Create
                                     </Button>
                                 </div>
+                                <FormError 
+                                id="name"
+                                errors={fieldErrors}/>
                     </form>
                 </Form>
             </DialogContent>

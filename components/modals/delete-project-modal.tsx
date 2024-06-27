@@ -19,8 +19,8 @@ import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { useTransition , useState } from "react";
 import { Input } from "../ui/input";
-import { FormError } from "../form-error";
-import { DeleteProject } from "@/actions/delete-project";
+import { FormError } from "../form/form-error";
+import { DeleteProject } from "@/actions/projects/delete-project";
 
 
 import { useForm } from "react-hook-form"

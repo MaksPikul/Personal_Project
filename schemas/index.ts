@@ -40,14 +40,7 @@ export const NewPasswordSchema = z.object({
     }),
 })
 
-export const createProjectSchema = z.object({
-    name: z.string().min(1,{
-        message: "Board name required"
-    }).max(30,{
-        message: "Maximum name length - 30 characters"
-    }),
-    imageUrl: z.optional(z.string())
-})
+
 
 export const SettingsSchema = z.object({
     //alias: z.optional(z.string())
@@ -78,8 +71,6 @@ export const CreateListSchema = z.object({
     title: z.string({
         required_error: "Title is required",
         invalid_type_error: "Title is required"
-    }).min(3,{
-        message: "Minimum title length - 3 characters"
     }),
     projectId: z.string()
 })

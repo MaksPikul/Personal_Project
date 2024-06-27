@@ -41,7 +41,7 @@ interface ColumnnProps {
 }
 
 const statusOptions = [
-  "PENDING",
+  "NEW",
   "INPROGRESS",
   "DONE",
   "ERROR"
@@ -94,7 +94,8 @@ export const getColumns =({
 
     {
       header: "Task Title",
-      id:"title",
+      
+      accessorKey: "title",
       cell: ({row}) => (
         <div className="flex flex-row gap-x-2"> 
           <DataTableEdit 

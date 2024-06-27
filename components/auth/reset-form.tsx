@@ -16,7 +16,7 @@ import {
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { LoginButton } from "./login-button"
-import { FormError } from "../form-error"
+import { FormError } from "../form/form-error"
 import { FormSuccess } from "../form-success"
 import { Reset } from "../../actions/reset-password"
 import { useTransition, useState } from "react"

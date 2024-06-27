@@ -18,7 +18,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useState } from "react"
+
+import { Draggable } from "@hello-pangea/dnd"
+import { Provider } from "@radix-ui/react-toast"
+import { useEffect, useState } from "react"
+import { Task } from "@prisma/client"
+
  
 interface DataTableProps<TData, TValue> {
   table: any,
@@ -27,9 +32,9 @@ interface DataTableProps<TData, TValue> {
  
 export function DataTable<TData, TValue>({
   table,
-  columns,
+  columns
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([])
+
   
   return (
     <div className="rounded-b-md border">
@@ -58,19 +63,35 @@ export function DataTable<TData, TValue>({
         
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
+            table.getRowModel().rows.map((row,index) => {
+
+
+              return(
+              <Draggable
+              draggableId={row.original.id} 
+              index={index}>
+                {(provided)=>(
+                  <TableRow
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  ref={provided.innerRef}
+                  key={row.original.id}
+                  data-state={row.getIsSelected() && "selected"}
+                  >
+                    
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                  
+                )}
+              </Draggable>
+              )
+
+
+            })
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-16 text-center text-muted-foreground">

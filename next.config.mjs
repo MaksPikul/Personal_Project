@@ -3,7 +3,7 @@ const nextConfig = {
     images:{
         domains:["utfs.io"]
     },
-    reactStrictMode: false,
+    reactStrictMode: true,
 };
 
 export default nextConfig;

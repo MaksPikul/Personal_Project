@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch"
 
-import { FormError } from "@/components/form-error";
+import { FormError } from "@/components/form/form-error";
 import { FormSuccess } from "@/components/form-success";
 
 

@@ -5,6 +5,7 @@ import { useFormStatus } from "react-dom"
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
+import { FormError } from "./form-error";
 
 interface FormInputProps {
     id: string;
@@ -28,7 +29,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
     disabled,
     errors,
     className,
-    defaultValue,
+    defaultValue = "",
     onBlur
 }, ref) => {
     const {pending} = useFormStatus();
@@ -36,22 +37,35 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
     return (
         <div className="space-y-2">
             <div className="space-y-1">
-            {label ? (
+                
+                {label ? (
                 <Label htmlFor={id}>
                     {label}
-                </Label>): null}
+                </Label>)
+                : 
+                null}
+
                 <Input
-                    onBlur={onBlur}
-                    placeholder={placeholder}
-                    defaultValue={defaultValue}
-                    ref={ref}
-                    required={required}
-                    name={id}
-                    id={id}
-                    type={type}
-                    disabled={pending || disabled}
-                    className={cn("px-2 py-1 h-7",className)}/>
+                onBlur={onBlur}
+                placeholder={placeholder}
+                defaultValue={defaultValue}
+                ref={ref}
+                required={required}
+                name={id}
+                id={id}
+                type={type}
+                disabled={pending || disabled}
+                className={cn(
+                    "px-2 py-1 h-7",
+                    className)}
+                aria-describedby={`${id}-error`}/>
             </div>
+            <FormError
+            id={id}
+            errors={errors}/>
+
         </div>
     )
 })
+
+FormInput.displayName = "FormInput"

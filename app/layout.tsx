@@ -32,12 +32,12 @@ export default function RootLayout(
           enableSystem={false}
           disableTransitionOnChange
           >
-          <ModalProvider />
-          {children}
+            <ModalProvider />
+            {children}
+            <Toaster />
           </ThemeProvider>
-          <Toaster />
         </SessionProvider>
-        </body>
+      </body>
     </html>
   );
 }

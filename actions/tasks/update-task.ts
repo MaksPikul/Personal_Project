@@ -6,7 +6,9 @@ import { UpdateDescSchema, UpdateTaskSchema } from "@/schemas"
 import { Member, Task, Urgency } from "@prisma/client"
 
 
-export const UpdateTask= async (values: z.infer<typeof UpdateTaskSchema>) => {
+
+
+export const UpdateTask = async (values: z.infer<typeof UpdateTaskSchema>) => {
     const validatedFields = UpdateTaskSchema.safeParse(values);
     const { title, id, listId} = validatedFields?.data
     let task;
@@ -59,7 +61,6 @@ export const UpdateTaskUrgency = async (taskToEdit: Task, newUrgency: Urgency) =
 
 export const UpdateTaskDate = async (taskToEdit: Task, newDate: any) => {
     let task;
-    console.log("it literally goes here so why")
     try{
          task = await db.task.update({
             where: {

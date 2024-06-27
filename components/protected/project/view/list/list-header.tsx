@@ -35,6 +35,7 @@ import {
   } from "@/components/ui/popover"
 import { Checkbox } from "@/components/ui/checkbox";
 import { DeleteManyTasks } from "@/actions/tasks/delete-task";
+import { Input } from "@/components/ui/input";
 
 
 interface ListHeaderProps {
@@ -79,7 +80,7 @@ export const ListHeader = ({
 
 
     return (
-        <div className=" bg-indigo-800 border-t border-x rounded-t-md gap-x-5 px-1 py-2 flex flex-row items-center border-white border-tx-1">
+        <div className=" bg-indigo-800 rounded-t-md gap-x-5 px-1 py-2 flex flex-row items-center border-white border-tx-1">
 
             <button
             onClick={()=>setCollapsed(!collapsed)}>
@@ -94,6 +95,19 @@ export const ListHeader = ({
             <DeleteListButton list={data as ListWithCards}/>
 
             <p>{data.tasks.length} Tasks </p>
+
+            <div className="flex items-center py-0">
+              <Input
+                placeholder="Filter Titles..."
+                value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+                onChange={(event) =>
+                  table.getColumn("title")?.setFilterValue(event.target.value)
+                }
+                className="max-w-sm"
+              />
+            </div>
+
+            
             {table.getIsSomePageRowsSelected() || table.getIsAllPageRowsSelected()?
             <Button
             variant="outline"
