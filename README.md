@@ -1,16 +1,21 @@
 
 # - Task Management Project -
-Purpose of this app was to build upon skills Ive learnt in previous projects (group SE project and Personal Authorisation with API routes) <br>
-Some things ive learnt whilst building this project: <br>
-Learning to navigate Documentations for self learning, <br>
-Implementing Authentication (Credentail and OAuth Login) and Authorization (Role Based Access), <br>
-using Redis for email validation
-Setting up middleware and dependency configuration <br>
-Fetching and uploading data using Next.js Server actions and Prisma ORM connected to a supabase Postgresql Dataabse, <br>
-Learnt how to utilise wider range of react hooks { useState , useEffect , useMemo , useCallback , create/useContext , useTransition , useRef },<br>
-using 3rd party UI libraries and manipulating them for my useCase <br>,
-explored different ways of doing the same thing (using input validation and request handlers, API's endpoints or 
-Tech Stack Used:
+### Purpose
+app was to build upon skills Ive learnt in previous projects (group SE project and Personal Authorisation with API routes) <br>
+### Some things ive learnt whilst building this project
+- Learning to navigate Documentations for self learning, <br>
+- Implementing Authentication (Credentail and OAuth Login) and Authorization (Role Based Access), <br>
+- using Redis for email validation
+- Setting up middleware and dependency configuration <br>
+- Fetching and uploading data using Next.js Server actions and Prisma ORM connected to a supabase Postgresql Database, <br>
+- Learnt about NoSQL database usages, (Redis) <br>
+- Learnt how to utilise wider range of react hooks { useState , useEffect , useMemo , useCallback , create/useContext , useTransition , useRef },<br>
+- using 3rd party UI libraries and manipulating them for my useCase, <br>
+- explored different ways of doing the same thing (using input validation and request handlers, API's endpoints or 
+### Tech Stack Used
+TypeScript , Tailwind css , React library , Next.js framework ,
+Auth.js (Credential & OAuth provider Authentication) , Prisma ORM , Supabase PostgreSQL , Redis NoSQL
+### Application Walk through
 
 
 
@@ -18,10 +23,10 @@ Tech Stack Used:
 
 
 
-
-# -Log-
+<br> <br> <br>
+# -Dev Log-
 ### - 15/05/24 -
-Log to keep track of what I've done and another thing to motivate me. <br>
+Log to keep track of what I've done and because it seems like a fun thing to do. <br>
 Started by doing login and sign up stuff with email verification, Social Login, 2FA and password resetting. 
 ### - 23/05/24
 Finished Authentication 2 days ago but was too eager to continue that i went straight onto designing dashboard layout<br>
