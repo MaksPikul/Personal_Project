@@ -1,4 +1,24 @@
 
+# - Task Management Project -
+Purpose of this app was to build upon skills Ive learnt in previous projects (group SE project and Personal Authorisation with API routes) <br>
+Some things ive learnt whilst building this project: <br>
+Learning to navigate Documentations for self learning, <br>
+Implementing Authentication (Credentail and OAuth Login) and Authorization (Role Based Access), <br>
+using Redis for email validation
+Setting up middleware and dependency configuration <br>
+Fetching and uploading data using Next.js Server actions and Prisma ORM connected to a supabase Postgresql Dataabse, <br>
+Learnt how to utilise wider range of react hooks { useState , useEffect , useMemo , useCallback , create/useContext , useTransition , useRef },<br>
+using 3rd party UI libraries and manipulating them for my useCase <br>,
+explored different ways of doing the same thing (using input validation and request handlers, API's endpoints or 
+Tech Stack Used:
+
+
+
+
+
+
+
+
 # -Log-
 ### - 15/05/24 -
 Log to keep track of what I've done and another thing to motivate me. <br>
@@ -16,10 +36,8 @@ it closes and board entry along with related table entries are added, tomorrow i
 Side Navigation, Header, Profile Actions dropdown are functionally finished, <br> 
 stylistically need work (color schemes, fonts, hovers and transitions), will do this near the end of project.<br>
 After making settings and Account/profile page & actions, i can move onto the core features of the app (very cool)<br>
-This is going much faster than expected, ideally ill finish this before September so that i can use it for school (most likely acheiveable). <br>
-If i want people to use this tho, the user experience will need to be close to perfect, something to worry about later down the line. <br>
+This is going much faster than expected, maybe ill finish this before September so that i can use it for school, if its good enough. <br>
 Project fun so far, need to decide wether to use Next.js backend features or move it to django or something, <br>
-When i deploy i want to use AWS, but i probably wont since money, ill draw up an architecture with terraform and aws services anyways.
 ### - 05/05/25 -
 Over past days I've included image uploading and displaying using upload thing , cached users into local storage using redis instead of onto main database which i find cool,<br>
 I need to decide whether i need a verification token table, otherwise i'll cache that aswell (I love caching) <br>
@@ -55,9 +73,10 @@ colours and style need to be more "serious" and for work, too many curves,  <br>
 socials will be a sidenav on the right, <br>
 home will contain the schedule,  <br>,
 been working on this for a month and 9 days, i want to wrap up the table, so there will be less features, <br>
-reason for this is because i want to start learning messaging and real time data editing, not just work on CRUD operations in the table <br>
-i need to calm my abmitions, cause i want to make something big in so little time, <br>
-When Table is closer to finishing, or finished, ill take a video of everything so far and paste it here
+reason for this is because i want to start learning something else related to analytics or more backend, not just work on CRUD operations in the table <br>
+I feel like im not learning anything new anymore, and im just repeating the motions, which i dont mind,<br> 
+but for my personal development and eduction, im going to need to move on and look into learning something new, to build upon what ive learnt so far <br>
+
 
 
 
